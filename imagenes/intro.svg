@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="900"
+   height="550"
+   viewBox="0 0 899.99994 549.99998"
+   id="svg4250"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   inkscape:export-filename="/home/alumno/Escritorio/ejemploPILAS/imagenes/intro.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   sodipodi:docname="intro.svg">
+  <defs
+     id="defs4252">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4373">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4375" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4377" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="10.1"
+         result="blur"
+         id="feGaussianBlur4379" />
+      <feOffset
+         dx="3.1746"
+         dy="11.1"
+         result="offset"
+         id="feOffset4381" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4383" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4496">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4498" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4500" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="10.1"
+         result="blur"
+         id="feGaussianBlur4502" />
+      <feOffset
+         dx="3.2"
+         dy="11.1"
+         result="offset"
+         id="feOffset4504" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4506" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4508">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4510" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4512" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="10.1"
+         result="blur"
+         id="feGaussianBlur4514" />
+      <feOffset
+         dx="3.2"
+         dy="11.1"
+         result="offset"
+         id="feOffset4516" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4518" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4508-1">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4510-0" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4512-0" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="10.1"
+         result="blur"
+         id="feGaussianBlur4514-6" />
+      <feOffset
+         dx="3.2"
+         dy="11.1"
+         result="offset"
+         id="feOffset4516-9" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite4518-8" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix4701" />
+      <feFlood
+         id="feFlood4703"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         id="feComposite4705"
+         in2="fbSourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur4707"
+         in="composite1"
+         stdDeviation="10.1"
+         result="blur" />
+      <feOffset
+         id="feOffset4709"
+         dx="3.2"
+         dy="11.1"
+         result="offset" />
+      <feComposite
+         id="feComposite4711"
+         in2="offset"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="410.88134"
+     inkscape:cy="224.77406"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     units="px"
+     inkscape:window-width="1440"
+     inkscape:window-height="829"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4255">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0.32175056,163.48615)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4713"
+       style="font-style:normal;font-weight:normal;font-size:121.18217468px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#868686;fill-opacity:1;stroke:#8a0000;stroke-width:1.42651677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+       transform="matrix(1.0991809,0,0,1.0991809,-702.47523,-47.936085)"><flowRegion
+         id="flowRegion4715"><rect
+           id="rect4717"
+           width="3335.7402"
+           height="1799.4636"
+           x="781.77551"
+           y="-79.210678"
+           style="stroke:#8a0000;stroke-width:1.42651677;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:#868686;fill-opacity:1;" /></flowRegion><flowPara
+         id="flowPara4719"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Aldo the Apache';-inkscape-font-specification:'Aldo the Apache';stroke:#8a0000;stroke-width:1.42651677;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:#868686;fill-opacity:1;">Tierra<flowSpan
+   style="fill:#a6a6a6;fill-opacity:1"
+   id="flowSpan4172">Luna</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4903"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.12529373px;line-height:125%;font-family:'Weathered BRK';-inkscape-font-specification:'Weathered BRK';text-align:justify;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       transform="matrix(0.95972893,0,0,0.56148306,379.68515,-236.13766)"><flowRegion
+         id="flowRegion4905"><rect
+           id="rect4907"
+           width="1144.2914"
+           height="141.92761"
+           x="-216.07065"
+           y="451.5415"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Weathered BRK';-inkscape-font-specification:'Weathered BRK';text-align:justify;text-anchor:start;fill:#f2f2f2;" /></flowRegion><flowPara
+         id="flowPara4909"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:105.00000715%;font-family:'Day Of The Tentacle';-inkscape-font-specification:'Day Of The Tentacle';text-align:justify;text-anchor:start;fill:#f2f2f2;">Un viaje de una hora, desde la tierra a la luna.</flowPara><flowPara
+         id="flowPara4911"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:105.00000715%;font-family:'Day Of The Tentacle';-inkscape-font-specification:'Day Of The Tentacle';text-align:justify;text-anchor:start;fill:#f2f2f2;">Un juego de resistencia. Una aventura para leer.</flowPara></flowRoot>  </g>
+</svg>
