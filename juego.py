@@ -2,16 +2,29 @@
 import pilasengine
 from emisorHUMO import * 
 
-pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='De la tierra a la luna')
+pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
+
+								
+class Luna(pilasengine.actores.Actor):
+	''' Este actor es para la presentación y para el final del juego '''
+
+	def iniciar(self):
+		self.imagen = "imagenes/luna.jpg"
+		self.x = 0
+		self.y = -600
+		self.escala = 1.3
+		self.z = -1
+
+	def actualizar(self):
+		self.rotacion -= 0.05
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
     def iniciar(self):
 
+		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 		puntaje = pilas.actores.Puntaje(280, 200, color=pilas.colores.blanco, texto="0")
 		choques = pilas.actores.Puntaje(600, 600, color=pilas.colores.blanco, texto="0") # uso 600,600 para que no se vea.
-		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
-
 
 		class Nave(pilasengine.actores.Actor):
 
@@ -24,11 +37,30 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.imagen = "imagenes/astronauta.png"
 			def actualizar(self):
 				self.rotacion += 1
+
+		class Asteroide(pilasengine.actores.Actor):
+
+			def iniciar(self):
+				self.imagen = "imagenes/asteroide.png"
+				self.escala = 0.3
+				self.x = -500
+				self.y = pilas.azar(-300, 300)
+				self.giro = 2
+				self.z = self.y
 				
+			def actualizar(self):
+				self.rotacion += self.giro
+				self.x += 2
+				# Elimina el objeto cuando sale de la pantalla.
+				if self.x > 500:
+					self.eliminar()
+					puntaje.aumentar()
+							
 		minave = Nave(pilas);
 		minave.z = -2
 
-		c2 = pilas.fisica.Circulo(minave.x, minave.y, 100, restitucion=0.1, amortiguacion=0.5)
+
+		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		minave.imitar(c2)
 
 		emisor = EmisorHUMO(pilas, 0, 0)
@@ -50,25 +82,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		minave.aprender(pilas.habilidades.MoverseConElTeclado)
 		minave.aprender(pilas.habilidades.LimitadoABordesDePantalla)
 
+		#minave.radio_de_colision = 70
 
-
-		class Asteroide(pilasengine.actores.Actor):
-
-			def iniciar(self):
-				self.imagen = "imagenes/asteroide.png"
-				self.escala = 0.3
-				self.x = -500
-				self.y = pilas.azar(-300, 300)
-				self.giro = 2
-				self.z = self.y
-				
-			def actualizar(self):
-				self.rotacion += self.giro
-				self.x += 2
-				# Elimina el objeto cuando sale de la pantalla.
-				if self.x > 500:
-					self.eliminar()
-					puntaje.aumentar()
 
 		#defino un grupo de enemigos
 		enemigos = pilas.actores.Grupo()
@@ -77,8 +92,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			#creo el actor enemigo
 			asteroide = Asteroide(pilas);
 			#creo un objeto para la física
-			c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 100, restitucion=1, amortiguacion=2)
+			c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 			asteroide.imitar(c1)
+			#cambio el radio de colisión
+			#asteroide.radio_de_colision = 50
 			#lo agrego al grupo
 			enemigos.agregar(asteroide)
 
@@ -87,7 +104,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		pilas.tareas.siempre(2, crear_asteroide)  
 
 		def nave_choco():#Cuando un asteroide choca nave
-			#minave.y = [minave.y +5, minave.y -5],0.2
+			
 			pilas.camara.vibrar(3, 0.5)
 			choques.aumentar()
 			if choques.obtener() == 3:
@@ -102,15 +119,16 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if choques.obtener() == 10:
 				minave.imagen = "imagenes/lanave_04.png"
 				emisor.eliminar()
-				minave.rotacion = [360], 4
+				minave.rotacion = [360], 2
 			if choques.obtener() == 11:
 				pilas.camara.x = minave.x
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
 				minave.eliminar()
 				pilas.camara.escala = [1.2, 1.5, 1]
-				perdido.escala = [1, 0.7]
+				perdido.escala = [1, 0.4]
 				puntaje.eliminar()
+
 
 		# Creo un control de coliciones para saber cuando perdes
 		pilas.colisiones.agregar(minave, enemigos, nave_choco)
@@ -133,16 +151,20 @@ def salir_del_juego():
 class PantallaMenu(pilasengine.escenas.Escena):
 
     def iniciar(self):
+		fondo = pilas.fondos.Color(pilas.colores.negro)
 		fondo = pilas.fondos.Fondo()
 		fondo.imagen = pilas.imagenes.cargar('imagenes/intro.png')
+		fondo.z = -2
 		
-		menu = pilas.actores.Menu(
-				[
+		luna = Luna(pilas);
+		
+		menu = pilas.actores.Menu([
 					('iniciar juego', cargar_escena_juego),
 					('salir',  salir_del_juego),
-				])
-		menu.escala = 2
-		menu.escala = [1]
+					
+				], fuente='Tentacles.ttf', y=-30 )
+		menu.escala = 3
+		menu.escala = [1.5]
 
 pilas.escenas.vincular(PantallaJuego)
 pilas.escenas.vincular(PantallaMenu)
