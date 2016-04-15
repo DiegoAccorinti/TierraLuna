@@ -73,7 +73,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'No te preocupes, te acompañaré durante toda tu travesía.',
 		u'Tengo muchas cosas para contarte',
 		u'Antes que nada te recomiendo esquivar los asteroides',
-		u'hicimos lo mejor que pudimos con la nave,',
+		u'hicimos lo mejor que pudimos con la nave,',		
 		u'pero no resistirá más de 11 o 12 impactos.',
 		u'Así que, no te distraigas jejeje',
 		u'Vienes de un planeta llamado Tierra, pero',
@@ -94,8 +94,86 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'Mercurio, Venus, Marte, Júpiter y Saturno.',
 		u'Estos cuerpos celestes no viajan a través de las estrellas,',
 		u'sino que orbitan alrededor del Sol,',
-		u'la estrella central de nuestro Sistema Solar.'
-		]
+		u'la estrella central de nuestro Sistema Solar.','',
+		#31 textos
+		#Nivel2
+		u'Excelente! llegamos a un nuevo nivel, ya estamos más cerca.',
+		u'¿cómo lo vas llevando?', u'mucho cuidado con los asteorides..',
+		u'o quedarás flotando en el espacio como una batata sideral.',
+		u'mmm tratemos de que esto no se descontrole',
+		u'',
+		u'Me hace hambre. Siempre que viajo',
+		u'llevo un paquete de sandwiches de miga',
+		u'jamón y queso. mayonesa.',
+		u'y el mate, no puede faltar el mate',
+		u'¿te parece raro tomar mate en el espacio?',
+		u'dale, mientras te cuento sobre constelaciones.',
+		u'',
+		u'Las estrellas de una constelación no suelen tener',
+		u'más relación que su proximidad en el cielo',
+		u'tal como se ven desde la Tierra.',
+		u'Las estrellas que forman una constelación',
+		u'pueden no mantener relación entre sí,',
+		u'ya que algunas están relativamente cerca de la Tierra',
+		u'y otras se encuentran a distancias mucho mayores',
+		u'en el espacio. Al verlas desde la tierra forman',
+		u'figuras que podemos observar.',
+		'',
+		u'Las distancias a las estrellas se miden en años luz.',
+		u'Un año luz equivale a unos 9,5 billones de kilómetros.',
+		u'La gente confunde un año luz con una medida de tiempo',
+		u'porque el término contiene la palabra año.',
+		u'Sin embargo, un año luz es una medida de distancia:',
+		u'la longitud que recorre la luz moviéndose',
+		u'a 300.000 kilómetros por segundo',
+		u'durante un año.',
+		u'',
+		#32 textos
+		#Nivel3
+		u'La estrella más próxima a La Tierra',
+		u'luego del Sol es Próxima Centauri,',
+		u'está a unos 4 años luz de distancia.',
+		u'Los astrónomos no pueden ver Próxima Centauri',
+		u'tal como es hoy,',
+		u'sino tal y como era hace cuatro años.',
+		u'La galaxia Andrómeda es el objeto más distante',
+		u'que se puede ver a simple vista, en una',
+		u'noche despejada y oscura en otoño.',
+		u'La luz que recibe tu ojo',
+		u'dejó esa galaxia hace unos 2,6 millones de años.',
+		u'Si se produjera un gran cambio en Andrómeda mañana,',
+		u'no lo sabremos hasta dentro de',
+		u'más de dos millones de años.',
+		u'',
+		u'A veces escucho sobre',
+		u'proyectos de exploración del espacio',
+		u'que tienen como objetivo',
+		u'encontrar otros planetas habitables.',
+		u'Pienso ¿por qué en vez de buscar un planeta',
+		u'de repuesto, no cuidamos más y sanamos',
+		u'el que ya tenemos?',
+		u'se pueden hacer muchas cosas por La Tierra.',
+		u'Por ejemplo,',
+		u'Cambiar el automovil por la bicicleta en viajes cortos.',
+		u'Cambiar el ascensor por las escaleras en tres o menos pisos.',
+		u'De esta forma ahorrás energía',
+		u'y fortalecés tu salud al mismo tiempo.',
+		u'Desenchufa todo lo que no uses.',
+		u'Muchos equipos por más que estén apagados',
+		u'consumen electricidad.',
+		u'Usá lamparitas de LED que duran mucho más',
+		u'que las tradicionales, incluso las fluorescentes,',
+		u'y consumen menos energía.',
+		u'Comenzá a usar una bolsa de las compras',
+		u'en vez de recibir las bolsas plásticas comunes,',
+		u'que no son biodegradables',
+		u' y además cuestan dinero extra.',
+		u'Si cerras la canilla mientras te cepillás los dientes,',
+		u'ahorrás unos 60 litros de agua potable por mes.',
+		#39 textos
+		u'Antes de tirar cualquier cosa a la basura,',
+		u'piensa si se puede reutilizar, reciclar o reparar']
+		
 		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -230, ancho = 230)
 		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -233, x=1, ancho = 230)
 
@@ -235,7 +313,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (self.flag[0]) == False:
 				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
 				self.flag[0] = True
-		if contador_texto == 4:
+		if contador_texto == 31:
 			''' ###  NIVEL 2 ###
 			    Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
@@ -246,21 +324,21 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = "imagenes/galaxia_02.png"
 				self.flag[1] = True
-		if contador_texto == 6:
+		if contador_texto == 63:
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = "imagenes/galaxia_03.png"
 				self.flag[2] = True
-		if contador_texto == 8:
+		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''			
 			if (self.flag[3]) == False:
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = "imagenes/galaxia_04.png"
 				self.flag[3] = True
-		if contador_texto == 10:
+		if contador_texto == 240:
 			''' ###  NIVEL 5 ### '''			
 			if (self.flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
