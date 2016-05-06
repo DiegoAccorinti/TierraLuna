@@ -1,5 +1,6 @@
 # TierraLuna
 Tierraluna es un videojuego creado por el Equipo de Huayra GNU/Linux para mostrar lo fácil que es programar usando Pilas-Engine.
+![](imagenes/preview.png)
 
 ##Tutoriales
 
@@ -13,6 +14,7 @@ Tierraluna es un videojuego creado por el Equipo de Huayra GNU/Linux para mostra
 https://goo.gl/wR5aZH
 
 ##Licencia
-Software libre bajo licencia GPL3
+Software libre bajo licencia GPL3 
+
 Realizado por Diego Acco para Huayra GNU/Linux · 2016
 
