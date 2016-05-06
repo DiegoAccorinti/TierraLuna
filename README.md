@@ -3,7 +3,7 @@ Tierraluna es un videojuego creado por el Equipo de Huayra GNU/Linux para mostra
 
 ##Tutoriales
 
-* 1era. Parte: (http://goo.gl/VBlyJu)
+* 1era. Parte: http://goo.gl/VBlyJu
 * 2da. Parte: (http://goo.gl/DgMSNk)
 * 3era Parte: (http://goo.gl/Or9Z3p)
 * 4ta. Parte: (http://goo.gl/JopaKk)
