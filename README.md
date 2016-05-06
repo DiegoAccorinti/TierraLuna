@@ -12,7 +12,7 @@ Tierraluna es un videojuego creado por el Equipo de Huayra GNU/Linux para mostra
 ##Video completo del Juego
 https://goo.gl/wR5aZH
 
-"Software libre bajo licencia GPL3"
-
+##Licencia
+Software libre bajo licencia GPL3
 Realizado por Diego Acco para Huayra GNU/Linux · 2016
 
