@@ -172,7 +172,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'ahorrás unos 60 litros de agua potable por mes.',
 		#39 textos
 		u'Antes de tirar cualquier cosa a la basura,',
-		u'piensa si se puede reutilizar, reciclar o reparar']
+		u'piensa si se puede reutilizar, reciclar o reparar.']
 		
 		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -230, ancho = 230)
 		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -233, x=1, ancho = 230)
@@ -196,18 +196,38 @@ class PantallaJuego(pilasengine.escenas.Escena):
 							
 		minave = Nave(pilas);
 		minave.z = -2
-
+		
 
 		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
-		minave.imitar(c2)
+		def seguir(evento):
+
+			empujarx = (evento.x - c2.x) / 10
+			empujary = (evento.y - c2.y) / 10
+
+			c2.empujar(empujarx,empujary)
+
+		def frenar():
+			c2.velocidad_x /= 2
+			c2.velocidad_y /= 2
+			#c2.rotacion = [0], 10
+			print c2.rotacion
+
+		self.frenar = frenar
+		pilas.tareas.siempre(0.1, self.frenar)
+		
+
+		self.seguir = seguir		
+		pilas.eventos.click_de_mouse.conectar(self.seguir)
+
+		minave.imitar(c2, con_rotacion=False)
 
 		emisor = EmisorHUMO(pilas, 0, 0)
 		emisor.imagen_particula = pilas.imagenes.cargar_grilla("imagenes/humo.png")
 		emisor.constante = True
 		emisor.composicion = "blanco"
 		emisor.duracion = 2
-		emisor.frecuencia_creacion = 0.03
-		emisor.vida = 8
+		emisor.frecuencia_creacion = 0.05
+		emisor.vida = 3
 		emisor.aceleracion_x_min = 36
 		emisor.aceleracion_x_max = 50
 		emisor.x_min = 171
@@ -220,6 +240,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		minave.aprender(pilas.habilidades.MoverseConElTeclado)
 		minave.aprender(pilas.habilidades.LimitadoABordesDePantalla)
+		
 
 
 
@@ -268,13 +289,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.choques.aumentar()
 			if self.choques.obtener() == 3:
 				minave.imagen = "imagenes/lanave_01.png"
-				emisor.frecuencia_creacion = 0.04
+				emisor.frecuencia_creacion = 0.07
 			if self.choques.obtener() == 6:
 				minave.imagen = "imagenes/lanave_02.png"
-				emisor.frecuencia_creacion = 0.07
+				emisor.frecuencia_creacion = 0.10
 			if self.choques.obtener() == 8:
 				minave.imagen = "imagenes/lanave_03.png"
-				emisor.frecuencia_creacion = 0.10
+				emisor.frecuencia_creacion = 0.13
 			if self.choques.obtener() == 10:
 				minave.imagen = "imagenes/lanave_04.png"
 				emisor.eliminar()
