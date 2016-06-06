@@ -19,15 +19,18 @@ class Luna(pilasengine.actores.Actor):
 	def actualizar(self):
 		self.rotacion -= 0.05
 
-'''Esta escena es el juego propiamente. Es lo que comenzará cuando
- elijamos "iniciar juego" en el menú principal'''
+'''
+Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos
+"iniciar juego" en el menú principal
+'''
+
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
 	puntaje = pilas.actores.Puntaje(280, 200, color=pilas.colores.blanco, texto="0")
 	choques = pilas.actores.Puntaje(600, 600, color=pilas.colores.blanco, texto="0") # uso 600,600 para que no se vea.
 	velocidad_asteroides = 2
-		
+
 	class Asteroide(pilasengine.actores.Actor):
 
 		def iniciar(self):
@@ -37,7 +40,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.y = pilas.azar(-300, 300)
 			self.giro = 2
 			self.z = self.y
-			
+
 		def actualizar(self):
 			self.rotacion += self.giro
 			self.x += PantallaJuego.velocidad_asteroides
@@ -46,7 +49,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.eliminar()
 				PantallaJuego.puntaje.aumentar()
 				#print "PUNTOS"+ str(PantallaJuego.puntaje.obtener())
-					
+
 	#defino un grupo de enemigos
 	enemigos = pilas.actores.Grupo()
 
@@ -62,8 +65,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	def iniciar(self):
 
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
-		
-		# En "textos" guardamos la colección de frases que irán apareciendo durante la travesía.
+
+		'''
+		En "textos" guardamos la colección de frases que irán apareciendo
+		durante la travesía.
+		'''
 		textos = [u'este juego es distinto a todos los que jugaste antes',
 		u'no se trata de medir tu habilidad',
 		u'este viaje es en tiempo real',
@@ -73,7 +79,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'No te preocupes, te acompañaré durante toda tu travesía.',
 		u'Tengo muchas cosas para contarte',
 		u'Antes que nada te recomiendo esquivar los asteroides',
-		u'hicimos lo mejor que pudimos con la nave,',		
+		u'hicimos lo mejor que pudimos con la nave,',
 		u'pero no resistirá más de 11 o 12 impactos.',
 		u'Así que, no te distraigas jejeje',
 		u'Vienes de un planeta llamado Tierra, pero',
@@ -173,7 +179,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		#39 textos
 		u'Antes de tirar cualquier cosa a la basura,',
 		u'piensa si se puede reutilizar, reciclar o reparar.']
-		
+
 		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -230, ancho = 230)
 		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -233, x=1, ancho = 230)
 
@@ -193,10 +199,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.rotacion += 1
 
 
-							
 		minave = Nave(pilas);
 		minave.z = -2
-		
+
 
 		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
@@ -212,9 +217,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		self.frenar = frenar
 		pilas.tareas.siempre(0.1, self.frenar)
-		
 
-		self.seguir = seguir		
+
+		self.seguir = seguir
 		pilas.eventos.click_de_mouse.conectar(self.seguir)
 
 		minave.imitar(c2, con_rotacion=False)
@@ -238,15 +243,12 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		minave.aprender(pilas.habilidades.MoverseConElTeclado)
 		minave.aprender(pilas.habilidades.LimitadoABordesDePantalla)
-		
-
-
 
 
 		def imprimir_texto():
-			
+
 			global contador_texto
-			
+
 			if (contador_texto < len(textos)):
 
 				#cambio el texto
@@ -258,7 +260,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				#lo hago visible nuevamente
 				texto_personalizado.transparencia = [0]
 				sombra_texto_personalizado.transparencia = [0]
-							
+
 				# Centro los textos en la pantalla
 				texto_personalizado.ancho = 900
 				sombra_texto_personalizado.ancho = 900
@@ -274,15 +276,12 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				sombra_texto_personalizado.texto = ''
 
 
-
-		
-			
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		pilas.tareas.siempre(5, imprimir_texto)
 
 
 		def nave_choco():#Cuando un asteroide choca nave
-			
+
 			pilas.camara.vibrar(3, 0.5)
 			self.choques.aumentar()
 			if self.choques.obtener() == 3:
@@ -375,19 +374,18 @@ def salir_del_juego():
 
 class PantallaMenu(pilasengine.escenas.Escena):
 
-    def iniciar(self):
+	def iniciar(self):
 		fondo = pilas.fondos.Color(pilas.colores.negro)
 		fondo = pilas.fondos.Fondo()
 		fondo.imagen = pilas.imagenes.cargar('imagenes/intro.png')
 		fondo.z = -2
-		
+
 		luna = Luna(pilas);
-		
+
 		menu = pilas.actores.Menu([
 					('iniciar juego', cargar_escena_juego),
-					('salir',  salir_del_juego),
-					
-				], fuente='Tentacles.ttf', y=0 )
+					('salir', salir_del_juego),
+				], fuente='Tentacles.ttf', y=0)
 		menu.escala = 3
 		menu.escala = [1]
 
