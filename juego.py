@@ -209,8 +209,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		def frenar():
 			c2.velocidad_x /= 2
 			c2.velocidad_y /= 2
-			#c2.rotacion = [0], 10
-			print c2.rotacion
 
 		self.frenar = frenar
 		pilas.tareas.siempre(0.1, self.frenar)
