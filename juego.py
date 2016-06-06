@@ -1,11 +1,11 @@
 # -*- coding: utf-8
 import pilasengine
-from emisorHUMO import * 
+from emisorHUMO import *
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 contador_texto = 0
 
-								
+
 class Luna(pilasengine.actores.Actor):
 	''' Este actor es para la presentación y para el final del juego '''
 
@@ -201,8 +201,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
 
-			empujarx = (evento.x - c2.x) / 10
-			empujary = (evento.y - c2.y) / 10
+			empujarx = (evento.x - c2.x) / 8
+			empujary = (evento.y - c2.y) / 8
 
 			c2.empujar(empujarx,empujary)
 
@@ -274,7 +274,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				sombra_texto_personalizado.texto = ''
 
 
-		 
+
 		
 			
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
