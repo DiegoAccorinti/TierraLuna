@@ -300,13 +300,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				minave.imagen = ruta + '/imagenes/lanave_01.png'
 				emisor.frecuencia_creacion = 0.07
 			if self.choques.obtener() == 6:
-				minave.imagen = ruta + 'imagenes/lanave_02.png'
+				minave.imagen = ruta + '/imagenes/lanave_02.png'
 				emisor.frecuencia_creacion = 0.10
 			if self.choques.obtener() == 8:
-				minave.imagen = ruta + 'imagenes/lanave_03.png'
+				minave.imagen = ruta + '/imagenes/lanave_03.png'
 				emisor.frecuencia_creacion = 0.13
 			if self.choques.obtener() == 10:
-				minave.imagen = ruta + 'imagenes/lanave_04.png'
+				minave.imagen = ruta + '/imagenes/lanave_04.png'
 				emisor.eliminar()
 				minave.rotacion = [360], 2
 			if self.choques.obtener() == 11:
@@ -353,28 +353,28 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				tarea2 = pilas.tareas.siempre(1, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
-				fondo.imagen = ruta + 'imagenes/galaxia_02.png'
+				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				self.flag[1] = True
 		if contador_texto == 63:
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
-				fondo.imagen = ruta + 'imagenes/galaxia_03.png'
+				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''			
 			if (self.flag[3]) == False:
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
-				fondo.imagen = ruta + 'imagenes/galaxia_04.png'
+				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				self.flag[3] = True
 		if contador_texto == 240:
 			''' ###  NIVEL 5 ### '''			
 			if (self.flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
-				fondo.imagen = ruta + 'imagenes/galaxia_05.png'
+				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				self.flag[4] = True
 
 
