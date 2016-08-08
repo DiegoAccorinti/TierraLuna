@@ -2,16 +2,19 @@
 # -*- coding: utf-8
 import pilasengine
 from emisorHUMO import *
+import os
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 contador_texto = 0
-
+ruta = os.path.dirname(os.path.realpath(__file__))
+url_fuente = ruta + '/Tentacles.ttf'
 
 class Luna(pilasengine.actores.Actor):
 	''' Este actor es para la presentación y para el final del juego '''
 
 	def iniciar(self):
-		self.imagen = "imagenes/luna.jpg"
+		url = ruta + '/imagenes/luna.jpg'
+		self.imagen = url
 		self.x = 0
 		self.y = -700
 		self.escala = 1.3
@@ -35,7 +38,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	class Asteroide(pilasengine.actores.Actor):
 
 		def iniciar(self):
-			self.imagen = "imagenes/asteroide.png"
+			
+			self.imagen = url
 			self.escala = 0.3
 			self.x = -500
 			self.y = pilas.azar(-300, 300)
@@ -185,8 +189,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'Antes de tirar cualquier cosa a la basura,',
 		u'piensa si se puede reutilizar, reciclar o reparar.']
 
-		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -230, ancho = 230)
-		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente="Tentacles.ttf", y= -233, x=1, ancho = 230)
+		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente= url_fuente, y= -230, ancho = 230)
+		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente= url_fuente, y= -233, x=1, ancho = 230)
 
 		sombra_texto_personalizado.color = pilas.colores.negro
 		sombra_texto_personalizado.z = 4
@@ -194,12 +198,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		class Nave(pilasengine.actores.Actor):
 
 			def iniciar(self):
-				self.imagen = "imagenes/lanave.png"
+				url = ruta + '/imagenes/lanave.png'
+				self.imagen = url
 
 		class Astronauta(pilasengine.actores.Actor):
 
 			def iniciar(self):
-				self.imagen = "imagenes/astronauta.png"
+				url = ruta + '/imagenes/astronauta.png'
+				self.imagen = url
 
 			def actualizar(self):
 				self.rotacion += 1
@@ -230,7 +236,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		minave.imitar(c2, con_rotacion=False)
 
 		emisor = EmisorHUMO(pilas, 0, 0)
-		emisor.imagen_particula = pilas.imagenes.cargar_grilla("imagenes/humo.png")
+		url = ruta + '/imagenes/humo.png'
+		emisor.imagen_particula = pilas.imagenes.cargar_grilla(url)
 		emisor.constante = True
 		emisor.composicion = "blanco"
 		emisor.duracion = 2
@@ -290,16 +297,16 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			pilas.camara.vibrar(3, 0.5)
 			self.choques.aumentar()
 			if self.choques.obtener() == 3:
-				minave.imagen = "imagenes/lanave_01.png"
+				minave.imagen = ruta + '/imagenes/lanave_01.png'
 				emisor.frecuencia_creacion = 0.07
 			if self.choques.obtener() == 6:
-				minave.imagen = "imagenes/lanave_02.png"
+				minave.imagen = ruta + 'imagenes/lanave_02.png'
 				emisor.frecuencia_creacion = 0.10
 			if self.choques.obtener() == 8:
-				minave.imagen = "imagenes/lanave_03.png"
+				minave.imagen = ruta + 'imagenes/lanave_03.png'
 				emisor.frecuencia_creacion = 0.13
 			if self.choques.obtener() == 10:
-				minave.imagen = "imagenes/lanave_04.png"
+				minave.imagen = ruta + 'imagenes/lanave_04.png'
 				emisor.eliminar()
 				minave.rotacion = [360], 2
 			if self.choques.obtener() == 11:
@@ -346,28 +353,28 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				tarea2 = pilas.tareas.siempre(1, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
-				fondo.imagen = "imagenes/galaxia_02.png"
+				fondo.imagen = ruta + 'imagenes/galaxia_02.png'
 				self.flag[1] = True
 		if contador_texto == 63:
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
-				fondo.imagen = "imagenes/galaxia_03.png"
+				fondo.imagen = ruta + 'imagenes/galaxia_03.png'
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''			
 			if (self.flag[3]) == False:
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
-				fondo.imagen = "imagenes/galaxia_04.png"
+				fondo.imagen = ruta + 'imagenes/galaxia_04.png'
 				self.flag[3] = True
 		if contador_texto == 240:
 			''' ###  NIVEL 5 ### '''			
 			if (self.flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
-				fondo.imagen = "imagenes/galaxia_05.png"
+				fondo.imagen = ruta + 'imagenes/galaxia_05.png'
 				self.flag[4] = True
 
 
@@ -383,7 +390,8 @@ class PantallaMenu(pilasengine.escenas.Escena):
 	def iniciar(self):
 		fondo = pilas.fondos.Color(pilas.colores.negro)
 		fondo = pilas.fondos.Fondo()
-		fondo.imagen = pilas.imagenes.cargar('imagenes/intro.png')
+		url = ruta + '/imagenes/intro.png'
+		fondo.imagen = pilas.imagenes.cargar(url)
 		fondo.z = -2
 
 		luna = Luna(pilas);
@@ -391,7 +399,7 @@ class PantallaMenu(pilasengine.escenas.Escena):
 		menu = pilas.actores.Menu([
 					('iniciar juego', cargar_escena_juego),
 					('salir', salir_del_juego),
-				], fuente='Tentacles.ttf', y=0)
+				], fuente = url_fuente, y=0)
 		menu.escala = 3
 		menu.escala = [1]
 
