@@ -39,7 +39,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		def iniciar(self):
 			
-			self.imagen = url
+			self.imagen = ruta + '/imagenes/asteroide.png'
 			self.escala = 0.3
 			self.x = -500
 			self.y = pilas.azar(-300, 300)
@@ -78,7 +78,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		En "textos" guardamos la colección de frases que irán apareciendo
 		durante la travesía.
 		'''
-		textos = [u'este juego es distinto a todos los que jugaste antes',
+		textos = [u'este juego es distinto a todos los anteriores',
 		u'no se trata de medir tu habilidad',
 		u'este viaje es en tiempo real',
 		u'¿serás capáz de llegar a la luna?',
