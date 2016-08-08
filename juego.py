@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8
 import pilasengine
 from emisorHUMO import *
@@ -65,6 +66,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	def iniciar(self):
 
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
+		# MUSICA
+		#musica = pilas.sonidos.cargar('musica/Dreams-Become-Real.ogg')
+		#musica.reproducir(repetir=True)
 
 		'''
 		En "textos" guardamos la colección de frases que irán apareciendo
@@ -100,7 +104,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'Mercurio, Venus, Marte, Júpiter y Saturno.',
 		u'Estos cuerpos celestes no viajan a través de las estrellas,',
 		u'sino que orbitan alrededor del Sol,',
-		u'la estrella central de nuestro Sistema Solar.','',
+		u'la estrella central de nuestro Sistema Solar.', '',
 		#31 textos
 		#Nivel2
 		u'Excelente! llegamos a un nuevo nivel, ya estamos más cerca.',
@@ -159,6 +163,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'de repuesto, no cuidamos más y sanamos',
 		u'el que ya tenemos?',
 		u'se pueden hacer muchas cosas por La Tierra.',
+		u'',
 		u'Por ejemplo,',
 		u'Cambiar el automovil por la bicicleta en viajes cortos.',
 		u'Cambiar el ascensor por las escaleras en tres o menos pisos.',
@@ -176,7 +181,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u' y además cuestan dinero extra.',
 		u'Si cerras la canilla mientras te cepillás los dientes,',
 		u'ahorrás unos 60 litros de agua potable por mes.',
-		#39 textos
+		#40 textos
 		u'Antes de tirar cualquier cosa a la basura,',
 		u'piensa si se puede reutilizar, reciclar o reparar.']
 
@@ -195,9 +200,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			def iniciar(self):
 				self.imagen = "imagenes/astronauta.png"
+
 			def actualizar(self):
 				self.rotacion += 1
-
 
 		minave = Nave(pilas);
 		minave.z = -2
@@ -302,6 +307,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
 				minave.eliminar()
+				#musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
 				self.puntaje.eliminar()
