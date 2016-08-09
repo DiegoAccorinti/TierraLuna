@@ -111,6 +111,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'la estrella central de nuestro Sistema Solar.', '',
 		#31 textos
 		#Nivel2
+		'','',
 		u'Excelente! llegamos a un nuevo nivel, ya estamos más cerca.',
 		u'¿cómo lo vas llevando?', u'mucho cuidado con los asteorides..',
 		u'o quedarás flotando en el espacio como una batata sideral.',
@@ -144,6 +145,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'',
 		#32 textos
 		#Nivel3
+		'','',
 		u'La estrella más próxima a La Tierra',
 		u'luego del Sol es Próxima Centauri,',
 		u'está a unos 4 años luz de distancia.',
@@ -186,6 +188,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		u'Si cerras la canilla mientras te cepillás los dientes,',
 		u'ahorrás unos 60 litros de agua potable por mes.',
 		#40 textos
+		'','',
 		u'Antes de tirar cualquier cosa a la basura,',
 		u'piensa si se puede reutilizar, reciclar o reparar.']
 
@@ -366,12 +369,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				cambio_nivel(2)
 				self.flag[1] = True
-		if contador_texto == 63:
+		if contador_texto == 10: #63
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
+				cambio_nivel(3)
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''			
@@ -379,6 +383,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
+				cambio_nivel(4)
 				self.flag[3] = True
 		if contador_texto == 240:
 			''' ###  NIVEL 5 ### '''			
@@ -386,6 +391,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
+				cambio_nivel(5)
 				self.flag[4] = True
 
 
