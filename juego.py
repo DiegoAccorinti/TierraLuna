@@ -291,6 +291,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		pilas.tareas.siempre(5, imprimir_texto)
 
+		
 
 		def nave_choco():#Cuando un asteroide choca nave
 
@@ -338,13 +339,22 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
 		global contador_texto
+
+		def cambio_nivel(nivel):# Cuando pasamos de nivel
+
+			pilas.camara.vibrar(4, 1)
+			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel), magnitud = 40, x = -300, y = -200)
+			texto_nivel.transparencia = 0			
+			texto_nivel.transparencia = [100],5
+
+
 		if contador_texto == 2:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 			if (self.flag[0]) == False:
 				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
 				self.flag[0] = True
-		if contador_texto == 31:
+		if contador_texto == 4:  # VALOR QUE VA 31
 			''' ###  NIVEL 2 ###
 			    Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
@@ -354,6 +364,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
+				cambio_nivel(2)
 				self.flag[1] = True
 		if contador_texto == 63:
 			''' ###  NIVEL 3 ### '''
