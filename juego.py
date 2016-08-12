@@ -102,126 +102,12 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
-		'''
-		En "textos" guardamos la colección de frases que irán apareciendo
-		durante la travesía.
-		'''
-		textos = [u'este juego es distinto a todos los anteriores',
-		u'no se trata de medir tu habilidad',
-		u'este viaje es en tiempo real',
-		u'¿serás capáz de llegar a la luna?',
-		u'¿podrás pilotear la nave durante una hora?',
-		u'ya lo veremos.',
-		u'No te preocupes, te acompañaré durante toda tu travesía.',
-		u'Tengo muchas cosas para contarte',
-		u'Antes que nada te recomiendo esquivar los asteroides',
-		u'hicimos lo mejor que pudimos con la nave,',
-		u'pero no resistirá más de 11 o 12 impactos.',
-		u'Así que, no te distraigas jejeje',
-		u'Vienes de un planeta llamado Tierra, pero',
-		u'el 70% de su superficie está cubierta por agua',
-		u'y solamente el 3% de esa agua es potable.',
-		u'El término "planeta" viene de la palabra griega planetes,',
-		u'que significa "errante".',
-		u'En la antigua Grecia se dieron cuenta',
-		u'de que había cinco puntos de luz',
-		u'que se movían a través del resto de las estrellas',
-		u'fijas en el cielo.',
-		u'Algunas se movían constantemente hacia adelante,',
-		u'otras daban marcha atrás.',
-		u'Nadie sabía por qué, pero aquellos puntos de luz',
-		u'no parpadeaban como las estrellas',
-		u'Cada cultura tenía un nombre para',
-		u'aquellos cinco puntos de luz:',
-		u'Mercurio, Venus, Marte, Júpiter y Saturno.',
-		u'Estos cuerpos celestes no viajan a través de las estrellas,',
-		u'sino que orbitan alrededor del Sol,',
-		u'la estrella central de nuestro Sistema Solar.', '',
-		#31 textos
-		#Nivel2
-		'','',
-		u'Excelente! llegamos a un nuevo nivel, ya estamos más cerca.',
-		u'¿cómo lo vas llevando?', u'mucho cuidado con los asteorides..',
-		u'o quedarás flotando en el espacio como una batata sideral.',
-		u'mmm tratemos de que esto no se descontrole',
-		u'',
-		u'Me hace hambre. Siempre que viajo',
-		u'llevo un paquete de sandwiches de miga',
-		u'jamón y queso. mayonesa.',
-		u'y el mate, no puede faltar el mate',
-		u'¿te parece raro tomar mate en el espacio?',
-		u'dale, mientras te cuento sobre constelaciones.',
-		u'',
-		u'Las estrellas de una constelación no suelen tener',
-		u'más relación que su proximidad en el cielo',
-		u'tal como se ven desde la Tierra.',
-		u'Las estrellas que forman una constelación',
-		u'pueden no mantener relación entre sí,',
-		u'ya que algunas están relativamente cerca de la Tierra',
-		u'y otras se encuentran a distancias mucho mayores',
-		u'en el espacio. Al verlas desde la tierra forman',
-		u'figuras que podemos observar.',
-		'',
-		u'Las distancias a las estrellas se miden en años luz.',
-		u'Un año luz equivale a unos 9,5 billones de kilómetros.',
-		u'La gente confunde un año luz con una medida de tiempo',
-		u'porque el término contiene la palabra año.',
-		u'Sin embargo, un año luz es una medida de distancia:',
-		u'la longitud que recorre la luz moviéndose',
-		u'a 300.000 kilómetros por segundo',
-		u'durante un año.',
-		u'',
-		#32 textos
-		#Nivel3
-		'','',
-		u'La estrella más próxima a La Tierra',
-		u'luego del Sol es Próxima Centauri,',
-		u'está a unos 4 años luz de distancia.',
-		u'Los astrónomos no pueden ver Próxima Centauri',
-		u'tal como es hoy,',
-		u'sino tal y como era hace cuatro años.',
-		u'La galaxia Andrómeda es el objeto más distante',
-		u'que se puede ver a simple vista, en una',
-		u'noche despejada y oscura en otoño.',
-		u'La luz que recibe tu ojo',
-		u'dejó esa galaxia hace unos 2,6 millones de años.',
-		u'Si se produjera un gran cambio en Andrómeda mañana,',
-		u'no lo sabremos hasta dentro de',
-		u'más de dos millones de años.',
-		u'',
-		u'A veces escucho sobre',
-		u'proyectos de exploración del espacio',
-		u'que tienen como objetivo',
-		u'encontrar otros planetas habitables.',
-		u'Pienso ¿por qué en vez de buscar un planeta',
-		u'de repuesto, no cuidamos más y sanamos',
-		u'el que ya tenemos?',
-		u'se pueden hacer muchas cosas por La Tierra.',
-		u'',
-		u'Por ejemplo,',
-		u'Cambiar el automovil por la bicicleta en viajes cortos.',
-		u'Cambiar el ascensor por las escaleras en tres o menos pisos.',
-		u'De esta forma ahorrás energía',
-		u'y fortalecés tu salud al mismo tiempo.',
-		u'Desenchufa todo lo que no uses.',
-		u'Muchos equipos por más que estén apagados',
-		u'consumen electricidad.',
-		u'Usá lamparitas de LED que duran mucho más',
-		u'que las tradicionales, incluso las fluorescentes,',
-		u'y consumen menos energía.',
-		u'Comenzá a usar una bolsa de las compras',
-		u'en vez de recibir las bolsas plásticas comunes,',
-		u'que no son biodegradables',
-		u' y además cuestan dinero extra.',
-		u'Si cerras la canilla mientras te cepillás los dientes,',
-		u'ahorrás unos 60 litros de agua potable por mes.',
-		#40 textos
-		'','',
-		u'Antes de tirar cualquier cosa a la basura,',
-		u'piensa si se puede reutilizar, reciclar o reparar.']
+		# LOS TEXTOS
+		#Le pido la biblioteca de textos contenido en textos.py
+		from textos import textos
 
-		texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente= url_fuente, y= -230, ancho = 230)
-		sombra_texto_personalizado = pilas.actores.Texto('Comienza el viaje', magnitud=30, fuente= url_fuente, y= -233, x=1, ancho = 230)
+		texto_personalizado = pilas.actores.Texto('', magnitud=30, fuente= url_fuente, y= -230, ancho = 230)
+		sombra_texto_personalizado = pilas.actores.Texto('', magnitud=30, fuente= url_fuente, y= -233, x=1, ancho = 230)
 
 		sombra_texto_personalizado.color = pilas.colores.negro
 		sombra_texto_personalizado.z = 4
@@ -309,7 +195,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				# Centro los textos en la pantalla
 				texto_personalizado.ancho = 900
 				sombra_texto_personalizado.ancho = 900
-				factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 10
+				factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 4
 				texto_personalizado.x = 450 - factor
 				sombra_texto_personalizado.x = 451 - factor
 
@@ -373,40 +259,45 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
 		global contador_texto
 
-		def cambio_nivel(nivel):# Cuando pasamos de nivel
+		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
 
 			pilas.camara.vibrar(4, 1)
-			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel), magnitud = 40, x = -300, y = -200)
+			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
+			 magnitud = 40, x = -100, y = -200)
 			texto_nivel.transparencia = 0
 			texto_nivel.transparencia = [100],5
 
-
-		if contador_texto == 2:
+		if contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 			if (self.flag[0]) == False:
+				print "NIVEL 1"
 				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
 				self.flag[0] = True
-		if contador_texto == 31:  # VALOR QUE VA 31
+				cambio_nivel(1, "Cinco puntos de luz")
+
+		if contador_texto == 34:
 			''' ###  NIVEL 2 ###
-			    Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
-			print "NIVEL 2"
+			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 			if (self.flag[1]) == False:
+				print "NIVEL 2"
 				PantallaJuego.tarea1.terminar()
 				tarea2 = pilas.tareas.siempre(1, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
-				cambio_nivel(2)
+				cambio_nivel(2, "Constelaciones")
 				self.flag[1] = True
+
 		if contador_texto == 63: #63
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
+				print "NIVEL 3"
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
-				cambio_nivel(3)
+				cambio_nivel(3, "leyenda 3")
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
@@ -414,7 +305,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
-				cambio_nivel(4)
+				cambio_nivel(4, "leyenda 4")
 				self.flag[3] = True
 		if contador_texto == 240:
 			''' ###  NIVEL 5 ### '''
@@ -422,7 +313,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
-				cambio_nivel(5)
+				cambio_nivel(5, "La llegada")
 				self.flag[4] = True
 
 
