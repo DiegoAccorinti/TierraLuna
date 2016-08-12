@@ -23,11 +23,8 @@ class Luna(pilasengine.actores.Actor):
 	def actualizar(self):
 		self.rotacion -= 0.05
 
-'''
-Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos
-"iniciar juego" en el menú principal
-'''
 
+''' Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal '''
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
@@ -35,15 +32,16 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	choques = pilas.actores.Puntaje(600, 600, color=pilas.colores.blanco, texto="0") # uso 600,600 para que no se vea.
 	velocidad_asteroides = 2
 
+
 	class Asteroide(pilasengine.actores.Actor):
 
 		def iniciar(self):
-			
+
 			self.imagen = ruta + '/imagenes/asteroide.png'
 			self.escala = 0.3
 			self.x = -500
 			self.y = pilas.azar(-300, 300)
-			self.giro = 2
+			self.giro = 1
 			self.z = self.y
 
 		def actualizar(self):
@@ -53,7 +51,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if self.x > 500:
 				self.eliminar()
 				PantallaJuego.puntaje.aumentar()
-				#print "PUNTOS"+ str(PantallaJuego.puntaje.obtener())
 
 	#defino un grupo de enemigos
 	enemigos = pilas.actores.Grupo()
@@ -71,8 +68,39 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 		# MUSICA
-		#musica = pilas.sonidos.cargar('musica/Dreams-Become-Real.ogg')
-		#musica.reproducir(repetir=True)
+		url = ruta + '/data/Dreams-Become-Real.ogg'
+		musica = pilas.sonidos.cargar(url)
+		musica.reproducir(repetir=True)
+
+		# Boton de sonido ON / OFF
+		boton_musica = pilas.actores.Boton();
+		url = ruta + '/imagenes/sonidoON.png'
+		boton_musica.imagen = url
+		boton_musica.x = 410
+		boton_musica.y = 240
+		boton_musica.z = -1000
+		boton_musica.sonidoOnOff = True
+
+		def cambio(sonidoOnOff):
+
+			if boton_musica.sonidoOnOff:
+				# apago la musica
+				print "entro en true."
+				musica.detener()
+				url = ruta + '/imagenes/sonidoOFF.png'
+				boton_musica.imagen = url
+				boton_musica.sonidoOnOff = False
+				print boton_musica.sonidoOnOff
+
+			else:
+				print "entro en false."
+				#enciendo la música
+				musica.reproducir(repetir=True)
+				url = ruta + '/imagenes/sonidoON.png'
+				boton_musica.imagen = url
+				boton_musica.sonidoOnOff = True
+
+		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
 		'''
 		En "textos" guardamos la colección de frases que irán apareciendo
@@ -219,11 +247,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
-
-			empujarx = (evento.x - c2.x) / 8
-			empujary = (evento.y - c2.y) / 8
-
-			c2.empujar(empujarx,empujary)
+			print "X: " + str(evento.x)
+			print "Y: " + str(evento.y)
+			if (evento.x < 390) or (evento.y < 219):
+				# Solo sigo si el click es fuera del icono de sonido
+				empujarx = (evento.x - c2.x) / 8
+				empujary = (evento.y - c2.y) / 8
+				c2.empujar(empujarx,empujary)
 
 		def frenar():
 			c2.velocidad_x /= 2
@@ -283,7 +313,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				texto_personalizado.x = 450 - factor
 				sombra_texto_personalizado.x = 451 - factor
 
-				
+
 				contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
 			else:
 				# si no quedan textos que mostar, no muestro nada.
@@ -294,7 +324,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		pilas.tareas.siempre(5, imprimir_texto)
 
-		
+
 
 		def nave_choco():#Cuando un asteroide choca nave
 
@@ -337,7 +367,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	flag = [False, False, False, False, False] # esta bandera es para crear la tarea una sola vez
 
-	
+
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
@@ -347,7 +377,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			pilas.camara.vibrar(4, 1)
 			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel), magnitud = 40, x = -300, y = -200)
-			texto_nivel.transparencia = 0			
+			texto_nivel.transparencia = 0
 			texto_nivel.transparencia = [100],5
 
 
@@ -360,6 +390,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 31:  # VALOR QUE VA 31
 			''' ###  NIVEL 2 ###
 			    Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
+			print "NIVEL 2"
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 			if (self.flag[1]) == False:
 				PantallaJuego.tarea1.terminar()
@@ -378,7 +409,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				cambio_nivel(3)
 				self.flag[2] = True
 		if contador_texto == 102:
-			''' ###  NIVEL 4 ### '''			
+			''' ###  NIVEL 4 ### '''
 			if (self.flag[3]) == False:
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
@@ -386,7 +417,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				cambio_nivel(4)
 				self.flag[3] = True
 		if contador_texto == 240:
-			''' ###  NIVEL 5 ### '''			
+			''' ###  NIVEL 5 ### '''
 			if (self.flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
@@ -398,7 +429,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 # Escena Menu
 def cargar_escena_juego():
 	pilas.escenas.PantallaJuego()
-	
+
 def salir_del_juego():
 	pilas.terminar()
 
