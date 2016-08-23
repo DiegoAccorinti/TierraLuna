@@ -5,7 +5,7 @@ from emisorHUMO import *
 import os
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
-contador_texto = 0
+contador_texto = 0 #0
 ruta = os.path.dirname(os.path.realpath(__file__))
 url_fuente = ruta + '/Tentacles.ttf'
 
@@ -180,35 +180,29 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			global contador_texto
 
-			if (contador_texto < len(textos)):
+			#cambio el texto
+			texto_personalizado.texto = textos[contador_texto]
+			sombra_texto_personalizado.texto = textos[contador_texto]
+			#oculto el texto y su sombra
+			texto_personalizado.transparencia = 100
+			sombra_texto_personalizado.transparencia = 100
+			#lo hago visible nuevamente
+			texto_personalizado.transparencia = [0]
+			sombra_texto_personalizado.transparencia = [0]
 
-				#cambio el texto
-				texto_personalizado.texto = textos[contador_texto]
-				sombra_texto_personalizado.texto = textos[contador_texto]
-				#oculto el texto y su sombra
-				texto_personalizado.transparencia = 100
-				sombra_texto_personalizado.transparencia = 100
-				#lo hago visible nuevamente
-				texto_personalizado.transparencia = [0]
-				sombra_texto_personalizado.transparencia = [0]
+			# Centro los textos en la pantalla
+			texto_personalizado.ancho = 900
+			sombra_texto_personalizado.ancho = 900
+			factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 4
+			texto_personalizado.x = 450 - factor
+			sombra_texto_personalizado.x = 451 - factor
 
-				# Centro los textos en la pantalla
-				texto_personalizado.ancho = 900
-				sombra_texto_personalizado.ancho = 900
-				factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 4
-				texto_personalizado.x = 450 - factor
-				sombra_texto_personalizado.x = 451 - factor
-
-
-				contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
-			else:
-				# si no quedan textos que mostar, no muestro nada.
-				texto_personalizado.texto = ''
-				sombra_texto_personalizado.texto = ''
+			contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		pilas.tareas.siempre(5, imprimir_texto)
+
 
 
 
@@ -307,7 +301,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "leyenda 4")
 				self.flag[3] = True
-		if contador_texto == 240:
+		if contador_texto == 130:
 			''' ###  NIVEL 5 ### '''
 			if (self.flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
@@ -315,14 +309,42 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
 				self.flag[4] = True
+		if contador_texto == 140: #150
+			''' FINAL! Ganó el juego '''
+			pilas.escenas.PantallaFinal()
+
+class PantallaFinal(pilasengine.escenas.Escena):
+	def iniciar(self):
+		fondo = pilas.fondos.Fondo()
+		url = ruta + '/imagenes/final.jpg'
+		fondo.imagen = pilas.imagenes.cargar(url)
+		texto_personalizado = pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
+		 y= -50, x = 20)
+
+
+
+class PantallaConfig(pilasengine.escenas.Escena):
+	def iniciar(self):
+		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
+		fondo.imagen = ruta + '/imagenes/fondo-config.png'
+		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=60, fuente= url_fuente,
+		 y= 0, x = 0)
+		texto_personalizado2 = pilas.actores.Texto(u'Solo que si no escuchas la música ni el sonido del juego, tenés que habilitarlo en PILAS:', magnitud=19, fuente= url_fuente, y= -130, x = 0)
+		texto_personalizado3 = pilas.actores.Texto(u'Aplicaciones -> Programación -> Pilas Engine -> Configuración -> Habilitar Audio',magnitud=16, fuente= url_fuente, y= -170, x = 0)
+		texto_personalizado3.color =  pilas.colores.verde
+
 
 
 # Escena Menu
 def cargar_escena_juego():
 	pilas.escenas.PantallaJuego()
 
+def cargar_escena_config():
+	pilas.escenas.PantallaConfig()
+
 def salir_del_juego():
 	pilas.terminar()
+
 
 class PantallaMenu(pilasengine.escenas.Escena):
 
@@ -337,6 +359,7 @@ class PantallaMenu(pilasengine.escenas.Escena):
 
 		menu = pilas.actores.Menu([
 					('iniciar juego', cargar_escena_juego),
+					(u'configuración', cargar_escena_config),
 					('salir', salir_del_juego),
 				], fuente = url_fuente, y=0)
 		menu.escala = 3
@@ -344,6 +367,8 @@ class PantallaMenu(pilasengine.escenas.Escena):
 
 pilas.escenas.vincular(PantallaJuego)
 pilas.escenas.vincular(PantallaMenu)
+pilas.escenas.vincular(PantallaConfig)
+pilas.escenas.vincular(PantallaFinal)
 pilas.escenas.PantallaMenu()
 
 pilas.ejecutar()
