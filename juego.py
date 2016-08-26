@@ -257,7 +257,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			pilas.camara.vibrar(4, 1)
 			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
-			 magnitud = 40, x = -100, y = -200)
+			 magnitud = 40, x = -200, y = 200)
 			texto_nivel.transparencia = 0
 			texto_nivel.transparencia = [100],5
 
@@ -291,7 +291,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
-				cambio_nivel(3, "leyenda 3")
+				cambio_nivel(3, "Nuestra casa")
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
@@ -299,7 +299,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
-				cambio_nivel(4, "leyenda 4")
+				cambio_nivel(4, "Mirando al pasado")
 				self.flag[3] = True
 		if contador_texto == 130:
 			''' ###  NIVEL 5 ### '''
