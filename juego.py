@@ -209,9 +209,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		pilas.tareas.siempre(1, imprimir_texto)
-
-
+		pilas.tareas.siempre(5, imprimir_texto)
 
 
 		def nave_choco():#Cuando un asteroide choca nave
