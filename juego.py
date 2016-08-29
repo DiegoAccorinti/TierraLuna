@@ -5,9 +5,17 @@ from emisorHUMO import *
 import os
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
+
+#Habilitando el Audio
+try:
+  pilas.forzar_habilitacion_de_audio()
+except AttributeError:
+  print "Omitiendo forzar la inicializacion, version anterior a 1.4.8"
+
 contador_texto = 0 #0
 ruta = os.path.dirname(os.path.realpath(__file__))
 url_fuente = ruta + '/Tentacles.ttf'
+url_fuente2 = ruta + '/Oswald-Regular.ttf'
 
 class Luna(pilasengine.actores.Actor):
 	''' Este actor es para la presentación y para el final del juego '''
@@ -201,7 +209,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		pilas.tareas.siempre(5, imprimir_texto)
+		pilas.tareas.siempre(1, imprimir_texto)
 
 
 
@@ -255,9 +263,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
 
-			pilas.camara.vibrar(4, 1)
+			if (nivel <> 1): pilas.camara.vibrar(4, 1)
 			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
-			 magnitud = 40, x = -200, y = 200)
+			 magnitud = 40, x = -400, y = 230)
+			texto_nivel.centro = ("izquierda", "centro")
 			texto_nivel.transparencia = 0
 			texto_nivel.transparencia = [100],5
 
@@ -284,7 +293,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				cambio_nivel(2, "Constelaciones")
 				self.flag[1] = True
 
-		if contador_texto == 63: #63
+		if contador_texto == 68:
 			''' ###  NIVEL 3 ### '''
 			if (self.flag[2]) == False:
 				print "NIVEL 3"
@@ -329,10 +338,14 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		fondo.imagen = ruta + '/imagenes/fondo-config.png'
 		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=60, fuente= url_fuente,
 		 y= 0, x = 0)
-		texto_personalizado2 = pilas.actores.Texto(u'Solo que si no escuchas la música ni el sonido del juego, tenés que habilitarlo en PILAS:', magnitud=19, fuente= url_fuente, y= -130, x = 0)
-		texto_personalizado3 = pilas.actores.Texto(u'Aplicaciones -> Programación -> Pilas Engine -> Configuración -> Habilitar Audio',magnitud=16, fuente= url_fuente, y= -170, x = 0)
-		texto_personalizado3.color =  pilas.colores.verde
+		texto_personalizado2 = pilas.actores.Texto(u'Un juego de DIEGO ACCORINTI para HUAYRA LINUX · presione una tecla para continuar', magnitud=12, fuente= url_fuente2, y= -230, x = 0)
+		texto_personalizado2.color =  pilas.colores.gris
 
+		pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+
+	def al_pulsar_tecla(self, tecla):
+		# print u"pulsó una tecla, salgo al menú"
+		pilas.escenas.PantallaMenu()
 
 
 # Escena Menu
@@ -358,12 +371,15 @@ class PantallaMenu(pilasengine.escenas.Escena):
 		luna = Luna(pilas);
 
 		menu = pilas.actores.Menu([
-					('iniciar juego', cargar_escena_juego),
-					(u'configuración', cargar_escena_config),
-					('salir', salir_del_juego),
-				], fuente = url_fuente, y=0)
-		menu.escala = 3
-		menu.escala = [1]
+					('JUGAR', cargar_escena_juego),
+					(u'CONFIG', cargar_escena_config),
+					('SALIR', salir_del_juego),
+				], fuente = url_fuente2, y = 150)
+		menu.escala = 1
+		menu.x = [300],3
+		menu.transparencia = 100
+		menu.transparencia = [0],3
+
 
 pilas.escenas.vincular(PantallaJuego)
 pilas.escenas.vincular(PantallaMenu)
