@@ -10,9 +10,9 @@ pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 try:
   pilas.forzar_habilitacion_de_audio()
 except AttributeError:
-  print "Omitiendo forzar la inicializacion, version anterior a 1.4.8"
+  print u"Omitiendo Habilitación forzada de audio, version anterior a 1.4.8"
 
-contador_texto = 0 #0
+
 ruta = os.path.dirname(os.path.realpath(__file__))
 url_fuente = ruta + '/Tentacles.ttf'
 url_fuente2 = ruta + '/Oswald-Regular.ttf'
@@ -36,8 +36,6 @@ class Luna(pilasengine.actores.Actor):
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
-	puntaje = pilas.actores.Puntaje(280, 200, color=pilas.colores.blanco, texto="0")
-	choques = pilas.actores.Puntaje(600, 600, color=pilas.colores.blanco, texto="0") # uso 600,600 para que no se vea.
 	velocidad_asteroides = 2
 
 
@@ -58,7 +56,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			# Elimina el objeto cuando sale de la pantalla.
 			if self.x > 500:
 				self.eliminar()
-				PantallaJuego.puntaje.aumentar()
 
 	#defino un grupo de enemigos
 	enemigos = pilas.actores.Grupo()
@@ -73,7 +70,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.enemigos.agregar(asteroide)
 
 	def iniciar(self):
+		
+		global contador_texto
+		global contador_choques
+		flag = [False, False, False, False, False]
+		
 
+		contador_texto = 0
+		contador_choques = 0
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
@@ -93,12 +97,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			if boton_musica.sonidoOnOff:
 				# apago la musica
-				print "entro en true."
 				musica.detener()
 				url = ruta + '/imagenes/sonidoOFF.png'
 				boton_musica.imagen = url
 				boton_musica.sonidoOnOff = False
-				print boton_musica.sonidoOnOff
 
 			else:
 				print "entro en false."
@@ -189,6 +191,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			global contador_texto
 
 			#cambio el texto
+			texto_personalizado.ancho = 900
+			sombra_texto_personalizado.ancho = 900
 			texto_personalizado.texto = textos[contador_texto]
 			sombra_texto_personalizado.texto = textos[contador_texto]
 			#oculto el texto y su sombra
@@ -199,37 +203,46 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			sombra_texto_personalizado.transparencia = [0]
 
 			# Centro los textos en la pantalla
-			texto_personalizado.ancho = 900
-			sombra_texto_personalizado.ancho = 900
-			factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 4
+
+			factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 10
+			if (factor > 100) and (factor < 200):
+				factor += 30
+			if (factor > 200):
+				factor += 50
 			texto_personalizado.x = 450 - factor
-			sombra_texto_personalizado.x = 451 - factor
+			sombra_texto_personalizado.x = 450 - factor
 
 			contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		pilas.tareas.siempre(5, imprimir_texto)
+		tareaMostrarTextos = pilas.tareas.siempre(5, imprimir_texto)
 
 
-		def nave_choco():#Cuando un asteroide choca nave
+		def nave_choco():
+
+
+
+			global contador_choques
 
 			pilas.camara.vibrar(3, 0.5)
-			self.choques.aumentar()
-			if self.choques.obtener() == 3:
+			
+			contador_choques += 1
+
+			if contador_choques == 3:
 				minave.imagen = ruta + '/imagenes/lanave_01.png'
 				emisor.frecuencia_creacion = 0.07
-			if self.choques.obtener() == 6:
+			if contador_choques == 6:
 				minave.imagen = ruta + '/imagenes/lanave_02.png'
 				emisor.frecuencia_creacion = 0.10
-			if self.choques.obtener() == 8:
+			if contador_choques == 8:
 				minave.imagen = ruta + '/imagenes/lanave_03.png'
 				emisor.frecuencia_creacion = 0.13
-			if self.choques.obtener() == 10:
+			if contador_choques == 10:
 				minave.imagen = ruta + '/imagenes/lanave_04.png'
 				emisor.eliminar()
 				minave.rotacion = [360], 2
-			if self.choques.obtener() == 11:
+			if contador_choques == 11:
 				pilas.camara.x = minave.x
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
@@ -237,7 +250,17 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				#musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
-				self.puntaje.eliminar()
+				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona una tecla para salir', magnitud=16, fuente= url_fuente2, y= -230, x = 0)
+				texto_personalizado3.color =  pilas.colores.blanco
+				tareaMostrarTextos.terminar()
+				texto_personalizado.transparencia = 100
+				sombra_texto_personalizado.transparencia = 100
+				pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+
+
+				
+
+			print "Choques = " + str(contador_choques)
 
 
 		# Creo un control de coliciones para saber cuando perdes
@@ -250,6 +273,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		pilas.fisica.eliminar_techo()
 		pilas.fisica.eliminar_suelo()
 
+	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
+	def al_pulsar_tecla(self, tecla):
+		#pilas.escenas.PantallaMenu()
+		pilas.terminar()
 
 	flag = [False, False, False, False, False] # esta bandera es para crear la tarea una sola vez
 
@@ -271,7 +298,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
-			if (self.flag[0]) == False:
+
+		if (self.flag[0]) == False:
 				print "NIVEL 1"
 				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
 				self.flag[0] = True
@@ -342,7 +370,6 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
 	def al_pulsar_tecla(self, tecla):
-		# print u"pulsó una tecla, salgo al menú"
 		pilas.escenas.PantallaMenu()
 
 
