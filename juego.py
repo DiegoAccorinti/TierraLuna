@@ -250,7 +250,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				#musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
-				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona una tecla para salir', magnitud=16, fuente= url_fuente2, y= -230, x = 0)
+				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona ESPACIO para salir', magnitud=16, fuente= url_fuente2, y= -230, x = 0)
 				texto_personalizado3.color =  pilas.colores.blanco
 				tareaMostrarTextos.terminar()
 				texto_personalizado.transparencia = 100
@@ -275,8 +275,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
+		#print tecla.codigo
 		#pilas.escenas.PantallaMenu()
-		pilas.terminar()
+		if tecla.codigo == 32: pilas.terminar()
 
 	flag = [False, False, False, False, False] # esta bandera es para crear la tarea una sola vez
 
