@@ -203,12 +203,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			sombra_texto_personalizado.transparencia = [0]
 
 			# Centro los textos en la pantalla
+		
+			factor = len(textos[contador_texto]) * 7
 
-			factor = texto_personalizado.imagen.obtener_area_de_texto(texto_personalizado.texto)[0] + 10
-			if (factor > 100) and (factor < 200):
-				factor += 30
-			if (factor > 200):
-				factor += 50
 			texto_personalizado.x = 450 - factor
 			sombra_texto_personalizado.x = 450 - factor
 
@@ -360,18 +357,30 @@ class PantallaFinal(pilasengine.escenas.Escena):
 
 
 class PantallaConfig(pilasengine.escenas.Escena):
+
+	
+
 	def iniciar(self):
 		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
 		fondo.imagen = ruta + '/imagenes/fondo-config.png'
 		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=60, fuente= url_fuente,
 		 y= 0, x = 0)
-		texto_personalizado2 = pilas.actores.Texto(u'Un juego de DIEGO ACCORINTI para HUAYRA LINUX · presione una tecla para continuar', magnitud=12, fuente= url_fuente2, y= -230, x = 0)
+		texto_personalizado2 = pilas.actores.Texto(u'presione ESPACIO para continuar', magnitud=10, fuente= url_fuente2, y= -230, x = 0)
 		texto_personalizado2.color =  pilas.colores.gris
+		
+		
 
 		pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
 	def al_pulsar_tecla(self, tecla):
-		pilas.escenas.PantallaMenu()
+
+		if tecla.codigo == 32:
+			pilas.escenas.PantallaMenu()
+		else:
+			try:
+				self.texto_personalizado3
+			except NameError:
+				texto_personalizado3 = pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
 
 
 # Escena Menu
