@@ -358,9 +358,10 @@ class PantallaFinal(pilasengine.escenas.Escena):
 
 class PantallaConfig(pilasengine.escenas.Escena):
 
-	
+	mostre_huevo_pascua = False
 
 	def iniciar(self):
+		
 		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
 		fondo.imagen = ruta + '/imagenes/fondo-config.png'
 		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=60, fuente= url_fuente,
@@ -377,11 +378,9 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		if tecla.codigo == 32:
 			pilas.escenas.PantallaMenu()
 		else:
-			try:
-				self.texto_personalizado3
-			except NameError:
+			if (self.mostre_huevo_pascua == False):
 				texto_personalizado3 = pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
-
+				self.mostre_huevo_pascua = True
 
 # Escena Menu
 def cargar_escena_juego():

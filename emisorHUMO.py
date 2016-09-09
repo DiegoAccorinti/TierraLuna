@@ -90,7 +90,7 @@ class EmisorHUMO(Emisor):
         p.aceleracion_x = self.rango(self.aceleracion_x_min, self.aceleracion_x_max)
         p.aceleracion_y = self.rango(self.aceleracion_y_min, self.aceleracion_y_max)
         p.z = self.z
-        
+
         self.particulas_vivas += 1
 
- 
+
