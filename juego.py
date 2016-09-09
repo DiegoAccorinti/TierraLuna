@@ -256,8 +256,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 				
-
+			mensajeNeo = [False, False]
 			print "Choques = " + str(contador_choques)
+			if (contador_choques == 8) and (mensajeNeo[0] == False):
+				os.system('clear')
+				print "Despierta, Neo."
+				print "La Matrix te tiene."
+				print "Sigue al conejo blanco."
+				print "Toc toc, Neo."
+				mensajeNeo[0] = True
+			if (contador_choques == 9) and (mensajeNeo[1] == False):
+				os.system('clear')
+				print "Choques = " + str(contador_choques)
+				mensajeNeo[1] = True
 
 
 		# Creo un control de coliciones para saber cuando perdes
