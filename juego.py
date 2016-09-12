@@ -116,8 +116,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		#Le pido la biblioteca de textos contenido en textos.py
 		from textos import textos
 
-		texto_personalizado = pilas.actores.Texto('', magnitud=30, fuente= url_fuente, y= -230, ancho = 230)
-		sombra_texto_personalizado = pilas.actores.Texto('', magnitud=30, fuente= url_fuente, y= -233, x=1, ancho = 230)
+		texto_personalizado = pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
+		sombra_texto_personalizado = pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 
 		sombra_texto_personalizado.color = pilas.colores.negro
 		sombra_texto_personalizado.z = 4
@@ -247,7 +247,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				#musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
-				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona ESPACIO para salir', magnitud=16, fuente= url_fuente2, y= -230, x = 0)
+				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona ESPACIO para salir', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
 				texto_personalizado3.color =  pilas.colores.blanco
 				tareaMostrarTextos.terminar()
 				texto_personalizado.transparencia = 100
@@ -375,9 +375,9 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		
 		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
 		fondo.imagen = ruta + '/imagenes/fondo-config.png'
-		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=60, fuente= url_fuente,
+		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=55, fuente= url_fuente,
 		 y= 0, x = 0)
-		texto_personalizado2 = pilas.actores.Texto(u'presione ESPACIO para continuar', magnitud=10, fuente= url_fuente2, y= -230, x = 0)
+		texto_personalizado2 = pilas.actores.Texto(u'presione ESPACIO para continuar', magnitud=14, fuente= url_fuente2, y= -230, x = 0)
 		texto_personalizado2.color =  pilas.colores.gris
 		
 		
