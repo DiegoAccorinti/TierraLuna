@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python /usr/share/games/TierraLuna/juego.py
