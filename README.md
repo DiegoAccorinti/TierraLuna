@@ -1,5 +1,6 @@
 # TierraLuna
-Tierraluna es un videojuego creado por el Equipo de Huayra GNU/Linux para mostrar lo fácil que es programar usando Pilas-Engine.
+
+Este proyecto comenzó como una serie de tutoriales creados por el Equipo de Huayra GNU/Linux para aprender programación de videojuegos utilizando PILAS-engine y Huayra. Se trata de un viaje a la luna donde se pondrá a prueba nuestra habilidad, paciencia y temple. TierraLuna es un juego para leer, ya que en el camino aprenderemos conceptos de astronomía, geografía, física y ecología, mientras intentamos superar los cinco niveles y alunizar.
 
 ![](imagenes/preview.png)
 
