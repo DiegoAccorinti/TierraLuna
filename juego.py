@@ -6,11 +6,14 @@ import os
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 
+if sys.stdout.encoding == None:
+	sys.stdout = codecs.getwriter('utf8')
+
 #Habilitando el Audio
 try:
   pilas.forzar_habilitacion_de_audio()
 except AttributeError:
-  print u"Omitiendo Habilitación forzada de audio, version anterior a 1.4.8"
+  print u"Omitiendo Habilit. forzada de audio, version anterior a 1.4.8"
 
 
 ruta = os.path.dirname(os.path.realpath(__file__))
@@ -103,7 +106,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				boton_musica.sonidoOnOff = False
 
 			else:
-				print "entro en false."
 				#enciendo la música
 				musica.reproducir(repetir=True)
 				url = ruta + '/imagenes/sonidoON.png'
@@ -143,8 +145,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
-			print "X: " + str(evento.x)
-			print "Y: " + str(evento.y)
+			#print "X: " + str(evento.x)
+			#print "Y: " + str(evento.y)
 			if (evento.x < 390) or (evento.y < 219):
 				# Solo sigo si el click es fuera del icono de sonido
 				empujarx = (evento.x - c2.x) / 8
