@@ -2,18 +2,15 @@
 # -*- coding: utf-8
 import pilasengine
 from emisorHUMO import *
-import os,sys
+import os
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
-
-if sys.stdout.encoding == None:
-	sys.stdout = codecs.getwriter('utf8')
 
 #Habilitando el Audio
 try:
   pilas.forzar_habilitacion_de_audio()
 except AttributeError:
-  print u"Omitiendo Habilit. forzada de audio, version anterior a 1.4.8"
+  print u"Omitiendo Habilitación forzada de audio, version anterior a 1.4.8".encode('utf-8')
 
 
 ruta = os.path.dirname(os.path.realpath(__file__))
@@ -76,11 +73,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		
 		global contador_texto
 		global contador_choques
+		global flag
 		flag = [False, False, False, False, False]
-		
+
 
 		contador_texto = 0
 		contador_choques = 0
+
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
@@ -249,7 +248,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				#musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
-				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás sin vida en el espacio · presiona ESPACIO para salir', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
+				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
 				texto_personalizado3.color =  pilas.colores.blanco
 				tareaMostrarTextos.terminar()
 				texto_personalizado.transparencia = 100
@@ -285,17 +284,21 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
+		global flag
 		#print tecla.codigo
 		#pilas.escenas.PantallaMenu()
-		if tecla.codigo == 32: pilas.terminar()
+		if tecla.codigo == 32:
+			flag = [False, False, False, False, False]
+			self.pilas.escenas.PantallaMenu()
+			
 
-	flag = [False, False, False, False, False] # esta bandera es para crear la tarea una sola vez
 
 
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
 		global contador_texto
+		global flag
 
 		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
 
@@ -304,23 +307,27 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			 magnitud = 40, x = -400, y = 230)
 			texto_nivel.centro = ("izquierda", "centro")
 			texto_nivel.transparencia = 0
-			texto_nivel.transparencia = [100],5
+			texto_nivel.transparencia = [100],15
+			texto_nivel.escala = [0.7],10
+			texto_nivel.x = [-400,-430],10
+			texto_nivel.y = [240],10
+
 
 		if contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 
-		if (self.flag[0]) == False:
+		if (flag[0]) == False:
 				print "NIVEL 1"
 				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
-				self.flag[0] = True
+				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
 		if contador_texto == 34:
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
-			if (self.flag[1]) == False:
+			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tarea1.terminar()
 				tarea2 = pilas.tareas.siempre(1, self.crear_asteroide)
@@ -328,11 +335,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				cambio_nivel(2, "Constelaciones")
-				self.flag[1] = True
+				flag[1] = True
 
 		if contador_texto == 68:
 			''' ###  NIVEL 3 ### '''
-			if (self.flag[2]) == False:
+			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
@@ -341,20 +348,20 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
-			if (self.flag[3]) == False:
+			if (flag[3]) == False:
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "Mirando al pasado")
-				self.flag[3] = True
+				flag[3] = True
 		if contador_texto == 130:
 			''' ###  NIVEL 5 ### '''
-			if (self.flag[4]) == False:
+			if (flag[4]) == False:
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
-				self.flag[4] = True
+				flag[4] = True
 		if contador_texto == 140: #150
 			''' FINAL! Ganó el juego '''
 			pilas.escenas.PantallaFinal()
