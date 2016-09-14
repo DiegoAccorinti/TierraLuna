@@ -245,7 +245,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
 				minave.eliminar()
-				#musica.detener()
+				musica.detener()
 				pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
 				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
