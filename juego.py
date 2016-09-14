@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 import pilasengine
 from emisorHUMO import *
-import os
+import os,sys
 
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 
