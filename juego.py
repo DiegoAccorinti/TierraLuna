@@ -345,7 +345,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
 				cambio_nivel(3, "Nuestra casa")
-				self.flag[2] = True
+				flag[2] = True
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
