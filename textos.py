@@ -123,7 +123,7 @@ u'estudiar, modificar y mejorar ese software.',
 u'El software libre es una cuestión de libertad,',
 u'no de precio.',
 '',
-u'¿sabías que nuestro sol no es único?'
+u'¿sabías que nuestro sol no es único?',
 u'La estrella más próxima a La Tierra',
 u'luego del Sol es Próxima Centauri,',
 u'está a unos 4 años luz de distancia.',
