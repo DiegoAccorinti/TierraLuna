@@ -4,7 +4,8 @@
 En "textos" guardamos la colección de frases que irán apareciendo
 durante la travesía.
 '''
-textos = ['',u'Comienza el viaje',
+textos = ['',
+u'Comienza el viaje',
 u'este juego es distinto a todos los anteriores',
 u'no se trata de medir tu habilidad',
 u'sino tu paciencia y tu temple',
@@ -110,7 +111,7 @@ u'piensa si se puede reutilizar,',
 u' reciclar o reparar.',
 u'La Tierra es nuestra casa',
 u'el cambio empieza en vos.',
-#  textos
+# 101 textos
 
 # NIVEL 4
 '',
@@ -150,5 +151,6 @@ u' Fue un gusto enorme compartir esta aventura',
 u'nos vemos a la vuelta :)',
 u' LUNA en 3......',
 u'2.......',
-u'1.......'
+u'1.......',
+''
 ]
