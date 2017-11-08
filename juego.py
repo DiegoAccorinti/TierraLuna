@@ -70,7 +70,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.enemigos.agregar(asteroide)
 
 	def iniciar(self):
-		
+
 		global contador_texto
 		global contador_choques
 		global flag
@@ -204,7 +204,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			sombra_texto_personalizado.transparencia = [0]
 
 			# Centro los textos en la pantalla
-		
+
 			factor = len(textos[contador_texto]) * 7
 
 			texto_personalizado.x = 450 - factor
@@ -224,23 +224,23 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			global contador_choques
 
 			pilas.camara.vibrar(3, 0.5)
-			
+
 			contador_choques += 1
 
-			if contador_choques == 3:
+			if contador_choques == 2:
 				minave.imagen = ruta + '/imagenes/lanave_01.png'
 				emisor.frecuencia_creacion = 0.07
-			if contador_choques == 6:
+			if contador_choques == 4:
 				minave.imagen = ruta + '/imagenes/lanave_02.png'
 				emisor.frecuencia_creacion = 0.10
 			if contador_choques == 8:
 				minave.imagen = ruta + '/imagenes/lanave_03.png'
 				emisor.frecuencia_creacion = 0.13
-			if contador_choques == 10:
+			if contador_choques == 16:
 				minave.imagen = ruta + '/imagenes/lanave_04.png'
 				emisor.eliminar()
 				minave.rotacion = [360], 2
-			if contador_choques == 11:
+			if contador_choques == 20:
 				pilas.camara.x = minave.x
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
@@ -256,7 +256,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
 
-				
+
 			mensajeNeo = [False, False]
 			print "Choques = " + str(contador_choques)
 			if (contador_choques == 8) and (mensajeNeo[0] == False):
@@ -290,7 +290,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if tecla.codigo == 32:
 			flag = [False, False, False, False, False]
 			self.pilas.escenas.PantallaMenu()
-			
+
 
 
 
@@ -319,7 +319,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		if (flag[0]) == False:
 				print "NIVEL 1"
-				PantallaJuego.tarea1 = pilas.tareas.siempre(2, self.crear_asteroide)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide)
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
@@ -329,8 +329,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 			if (flag[1]) == False:
 				print "NIVEL 2"
-				PantallaJuego.tarea1.terminar()
-				tarea2 = pilas.tareas.siempre(1, self.crear_asteroide)
+				PantallaJuego.tareaAsteroides.terminar()
+				tareaAsteroides = pilas.tareas.siempre(2.5, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
@@ -349,6 +349,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
+				PantallaJuego.tareaAsteroides.terminar()
+                                tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide)
+
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
@@ -357,6 +360,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 130:
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
+				PantallaJuego.tareaAsteroides.terminar()
+                                tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
@@ -381,15 +386,15 @@ class PantallaConfig(pilasengine.escenas.Escena):
 	mostre_huevo_pascua = False
 
 	def iniciar(self):
-		
+
 		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
 		fondo.imagen = ruta + '/imagenes/fondo-config.png'
 		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=55, fuente= url_fuente,
 		 y= 0, x = 0)
 		texto_personalizado2 = pilas.actores.Texto(u'presione ESPACIO para continuar', magnitud=14, fuente= url_fuente2, y= -230, x = 0)
 		texto_personalizado2.color =  pilas.colores.gris
-		
-		
+
+
 
 		pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
