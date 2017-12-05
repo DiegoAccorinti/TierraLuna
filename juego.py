@@ -41,6 +41,39 @@ class Luna(pilasengine.actores.Actor):
 		self.rotacion -= 0.05
 
 
+class Arsat(pilasengine.actores.Actor):
+	
+	def iniciar(self):
+		url = ruta + '/imagenes/ARSAT-2.png'
+		self.imagen = url
+
+	def actualizar(self):
+		self.rotacion -= 0.06
+		self.x += 0.5
+		# Elimina el objeto cuando sale de la pantalla.
+		if self.x > 600:
+			self.eliminar()
+		
+
+			
+class HUDArsat(pilasengine.actores.Actor):
+	
+	def iniciar(self):
+		url = ruta + '/imagenes/ARSAT-2-HUD.png'
+		self.imagen = url
+		self.x = -600
+		self.y = pilas.azar(-50, 150)
+		self.escala = 1
+		self.z = -1
+
+	def actualizar(self):
+		self.x += 0.5
+		# Elimina el objeto cuando sale de la pantalla.
+		if self.x > 600:
+			self.eliminar()
+		
+
+
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
 class PantallaJuego(pilasengine.escenas.Escena):
@@ -83,7 +116,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global contador_texto
 		global contador_choques
 		global flag
+		global flagEspeciales
 		flag = [False, False, False, False, False]
+		flagEspeciales = [False]
 
 
 		contador_texto = 0
@@ -379,6 +414,27 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 140: #150
 			''' FINAL! Ganó el juego '''
 			pilas.escenas.PantallaFinal()
+
+
+
+		''' Eventos únicos especiales durante el juego '''	
+
+		# paso de ARSAT-2
+		if contador_texto == 80:
+			if flagEspeciales[0] == False:
+				
+				hudarsat = HUDArsat(pilas)
+				hudarsat.z = 999
+				arsat = Arsat(pilas)
+				arsat.x = hudarsat.x
+				arsat.y = hudarsat.y
+				arsat.z = 1000
+				flagEspeciales[0] = True
+			
+
+
+
+			
 
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
