@@ -424,11 +424,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if flagEspeciales[0] == False:
 				
 				hudarsat = HUDArsat(pilas)
-				hudarsat.z = 999
+				hudarsat.z = 1000
 				arsat = Arsat(pilas)
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
-				arsat.z = 1000
+				arsat.z = 999
 				flagEspeciales[0] = True
 			
 
