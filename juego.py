@@ -4,22 +4,31 @@ import pilasengine
 from emisorHUMO import *
 import os
 
+# Inicializamos PILAS-ENGINE
+# pasando como parámetros la resolución gráfica de la ventana y el título de la misma:
+
 pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 
-#Habilitando el Audio
+
+# Habilitando el Audio en PILAS: 
+
 try:
   pilas.forzar_habilitacion_de_audio()
 except AttributeError:
   print u"Omitiendo Habilitación forzada de audio, version anterior a 1.4.8".encode('utf-8')
 
 
+# Definimos la ruta hasta los archivos de las dos tipografías que utilizaremos en el juego. 
+
 ruta = os.path.dirname(os.path.realpath(__file__))
 url_fuente = ruta + '/Tentacles.ttf'
 url_fuente2 = ruta + '/Oswald-Regular.ttf'
 
-class Luna(pilasengine.actores.Actor):
-	''' Este actor es para la presentación y para el final del juego '''
 
+# Declaramos Luna. Este actor es utilizado en la presentación.
+
+class Luna(pilasengine.actores.Actor):
+	
 	def iniciar(self):
 		url = ruta + '/imagenes/luna.jpg'
 		self.imagen = url
@@ -32,7 +41,7 @@ class Luna(pilasengine.actores.Actor):
 		self.rotacion -= 0.05
 
 
-''' Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal '''
+# Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
@@ -330,7 +339,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				tareaAsteroides = pilas.tareas.siempre(2.5, self.crear_asteroide)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2.5, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
@@ -349,9 +358,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 102:
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
+				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
-                                tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide)
-
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
@@ -361,7 +370,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				PantallaJuego.tareaAsteroides.terminar()
-                                tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
