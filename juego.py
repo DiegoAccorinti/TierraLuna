@@ -49,7 +49,7 @@ class Arsat(pilasengine.actores.Actor):
 
 	def actualizar(self):
 		self.rotacion -= 0.06
-		self.x += 0.5
+		self.x += 0.6
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 600:
 			self.eliminar()
@@ -67,7 +67,7 @@ class HUDArsat(pilasengine.actores.Actor):
 		self.z = -1
 
 	def actualizar(self):
-		self.x += 0.5
+		self.x += 0.6
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 600:
 			self.eliminar()
@@ -411,7 +411,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
-		if contador_texto == 140: #150
+		if contador_texto == 141:
 			''' FINAL! Ganó el juego '''
 			pilas.escenas.PantallaFinal()
 
@@ -420,7 +420,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Eventos únicos especiales durante el juego '''	
 
 		# paso de ARSAT-2
-		if contador_texto == 80:
+		if contador_texto == 16:
 			if flagEspeciales[0] == False:
 				
 				hudarsat = HUDArsat(pilas)

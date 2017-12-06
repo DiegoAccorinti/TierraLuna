@@ -4,7 +4,8 @@
 En "textos" guardamos la colección de frases que irán apareciendo
 durante la travesía.
 '''
-textos = ['',
+textos = [
+u'',
 u'Comienza el viaje',
 u'este juego es distinto a todos los anteriores',
 u'no se trata de medir tu habilidad',
@@ -21,6 +22,7 @@ u'Así que, no te distraigas jejeje',
 u'Vienes de un planeta llamado Tierra, pero',
 u'el 70% de su superficie está cubierta por agua',
 u'y solamente el 3% de esa agua es potable.',
+u'',
 u'El término "planeta" viene de la palabra griega planetes,',
 u'que significa "errante".',
 u'En la antigua Grecia se dieron cuenta',
@@ -37,7 +39,7 @@ u'Mercurio, Venus, Marte, Júpiter y Saturno.',
 u'Estos cuerpos celestes no viajan a través de las estrellas,',
 u'sino que orbitan alrededor del Sol,',
 u'la estrella central de nuestro Sistema Solar.',
-#33 textos
+#34 textos
 
 #Nivel2
 '',
@@ -74,7 +76,7 @@ u'Sin embargo, un año luz es una medida de distancia:',
 u'la longitud que recorre la luz moviéndose',
 u'a 300.000 kilómetros por segundo',
 u'durante un año.',
-#67 textos
+#68 textos
 
 #Nivel3
 '',
@@ -111,7 +113,7 @@ u'pensá si se puede reutilizar,',
 u'reciclar o reparar.',
 u'La Tierra es nuestra casa',
 u'el cambio empieza en vos.',
-# 101 textos
+# 102 textos
 
 # NIVEL 4
 '',
