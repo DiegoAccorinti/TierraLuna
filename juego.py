@@ -400,11 +400,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 34:
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
-			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
+			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2.5, self.crear_asteroide_dos)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_dos)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
@@ -425,7 +425,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[3]) == False:
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_tres)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide_tres)
 				PantallaJuego.velocidad_asteroides = 2
 				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
@@ -434,8 +434,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 130:
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
+				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide_cuatro)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_cuatro)
 				PantallaJuego.velocidad_asteroides = 6
 				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
