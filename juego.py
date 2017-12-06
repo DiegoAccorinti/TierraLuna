@@ -116,7 +116,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	def crear_asteroide_uno(self):
 		#creo el actor enemigo
-		asteroide = self.Asteroide(pilas, tipo="cuatro");
+		asteroide = self.Asteroide(pilas, tipo="uno");
 		#creo un objeto para la física
 		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
@@ -136,7 +136,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.enemigos.agregar(asteroide)
 		
 	def crear_asteroide_cuatro(self):
-		asteroide = self.Asteroide(pilas, tipo="tres");
+		asteroide = self.Asteroide(pilas, tipo="cuatro");
 		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		self.enemigos.agregar(asteroide)
