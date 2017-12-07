@@ -160,7 +160,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		flagEspeciales = [False]
 
 
-		contador_texto = 100
+		contador_texto = 0
 		contador_choques = 0
 
 		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
