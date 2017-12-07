@@ -89,7 +89,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.imagen = ruta + '/imagenes/asteroide.png'
 				self.giro = 1
 			if self.tipo == "dos":
-				self.imagen = ruta + '/imagenes/asteroide2_A.png'
+				self.imagen = ruta + '/imagenes/asteroide2.png'
 				self.giro = 3
 			if self.tipo == "tres":
 				self.imagen = ruta + '/imagenes/asteroide3.png'
