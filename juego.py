@@ -425,7 +425,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide_tres)
+				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_tres)
 				PantallaJuego.velocidad_asteroides = 4
 				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
