@@ -316,14 +316,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if contador_choques == 4:
 				minave.imagen = ruta + '/imagenes/lanave_02.png'
 				emisor.frecuencia_creacion = 0.10
-			if contador_choques == 8:
+			if contador_choques == 7:
 				minave.imagen = ruta + '/imagenes/lanave_03.png'
 				emisor.frecuencia_creacion = 0.13
-			if contador_choques == 16:
+			if contador_choques == 9:
 				minave.imagen = ruta + '/imagenes/lanave_04.png'
 				emisor.eliminar()
 				minave.rotacion = [360], 2
-			if contador_choques == 20:
+			if contador_choques == 12:
 				pilas.camara.x = minave.x
 				pilas.camara.y = minave.y
 				perdido = Astronauta(pilas);
