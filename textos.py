@@ -51,7 +51,7 @@ u'o quedarás flotando en el espacio como una batata sideral.',
 u'mmm tratemos de que ésto no se descontrole',
 '',
 u'Tengo hambre.',
-u' Siempre que viajo',
+u'Siempre que viajo',
 u'llevo un paquete de sandwiches de miga',
 u'jamón y queso. mayonesa.',
 u'y el mate, no puede faltar el mate',
@@ -141,6 +141,8 @@ u'dejó esa galaxia hace unos 2,6 millones de años.',
 u'Si se produjera un gran cambio en Andrómeda mañana,',
 u'no lo sabremos hasta dentro de',
 u'más de dos millones de años.',
+# 127 textos
+
 # NIVEL 5
 '',
 u'¡ATENCIÓN!',
