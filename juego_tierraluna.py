@@ -2,77 +2,8 @@
 # -*- coding: utf-8
 import pilasengine
 from emisorHUMO import *
-import os
-
-# Inicializamos PILAS-ENGINE
-# pasando como parámetros la resolución gráfica de la ventana y el título de la misma:
-
-pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
-
-
-# Habilitando el Audio en PILAS: 
-
-try:
-  pilas.forzar_habilitacion_de_audio()
-except AttributeError:
-  print u"Omitiendo Habilitación forzada de audio, version anterior a 1.4.8".encode('utf-8')
-
-
-# Definimos la ruta hasta los archivos de las dos tipografías que utilizaremos en el juego. 
-
-ruta = os.path.dirname(os.path.realpath(__file__))
-url_fuente = ruta + '/Tentacles.ttf'
-url_fuente2 = ruta + '/Oswald-Regular.ttf'
-
-
-# Declaramos Luna. Este actor es utilizado en la presentación.
-
-class Luna(pilasengine.actores.Actor):
-	
-	def iniciar(self):
-		url = ruta + '/imagenes/luna.jpg'
-		self.imagen = url
-		self.x = 0
-		self.y = -700
-		self.escala = 1.3
-		self.z = -1
-
-	def actualizar(self):
-		self.rotacion -= 0.05
-
-
-class Arsat(pilasengine.actores.Actor):
-	
-	def iniciar(self):
-		url = ruta + '/imagenes/ARSAT-2.png'
-		self.imagen = url
-
-	def actualizar(self):
-		self.rotacion -= 0.06
-		self.x += 0.6
-		# Elimina el objeto cuando sale de la pantalla.
-		if self.x > 600:
-			self.eliminar()
-		
-
-			
-class HUDArsat(pilasengine.actores.Actor):
-	
-	def iniciar(self):
-		url = ruta + '/imagenes/ARSAT-2-HUD.png'
-		self.imagen = url
-		self.x = -600
-		self.y = pilas.azar(-50, 150)
-		self.escala = 1
-		self.z = -1
-
-	def actualizar(self):
-		self.x += 0.6
-		# Elimina el objeto cuando sale de la pantalla.
-		if self.x > 600:
-			self.eliminar()
-		
-
+from globales import *
+from objetos import *
 
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
@@ -104,7 +35,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			self.escala = 0.3
 			self.x = -500
-			self.y = pilas.azar(-300, 300)
+			self.y = self.pilas.azar(-300, 300)
 			self.z = self.y
 
 		def actualizar(self):
@@ -115,38 +46,39 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.eliminar()
 
 	#defino un grupo de enemigos
-	enemigos = pilas.actores.Grupo()
+	def crear_grupo_enemigos(self):
+		self.enemigos = self.pilas.actores.Grupo()
 
 	def crear_asteroide_uno(self):
 		#creo el actor enemigo
-		asteroide = self.Asteroide(pilas, tipo="uno");
+		asteroide = self.Asteroide(self.pilas, tipo="uno");
 		#creo un objeto para la física
-		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
 		
 	def crear_asteroide_dos(self):
-		asteroide = self.Asteroide(pilas, tipo="dos");
-		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=1)
+		asteroide = self.Asteroide(self.pilas, tipo="dos");
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=1)
 		asteroide.imitar(c1)
 		self.enemigos.agregar(asteroide)
 
 	def crear_asteroide_tres(self):
-		asteroide = self.Asteroide(pilas, tipo="tres");
-		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=3)
+		asteroide = self.Asteroide(self.pilas, tipo="tres");
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=3)
 		asteroide.imitar(c1)
 		self.enemigos.agregar(asteroide)
 		
 	def crear_asteroide_cuatro(self):
-		asteroide = self.Asteroide(pilas, tipo="cuatro");
-		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
+		asteroide = self.Asteroide(self.pilas, tipo="cuatro");
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		self.enemigos.agregar(asteroide)
 		
 	def crear_asteroide_cinco(self):
-		asteroide = self.Asteroide(pilas, tipo="cinco");
-		c1 = pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
+		asteroide = self.Asteroide(self.pilas, tipo="cinco");
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		self.enemigos.agregar(asteroide)
 		
@@ -158,19 +90,20 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global flagEspeciales
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False]
+		self.crear_grupo_enemigos()
 
 
 		contador_texto = 0
 		contador_choques = 0
 
-		fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
+		fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
-		musica = pilas.sonidos.cargar(url)
+		musica = self.pilas.sonidos.cargar(url)
 		musica.reproducir(repetir=True)
 
 		# Boton de sonido ON / OFF
-		boton_musica = pilas.actores.Boton();
+		boton_musica = self.pilas.actores.Boton();
 		url = ruta + '/imagenes/sonidoON.png'
 		boton_musica.imagen = url
 		boton_musica.x = 410
@@ -200,10 +133,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		#Le pido la biblioteca de textos contenido en textos.py
 		from textos import textos
 
-		texto_personalizado = pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
-		sombra_texto_personalizado = pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
+		texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
+		sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 
-		sombra_texto_personalizado.color = pilas.colores.negro
+		sombra_texto_personalizado.color = self.pilas.colores.negro
 		sombra_texto_personalizado.z = 4
 
 		class Nave(pilasengine.actores.Actor):
@@ -221,11 +154,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			def actualizar(self):
 				self.rotacion += 1
 
-		minave = Nave(pilas);
+		minave = Nave(self.pilas);
 		minave.z = -2
 
 
-		c2 = pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
+		c2 = self.pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
 			#print "X: " + str(evento.x)
 			#print "Y: " + str(evento.y)
@@ -240,17 +173,17 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			c2.velocidad_y /= 2
 
 		self.frenar = frenar
-		pilas.tareas.siempre(0.1, self.frenar)
+		self.pilas.tareas.siempre(0.1, self.frenar)
 
 
 		self.seguir = seguir
-		pilas.eventos.click_de_mouse.conectar(self.seguir)
+		self.pilas.eventos.click_de_mouse.conectar(self.seguir)
 
 		minave.imitar(c2, con_rotacion=False)
 
-		emisor = EmisorHUMO(pilas, 0, 0)
+		emisor = EmisorHUMO(self.pilas, 0, 0)
 		url = ruta + '/imagenes/humo.png'
-		emisor.imagen_particula = pilas.imagenes.cargar_grilla(url)
+		emisor.imagen_particula = self.pilas.imagenes.cargar_grilla(url)
 		emisor.constante = True
 		emisor.composicion = "blanco"
 		emisor.duracion = 2
@@ -264,10 +197,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		emisor.transparencia_max = 50
 
 
-		emisor.aprender(pilas.habilidades.Imitar, minave)
+		emisor.aprender(self.pilas.habilidades.Imitar, minave)
 
-		minave.aprender(pilas.habilidades.MoverseConElTeclado)
-		minave.aprender(pilas.habilidades.LimitadoABordesDePantalla)
+		minave.aprender(self.pilas.habilidades.MoverseConElTeclado)
+		minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 
 		def imprimir_texto():
@@ -297,7 +230,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		tareaMostrarTextos = pilas.tareas.siempre(5, imprimir_texto)
+		tareaMostrarTextos = self.pilas.tareas.siempre(5, imprimir_texto)
 
 
 		def nave_choco():
@@ -306,7 +239,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			global contador_choques
 
-			pilas.camara.vibrar(3, 0.5)
+			self.pilas.camara.vibrar(3, 0.5)
 
 			contador_choques += 1
 
@@ -324,19 +257,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				emisor.eliminar()
 				minave.rotacion = [360], 2
 			if contador_choques == 12:
-				pilas.camara.x = minave.x
-				pilas.camara.y = minave.y
-				perdido = Astronauta(pilas);
+				self.pilas.camara.x = minave.x
+				self.pilas.camara.y = minave.y
+				perdido = Astronauta(self.pilas);
 				minave.eliminar()
 				musica.detener()
-				pilas.camara.escala = [1.2, 1.5, 1]
+				self.pilas.camara.escala = [1.2, 1.5, 1]
 				perdido.escala = [1, 0.4]
-				texto_personalizado3 = pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
-				texto_personalizado3.color =  pilas.colores.blanco
+				texto_personalizado3 = self.pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
+				texto_personalizado3.color =  self.pilas.colores.blanco
 				tareaMostrarTextos.terminar()
 				texto_personalizado.transparencia = 100
 				sombra_texto_personalizado.transparencia = 100
-				pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+				self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
 
 
@@ -356,14 +289,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		# Creo un control de coliciones para saber cuando perdes
-		pilas.colisiones.agregar(minave, self.enemigos, nave_choco)
+		self.pilas.colisiones.agregar(minave, self.enemigos, nave_choco)
 
 		#Elimino los límites laterales y la gravedad
-		pilas.fisica.gravedad_x = 0
-		pilas.fisica.gravedad_y = 0
-		pilas.fisica.eliminar_paredes()
-		pilas.fisica.eliminar_techo()
-		pilas.fisica.eliminar_suelo()
+		self.pilas.fisica.gravedad_x = 0
+		self.pilas.fisica.gravedad_y = 0
+		self.pilas.fisica.eliminar_paredes()
+		self.pilas.fisica.eliminar_techo()
+		self.pilas.fisica.eliminar_suelo()
 
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
@@ -385,8 +318,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
 
-			if (nivel <> 1): pilas.camara.vibrar(4, 1)
-			texto_nivel = pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
+			if (nivel <> 1): self.pilas.camara.vibrar(4, 1)
+			texto_nivel = self.pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
 			 magnitud = 40, x = -400, y = 230)
 			texto_nivel.centro = ("izquierda", "centro")
 			texto_nivel.transparencia = 0
@@ -402,7 +335,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		if (flag[0]) == False:
 				print "NIVEL 1"
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide_uno)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide_uno)
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
@@ -413,9 +346,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_dos)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_dos)
 				PantallaJuego.velocidad_asteroides = 6
-				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
+				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
@@ -425,9 +358,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_tres)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_tres)
 				PantallaJuego.velocidad_asteroides = 4
-				fondo = pilas.fondos.Galaxia(dx=-2, dy=0)
+				fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
 				cambio_nivel(3, "Nuestra casa")
 				flag[2] = True
@@ -436,9 +369,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[3]) == False:
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(2, self.crear_asteroide_cuatro)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide_cuatro)
 				PantallaJuego.velocidad_asteroides = 2
-				fondo = pilas.fondos.Galaxia(dx=-1, dy=0)
+				fondo = self.pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
@@ -447,15 +380,15 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = pilas.tareas.siempre(1.5, self.crear_asteroide_cinco)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_cinco)
 				PantallaJuego.velocidad_asteroides = 6
-				fondo = pilas.fondos.Galaxia(dx=-3, dy=0)
+				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
 		if contador_texto == 141:
 			''' FINAL! Ganó el juego '''
-			pilas.escenas.PantallaFinal()
+			self.pilas.escenas.PantallaFinal()
 
 
 
@@ -465,9 +398,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 16:
 			if flagEspeciales[0] == False:
 				
-				hudarsat = HUDArsat(pilas)
+				hudarsat = HUDArsat(self.pilas)
 				hudarsat.z = 1000
-				arsat = Arsat(pilas)
+				arsat = Arsat(self.pilas)
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
 				arsat.z = 999
@@ -480,77 +413,12 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
-		fondo = pilas.fondos.Fondo()
+		fondo = self.pilas.fondos.Fondo()
 		url = ruta + '/imagenes/final.jpg'
-		fondo.imagen = pilas.imagenes.cargar(url)
-		texto_personalizado = pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
+		fondo.imagen = self.pilas.imagenes.cargar(url)
+		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
 		 y= -50, x = 20)
 
 
 
-class PantallaConfig(pilasengine.escenas.Escena):
 
-	mostre_huevo_pascua = False
-
-	def iniciar(self):
-
-		fondo = pilas.fondos.Galaxia(dx=0, dy=0)
-		fondo.imagen = ruta + '/imagenes/fondo-config.png'
-		texto_personalizado = pilas.actores.Texto(u'¡no hay nada que configurar!', magnitud=55, fuente= url_fuente,
-		 y= 0, x = 0)
-		texto_personalizado2 = pilas.actores.Texto(u'presione ESPACIO para continuar', magnitud=14, fuente= url_fuente2, y= -230, x = 0)
-		texto_personalizado2.color =  pilas.colores.gris
-
-
-
-		pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
-
-	def al_pulsar_tecla(self, tecla):
-
-		if tecla.codigo == 32:
-			pilas.escenas.PantallaMenu()
-		else:
-			if (self.mostre_huevo_pascua == False):
-				texto_personalizado3 = pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
-				self.mostre_huevo_pascua = True
-
-# Escena Menu
-def cargar_escena_juego():
-	pilas.escenas.PantallaJuego()
-
-def cargar_escena_config():
-	pilas.escenas.PantallaConfig()
-
-def salir_del_juego():
-	pilas.terminar()
-
-
-class PantallaMenu(pilasengine.escenas.Escena):
-
-	def iniciar(self):
-		fondo = pilas.fondos.Color(pilas.colores.negro)
-		fondo = pilas.fondos.Fondo()
-		url = ruta + '/imagenes/intro.png'
-		fondo.imagen = pilas.imagenes.cargar(url)
-		fondo.z = -2
-
-		luna = Luna(pilas);
-
-		menu = pilas.actores.Menu([
-					('JUGAR', cargar_escena_juego),
-					(u'CONFIG', cargar_escena_config),
-					('SALIR', salir_del_juego),
-				], fuente = url_fuente2, y = 150)
-		menu.escala = 1
-		menu.x = [300],3
-		menu.transparencia = 100
-		menu.transparencia = [0],3
-
-
-pilas.escenas.vincular(PantallaJuego)
-pilas.escenas.vincular(PantallaMenu)
-pilas.escenas.vincular(PantallaConfig)
-pilas.escenas.vincular(PantallaFinal)
-pilas.escenas.PantallaMenu()
-
-pilas.ejecutar()
