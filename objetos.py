@@ -5,6 +5,7 @@
 import pilasengine
 from globales import *
 
+
 # Declaramos Luna. Este actor es utilizado en la presentación.
 
 class Luna(pilasengine.actores.Actor):
@@ -52,4 +53,55 @@ class HUDArsat(pilasengine.actores.Actor):
 		if self.x > 600:
 			self.eliminar()
 		
+class Nave(pilasengine.actores.Actor):
+
+	def iniciar(self):
+		url = ruta + '/imagenes/lanave.png'
+		self.imagen = url
+
+class Astronauta(pilasengine.actores.Actor):
+
+	def iniciar(self):
+		url = ruta + '/imagenes/astronauta.png'
+		self.imagen = url
+
+	def actualizar(self):
+		self.rotacion += 1
+
+class Asteroide(pilasengine.actores.Actor):
+
+	def iniciar(self, tipo):
+		self.tipo = tipo
+
+		if self.tipo == "uno":
+			self.imagen = ruta + '/imagenes/asteroide.png'
+			self.giro = 1
+			self.velocidad = 2
+		if self.tipo == "dos":
+			self.imagen = ruta + '/imagenes/asteroide2.png'
+			self.giro = 3
+			self.velocidad = 6
+		if self.tipo == "tres":
+			self.imagen = ruta + '/imagenes/asteroide3.png'
+			self.giro = 2
+			self.velocidad = 4
+		if self.tipo == "cuatro":
+			self.imagen = ruta + '/imagenes/asteroide4.png'
+			self.giro = -2
+			self.velocidad = 2
+		if self.tipo == "cinco":
+			self.imagen = ruta + '/imagenes/asteroide5.png'
+			self.giro = 3
+			self.velocidad = 6
+		self.escala = 0.3
+		self.x = -500
+		self.y = self.pilas.azar(-300, 300)
+		self.z = self.y
+
+	def actualizar(self):
+		self.rotacion += self.giro
+		self.x += self.velocidad
+		# Elimina el objeto cuando sale de la pantalla.
+		if self.x > 500:
+			self.eliminar()
 
