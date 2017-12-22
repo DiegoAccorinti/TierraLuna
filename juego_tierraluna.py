@@ -9,46 +9,19 @@ from objetos import *
 
 class PantallaJuego(pilasengine.escenas.Escena):
 
-#	velocidad_asteroides = 2
-
 
 	#defino un grupo de enemigos
 	def crear_grupo_enemigos(self):
 		self.enemigos = self.pilas.actores.Grupo()
 
-	def crear_asteroide_uno(self):
-		#creo el actor enemigo
-		asteroide = Asteroide(self.pilas, tipo="uno");
+	def crear_asteroide(self, tipo):
+		asteroide = Asteroide(self.pilas, tipo=tipo);
 		#creo un objeto para la física
 		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
-		
-	def crear_asteroide_dos(self):
-		asteroide = Asteroide(self.pilas, tipo="dos");
-		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=1)
-		asteroide.imitar(c1)
-		self.enemigos.agregar(asteroide)
 
-	def crear_asteroide_tres(self):
-		asteroide = Asteroide(self.pilas, tipo="tres");
-		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=3)
-		asteroide.imitar(c1)
-		self.enemigos.agregar(asteroide)
-		
-	def crear_asteroide_cuatro(self):
-		asteroide = Asteroide(self.pilas, tipo="cuatro");
-		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
-		asteroide.imitar(c1)
-		self.enemigos.agregar(asteroide)
-		
-	def crear_asteroide_cinco(self):
-		asteroide = Asteroide(self.pilas, tipo="cinco");
-		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
-		asteroide.imitar(c1)
-		self.enemigos.agregar(asteroide)
-		
 	def iniciar(self):
 
 		global contador_texto
@@ -261,8 +234,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.pilas.escenas.PantallaMenu()
 
 
-
-
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
@@ -288,7 +259,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		if (flag[0]) == False:
 				print "NIVEL 1"
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide_uno)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno")
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
@@ -299,7 +270,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_dos)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "dos")
 				#PantallaJuego.velocidad_asteroides = 6
 				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
@@ -311,7 +282,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_tres)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres")
 				#PantallaJuego.velocidad_asteroides = 4
 				fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
@@ -322,7 +293,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[3]) == False:
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide_cuatro)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro")
 				#PantallaJuego.velocidad_asteroides = 2
 				fondo = self.pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
@@ -333,7 +304,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide_cinco)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco")
 				#PantallaJuego.velocidad_asteroides = 6
 				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
