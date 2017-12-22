@@ -1,0 +1,12 @@
+emisorHUMO.py usr/share/games/TierraLuna
+TierraLuna.1 usr/share/man/es/man1
+juego.py usr/share/games/TierraLuna
+textos.py usr/share/games/TierraLuna
+Tentacles.ttf usr/share/games/TierraLuna
+SIL-Open-Font-License.txt usr/share/games/TierraLuna
+Oswald-Regular.ttf usr/share/games/TierraLuna
+imagenes usr/share/games/TierraLuna
+data usr/share/games/TierraLuna
+debian/tierraluna.desktop /usr/share/applications
+debian/tierraluna.svg /usr/share/icons/hicolor/scalable/apps
+tierraluna usr/games/

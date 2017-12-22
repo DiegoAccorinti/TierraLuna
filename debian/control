@@ -1,0 +1,18 @@
+Source: tierraluna
+Section: games
+Priority: extra
+Maintainer: Diego Accorinti <diegoacco@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), 
+Standards-Version: 3.9.6
+Homepage: https://github.com/HuayraLinux/TierraLuna
+Vcs-Browser: https://github.com/HuayraLinux/TierraLuna
+Vcs-Git: https://github.com/HuayraLinux/TierraLuna.git
+
+Package: tierraluna
+Architecture: all
+Depends: ${misc:Depends}, python-pilas
+Description: Un juego de viaje hasta la luna
+ aprenderás mucho, si logras llegar. TierraLuna
+ nace como una serie de tutoriales para comenzar 
+ a programar videojuegos usando pilas-engine
+ y Huayra gnu/linux.

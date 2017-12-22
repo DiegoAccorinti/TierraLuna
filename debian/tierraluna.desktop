@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=0.1.9
+Name=TierraLuna
+Comment=Juego de viaje a la luna
+Exec=tierraluna
+Terminal=false
+Type=Application
+Icon=tierraluna
+Categories=GNOME;GTK;Huayra;Game;
+Keywords=tierraluna;Juego;Pilas;
+Name[es_AR]=TierraLuna
