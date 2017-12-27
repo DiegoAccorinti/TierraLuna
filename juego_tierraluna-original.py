@@ -4,24 +4,11 @@ import pilasengine
 from emisorHUMO import *
 from globales import *
 from objetos import *
-from fondos import *
 
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
-
 class PantallaJuego(pilasengine.escenas.Escena):
-	def crearFondosNivel(self, lvl):
-		self.lvl = lvl
-		if self.lvl=="NIVEL1":
-			#Crea el fondo del nivel 1 usando tres capas
-			#capa(self, img, depth, flip)
-			fondo_1 = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=False)
-			medio_1 = capa(self.pilas, img="medio_01.png", tipo="medio", flip=False)
-			frente_1 = capa(self.pilas, img="frente_01.png", tipo="frente", flip=False)
-			#Ahora la mitad inferior de la pantalla
-			#fondo_1_flip = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=True)
-			#medio_1_flip = capa(self.pilas, img="medio_01.png", tipo="medio", flip=True)
-			#frente_1_flip = capa(self.pilas, img="frente_01.png", tipo="frente", flip=True)
+
 
 	#defino un grupo de enemigos
 	def crear_grupo_enemigos(self):
@@ -45,12 +32,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		flagEspeciales = [False]
 		self.crear_grupo_enemigos()
 
-		
-		self.crearFondosNivel(lvl="NIVEL1")
+
 		contador_texto = 0
 		contador_choques = 0
 
-
+		fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
 		musica = self.pilas.sonidos.cargar(url)
@@ -277,7 +263,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 4:
+		if contador_texto == 2:
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
@@ -285,7 +271,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
-				self.crearFondosNivel(lvl="NIVEL2")
+				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
+				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
 
@@ -294,10 +281,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
-
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
-				self.crearFondosNivel(nivel="NIVEL3")				
-
+				fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
+				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
 				cambio_nivel(3, "Nuestra casa")
 				flag[2] = True
 		if contador_texto == 102:
@@ -306,8 +292,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
-				self.crearFondosNivel(nivel="NIVEL4")
-
+				fondo = self.pilas.fondos.Galaxia(dx=-1, dy=0)
+				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
 		if contador_texto == 130:
@@ -316,7 +302,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco", 150)
-				self.crearFondosNivel(nivel="NIVEL5")
+				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
+				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
 		if contador_texto == 141:
