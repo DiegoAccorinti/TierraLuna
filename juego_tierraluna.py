@@ -14,10 +14,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	def crear_grupo_enemigos(self):
 		self.enemigos = self.pilas.actores.Grupo()
 
-	def crear_asteroide(self, tipo):
+	def crear_asteroide(self, tipo, radColision):
 		asteroide = Asteroide(self.pilas, tipo=tipo);
 		#creo un objeto para la física
-		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, 150, restitucion=1, amortiguacion=2)
+		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, radColision, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
@@ -259,7 +259,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		if (flag[0]) == False:
 				print "NIVEL 1"
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno")
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
@@ -270,8 +270,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "dos")
-				#PantallaJuego.velocidad_asteroides = 6
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
 				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_02.png'
 				cambio_nivel(2, "Constelaciones")
@@ -282,8 +281,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres")
-				#PantallaJuego.velocidad_asteroides = 4
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
 				fondo = self.pilas.fondos.Galaxia(dx=-2, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_03.png'
 				cambio_nivel(3, "Nuestra casa")
@@ -293,8 +291,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[3]) == False:
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro")
-				#PantallaJuego.velocidad_asteroides = 2
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
 				fondo = self.pilas.fondos.Galaxia(dx=-1, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "Mirando al pasado")
@@ -304,8 +301,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco")
-				#PantallaJuego.velocidad_asteroides = 6
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco", 150)
 				fondo = self.pilas.fondos.Galaxia(dx=-3, dy=0)
 				fondo.imagen = ruta + '/imagenes/galaxia_05.png'
 				cambio_nivel(5, "La llegada")
