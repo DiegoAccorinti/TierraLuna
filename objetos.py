@@ -81,6 +81,7 @@ class Asteroide(pilasengine.actores.Actor):
 			self.imagen = ruta + '/imagenes/asteroide2.png'
 			self.giro = 3
 			self.velocidad = 6
+
 		if self.tipo == "tres":
 			self.imagen = ruta + '/imagenes/asteroide3.png'
 			self.giro = 2
@@ -104,4 +105,3 @@ class Asteroide(pilasengine.actores.Actor):
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 500:
 			self.eliminar()
-
