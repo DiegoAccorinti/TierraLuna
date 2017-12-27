@@ -5,19 +5,18 @@ import pilasengine
 from globales import *
 from objetos import Luna
 
-# Escena Menu
-#def cargar_escena_juego():
-#	pilas.escenas.PantallaJuego()
-
-#def cargar_escena_config():
-#	pilas.escenas.PantallaConfig()
-
-#def salir_del_juego():
-#	pilas.terminar()
-
 
 class PantallaMenu(pilasengine.escenas.Escena):
+	# Escena Menu
+	def cargar_escena_juego(self):
+		self.pilas.escenas.PantallaJuego()
 
+	def cargar_escena_config(self):
+		self.pilas.escenas.PantallaConfig()
+
+	def salir_del_juego(self):
+		self.pilas.terminar()
+	
 	def iniciar(self):
 		fondo = self.pilas.fondos.Color(self.pilas.colores.negro)
 		fondo = self.pilas.fondos.Fondo()
@@ -28,9 +27,9 @@ class PantallaMenu(pilasengine.escenas.Escena):
 		luna = Luna(self.pilas);
 
 		menu = self.pilas.actores.Menu([
-					('JUGAR', self.pilas.escenas.PantallaJuego),
-					(u'CONFIG', self.pilas.escenas.PantallaConfig),
-					('SALIR', self.pilas.terminar()),
+					('JUGAR', self.cargar_escena_juego),
+					(u'CONFIG', self.cargar_escena_config),
+					('SALIR', self.salir_del_juego),
 				], fuente = url_fuente2, y = 150)
 		menu.escala = 1
 		menu.x = [300],3

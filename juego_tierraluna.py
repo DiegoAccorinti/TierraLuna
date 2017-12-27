@@ -5,6 +5,7 @@ from emisorHUMO import *
 from globales import *
 from objetos import *
 from fondos import *
+from pantalla_menu import *
 
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
@@ -277,7 +278,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 4:
+		if contador_texto == 34:
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
@@ -340,9 +341,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flagEspeciales[0] = True
 			
 
-
-
-			
+	
 
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
