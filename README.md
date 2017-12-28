@@ -3,22 +3,19 @@
 Este proyecto comenzó como una serie de tutoriales creados por el Equipo de Huayra GNU/Linux para aprender programación de videojuegos utilizando PILAS-engine y Huayra. Se trata de un viaje a la luna donde se pondrá a prueba nuestra habilidad, paciencia y temple. TierraLuna es un juego para leer, ya que en el camino aprenderemos conceptos de astronomía, geografía, física y ecología, mientras intentamos superar los cinco niveles y alunizar.
 
 ![](imagenes/preview.png)
+![](imagenes/preview2.png)
+![](imagenes/preview3.png)
 
-##Tutoriales
-
-* 1era. Parte: http://goo.gl/VBlyJu
-* 2da. Parte: http://goo.gl/DgMSNk
-* 3era Parte: http://goo.gl/Or9Z3p
-* 4ta. Parte: http://goo.gl/JopaKk
-* 5ta. Parte: http://goo.gl/jJikp7
-
-##Video completo del Juego
-https://goo.gl/wR5aZH
 
 ##Licencia
 
-Realizado por Diego Accorinti (@diegoacco) para Huayra GNU/Linux · 2016
-Software libre bajo licencia GPL3 
+Realizado por
+
+* Diego Accorinti
+* Claudio Maléfico Andaur
+* Rodrigo Manresa
+
+para Huayra GNU/Linux · Software libre bajo licencia GPL3 
 
 
 This program is free software; you can redistribute it and/or modify
