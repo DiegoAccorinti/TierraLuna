@@ -27,6 +27,7 @@ class Arsat(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/ARSAT-2.png'
 		self.imagen = url
+		self.z = 30
 
 	def actualizar(self):
 		self.rotacion -= 0.06
@@ -45,7 +46,7 @@ class HUDArsat(pilasengine.actores.Actor):
 		self.x = -600
 		self.y = self.pilas.azar(-50, 150)
 		self.escala = 1
-		self.z = -1
+		self.z = 20
 
 	def actualizar(self):
 		self.x += 0.6
@@ -58,6 +59,7 @@ class Nave(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/lanave.png'
 		self.imagen = url
+		self.z = -50
 
 class Astronauta(pilasengine.actores.Actor):
 
@@ -96,7 +98,7 @@ class Asteroide(pilasengine.actores.Actor):
 		self.escala = 0.3
 		self.x = -500
 		self.y = self.pilas.azar(-300, 300)
-		self.z = self.y
+		self.z = self.pilas.azar(-100, 10)
 
 	def actualizar(self):
 		self.rotacion += self.giro

@@ -96,7 +96,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		minave = Nave(self.pilas);
-		minave.z = -2
+		#minave.z = -20
 
 
 		c2 = self.pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
@@ -333,11 +333,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			if flagEspeciales[0] == False:
 				
 				hudarsat = HUDArsat(self.pilas)
-				hudarsat.z = 1000
+				#hudarsat.z = 1000
 				arsat = Arsat(self.pilas)
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
-				arsat.z = 999
+				#arsat.z = 999
 				flagEspeciales[0] = True
 			
 
