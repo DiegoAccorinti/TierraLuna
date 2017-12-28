@@ -7,7 +7,33 @@ from globales import *
 
 
 # Declaramos Luna. Este actor es utilizado en la presentación.
-
+class Tierra(pilasengine.actores.Actor):
+	def iniciar(self):
+		url = ruta + '/imagenes/tierra.png'
+		self.imagen = url
+		self.x = 250
+		self.y = 50
+		self.escala = 1.3
+		self.z = 80
+	def actualizar(self):
+		self.x += 0.1
+		if self.x > 600:
+			self.eliminar()		
+			
+class LunaFinal(pilasengine.actores.Actor):
+	def iniciar(self):
+		url = ruta + '/imagenes/luna_final.png'
+		self.imagen = url
+		self.x = -800
+		self.y = 50
+		self.escala = 1.3
+		self.z = 80
+		self.transparencia = 15
+	def actualizar(self):
+		self.x += 0.1
+		if self.x > -500:
+			self.x = -500 #deja fija la luna si llegó a la mitad de la pantalla
+			
 class Luna(pilasengine.actores.Actor):
 	
 	def iniciar(self):

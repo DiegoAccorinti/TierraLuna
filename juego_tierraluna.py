@@ -71,6 +71,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		
 		self.crearFondosNivel(lvl="NIVEL1")
+		tierra = Tierra(self.pilas)
 		contador_texto = 0
 		contador_choques = 0
 
@@ -332,6 +333,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL5")
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
+				luna_final = LunaFinal(self.pilas)
+				
+				
 		if contador_texto == 141: #141
 			''' FINAL! Ganó el juego '''
 			self.pilas.escenas.PantallaFinal()
