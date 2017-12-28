@@ -29,6 +29,7 @@ class capa(pilasengine.actores.Actor):
 			self.velocidad = 1
 			self.z = 200
 		elif self.tipo =="fondo":
+			self.transparencia = 100
 			self.velocidad = 0.5
 			self.z = 250
 		if self.flip: # Uso una imagen para la mitad superior de la pantalla, la otra la inventamos

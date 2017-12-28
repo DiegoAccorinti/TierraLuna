@@ -16,14 +16,37 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if self.lvl=="NIVEL1":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			fondo_1 = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=False)
-			medio_1 = capa(self.pilas, img="medio_01.png", tipo="medio", flip=False)
-			frente_1 = capa(self.pilas, img="frente_01.png", tipo="frente", flip=False)
+			espacio_fondo = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=False)
+			espacio_fondo.transparencia = 0
+			espacio_medio = capa(self.pilas, img="medio_01.png", tipo="medio", flip=False)
+			espacio_frente = capa(self.pilas, img="frente_01.png", tipo="frente", flip=False)
 			#Ahora la mitad inferior de la pantalla
 			#fondo_1_flip = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=True)
 			#medio_1_flip = capa(self.pilas, img="medio_01.png", tipo="medio", flip=True)
 			#frente_1_flip = capa(self.pilas, img="frente_01.png", tipo="frente", flip=True)
+			espacio_fondo.transparencia = [0], 5
 
+		elif self.lvl=="NIVEL2":
+			#Crea el fondo del nivel 1 usando tres capas
+			#capa(self, img, depth, flip)
+			espacio_fondo = capa(self.pilas, img="fondo_02.jpg", tipo="fondo", flip=False)
+			espacio_fondo.transparencia = [0], 5
+			
+		elif self.lvl=="NIVEL3":
+			#Crea el fondo del nivel 1 usando tres capas
+			#capa(self, img, depth, flip)
+			espacio_fondo = capa(self.pilas, img="fondo_03.jpg", tipo="fondo", flip=False)
+			espacio_fondo.transparencia = [0], 5 
+		elif self.lvl=="NIVEL4":
+			#Crea el fondo del nivel 1 usando tres capas
+			#capa(self, img, depth, flip)
+			espacio_fondo = capa(self.pilas, img="fondo_04.jpg", tipo="fondo", flip=False)
+			espacio_fondo.transparencia = [0], 5 
+		elif self.lvl=="NIVEL5":
+			#Crea el fondo del nivel 1 usando tres capas
+			#capa(self, img, depth, flip)
+			espacio_fondo = capa(self.pilas, img="fondo_05.jpg", tipo="fondo", flip=False)
+			espacio_fondo.transparencia = [0], 5 
 	#defino un grupo de enemigos
 	def crear_grupo_enemigos(self):
 		self.enemigos = self.pilas.actores.Grupo()
@@ -94,11 +117,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		sombra_texto_personalizado.color = self.pilas.colores.negro
 		sombra_texto_personalizado.z = 4
 
-
 		minave = Nave(self.pilas);
-		#minave.z = -20
-
-
+		
 		c2 = self.pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
 			#print "X: " + str(evento.x)
@@ -175,9 +195,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 		def nave_choco():
-
-
-
 			global contador_choques
 
 			self.pilas.camara.vibrar(3, 0.5)
@@ -212,8 +229,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				sombra_texto_personalizado.transparencia = 100
 				self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
 
-
-
 			mensajeNeo = [False, False]
 			print "Choques = " + str(contador_choques)
 			if (contador_choques == 8) and (mensajeNeo[0] == False):
@@ -242,8 +257,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
 		global flag
-		#print tecla.codigo
-		#pilas.escenas.PantallaMenu()
 		if tecla.codigo == 32:
 			flag = [False, False, False, False, False]
 			self.pilas.escenas.PantallaMenu()
@@ -266,6 +279,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			texto_nivel.escala = [0.7],10
 			texto_nivel.x = [-400,-430],10
 			texto_nivel.y = [240],10
+			
 
 
 		if contador_texto == 1:
@@ -278,7 +292,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 34:
+		if contador_texto == 34: #34
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
@@ -290,37 +304,35 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
 
-		if contador_texto == 68:
+		if contador_texto == 68: #68
 			''' ###  NIVEL 3 ### '''
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
 
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
-				self.crearFondosNivel(nivel="NIVEL3")				
-
+				self.crearFondosNivel(lvl="NIVEL3")				
 				cambio_nivel(3, "Nuestra casa")
 				flag[2] = True
-		if contador_texto == 102:
+		if contador_texto == 102: #102
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
 				print "NIVEL 4"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
-				self.crearFondosNivel(nivel="NIVEL4")
-
+				self.crearFondosNivel(lvl="NIVEL4")
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 130:
+		if contador_texto == 130: #130
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco", 150)
-				self.crearFondosNivel(nivel="NIVEL5")
+				self.crearFondosNivel(lvl="NIVEL5")
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
-		if contador_texto == 141:
+		if contador_texto == 141: #141
 			''' FINAL! Ganó el juego '''
 			self.pilas.escenas.PantallaFinal()
 
@@ -331,17 +343,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		# paso de ARSAT-2
 		if contador_texto == 16:
 			if flagEspeciales[0] == False:
-				
 				hudarsat = HUDArsat(self.pilas)
-				#hudarsat.z = 1000
 				arsat = Arsat(self.pilas)
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
-				#arsat.z = 999
 				flagEspeciales[0] = True
-			
-
-	
 
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
@@ -350,7 +356,9 @@ class PantallaFinal(pilasengine.escenas.Escena):
 		fondo.imagen = self.pilas.imagenes.cargar(url)
 		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
 		 y= -50, x = 20)
-
-
-
-
+		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+	def al_pulsar_tecla(self, tecla):
+			global flag
+			if tecla.codigo == 32:
+				flag = [False, False, False, False, False]
+				self.pilas.escenas.PantallaMenu()
