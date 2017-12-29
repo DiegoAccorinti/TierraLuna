@@ -65,11 +65,17 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global contador_choques
 		global flag
 		global flagEspeciales
+		global pausa 
+		pausa = False
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False]
 		self.crear_grupo_enemigos()
-
-		
+		self.nave_energia = self.pilas.actores.Energia(color_relleno = self.pilas.colores.verde)
+		self.nave_energia.progreso = 100
+		self.nave_energia.x = 250
+		self.nave_energia.y = 240
+		self.nave_energia.z = 0
+		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
 		self.crearFondosNivel(lvl="NIVEL1")
 		tierra = Tierra(self.pilas)
 		contador_texto = 0
@@ -201,7 +207,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.pilas.camara.vibrar(3, 0.5)
 
 			contador_choques += 1
-
+			self.nave_energia.progreso -= 100/11
+			if int(self.nave_energia.progreso) in range(20, 40):
+				self.nave_energia.color_relleno = self.pilas.colores.amarillo
+			elif self.nave_energia.progreso <= 20:
+				self.nave_energia.color_relleno = self.pilas.colores.rojo
+			
+				
 			if contador_choques == 2:
 				minave.imagen = ruta + '/imagenes/lanave_01.png'
 				emisor.frecuencia_creacion = 0.07
@@ -262,6 +274,15 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			flag = [False, False, False, False, False]
 			self.pilas.escenas.PantallaMenu()
 
+	def pausar_juego(self, tecla):
+		global pausa 
+		if tecla.codigo == 32:
+			pausa = not pausa 
+			if pausa:
+				self.pilas.widget.pausar()
+			else:
+				self.pilas.widget.continuar()
+			
 
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
@@ -292,6 +313,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
+				#r1 = Reparacion(self.pilas) #Crea puesto de reparacion
 
 		if contador_texto == 34: #34
 			''' ###  NIVEL 2 ###

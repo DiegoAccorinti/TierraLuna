@@ -133,3 +133,21 @@ class Asteroide(pilasengine.actores.Actor):
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 500:
 			self.eliminar()
+
+class Reparacion(pilasengine.actores.Actor):
+
+	def iniciar(self):
+		url = ruta + '/imagenes/reparacion.png'
+		self.imagen = url
+		self.x = 100
+		self.z = 0
+		self.velocidad = 0.3
+		self.delta_escala = 0.005
+		self.escala = 0.3
+		
+	def actualizar(self):
+		self.x += self.velocidad
+		self.escala += self.delta_escala
+		if self.escala > 0.4 or self.escala < 0.3:
+			self.delta_escala = -self.delta_escala
+			#deberia agrandar o achicar entre 0.6 y 1
