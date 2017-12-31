@@ -346,7 +346,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL4")
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 130: #130
+		if contador_texto == 127: #127
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
