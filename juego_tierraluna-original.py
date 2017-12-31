@@ -296,7 +296,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				fondo.imagen = ruta + '/imagenes/galaxia_04.png'
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 130:
+		if contador_texto == 127:
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
