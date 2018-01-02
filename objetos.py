@@ -152,6 +152,11 @@ class Nave(pilasengine.actores.Actor):
 				#os.system('clear')
 				#print "Choques = " + str(self.choques)
 				mensajeNeo[1] = True
+				
+	def choque_repara(self, nave, estacion_reparacion):
+			nave.reparar()
+			estacion_reparacion.eliminar()
+			
 	def morir(self):
 			self.perdido = Astronauta(self.pilas);
 			self.pilas.camara.escala = [1.2, 1.5, 1]
@@ -160,6 +165,14 @@ class Nave(pilasengine.actores.Actor):
 			self.texto_personalizado3.color =  self.pilas.colores.blanco
 
 			self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)		
+	def reparar(self):
+		if self.choques > 3:
+			self.choques -=3
+			self.nave_energia.progreso += 3 * 100/11 
+		else:
+			self.choques = 0
+			self.nave_energia.progreso = 100
+			
 	def al_pulsar_tecla(self, tecla):
 			global flag
 			if tecla.codigo == 32:
@@ -218,7 +231,7 @@ class Reparacion(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/reparacion.png'
 		self.imagen = url
-		self.x = 100
+		self.x = -200
 		self.z = 0
 		self.velocidad = 0.3
 		self.delta_escala = 0.005
