@@ -53,7 +53,7 @@ class Arsat(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/ARSAT-2.png'
 		self.imagen = url
-		self.z = 30
+		self.z = 20
 
 	def actualizar(self):
 		self.rotacion -= 0.06
@@ -72,7 +72,7 @@ class HUDArsat(pilasengine.actores.Actor):
 		self.x = -600
 		self.y = self.pilas.azar(-50, 150)
 		self.escala = 1
-		self.z = 20
+		self.z = 21
 
 	def actualizar(self):
 		self.x += 0.6
