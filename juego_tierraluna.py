@@ -198,7 +198,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	def pausar_juego(self, tecla):
 		global pausa 
-		print tecla.codigo
+		#print tecla.codigo
 		if tecla.codigo == "p":
 			pausa = not pausa 
 			if pausa:
