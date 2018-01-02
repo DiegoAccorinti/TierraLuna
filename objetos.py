@@ -84,6 +84,7 @@ class HUDArsat(pilasengine.actores.Actor):
 class Nave(pilasengine.actores.Actor):
 
 	def iniciar(self):
+		self.estadoPilotoAutomatico = "subiendo"
 		url = ruta + '/imagenes/lanave.png'
 		self.imagen = url
 		self.z = -50
@@ -110,6 +111,26 @@ class Nave(pilasengine.actores.Actor):
 		self.nave_energia.x = 250
 		self.nave_energia.y = 240
 		self.nave_energia.z = 0
+
+	def pilotoAutomatico(self):
+		if self.estadoPilotoAutomatico == "subiendo":
+			self.y += 1
+			if self.x < 70 : self.x += 1
+			if self.x > 70 : self.x -= 1	
+			if self.y > 100:
+				self.estadoPilotoAutomatico = "bajando"
+
+		if self.estadoPilotoAutomatico == "bajando":
+			self.y -= 1
+			if self.x < 70 : self.x += 1
+			if self.x > 70 : self.x -= 1			
+			if self.y < -100:
+				self.estadoPilotoAutomatico = "subiendo"
+				
+				
+
+	def actualizar(self):
+		self.pilotoAutomatico()
 		
 	def choque(self):
 			self.pilas.camara.vibrar(3, 0.5)
