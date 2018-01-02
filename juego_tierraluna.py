@@ -198,7 +198,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	def pausar_juego(self, tecla):
 		global pausa 
-		if tecla.codigo == 32:
+		print tecla.codigo
+		if tecla.codigo == "p":
 			pausa = not pausa 
 			if pausa:
 				self.pilas.widget.pausar()
@@ -275,7 +276,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL4")
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 130: #130
+		if contador_texto == 127: #127
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"

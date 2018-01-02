@@ -32,8 +32,8 @@ class LunaFinal(pilasengine.actores.Actor):
 		self.transparencia = 15
 	def actualizar(self):
 		self.x += 0.1
-		if self.x > -500:
-			self.x = -500 #deja fija la luna si llegó a la mitad de la pantalla
+		if self.x > -400:
+			self.x = -400 #deja fija la luna si llegó a la mitad de la pantalla
 			
 class Luna(pilasengine.actores.Actor):
 	
@@ -54,7 +54,7 @@ class Arsat(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/ARSAT-2.png'
 		self.imagen = url
-		self.z = 30
+		self.z = 20
 
 	def actualizar(self):
 		self.rotacion -= 0.06
@@ -73,7 +73,7 @@ class HUDArsat(pilasengine.actores.Actor):
 		self.x = -600
 		self.y = self.pilas.azar(-50, 150)
 		self.escala = 1
-		self.z = 20
+		self.z = 21
 
 	def actualizar(self):
 		self.x += 0.6
