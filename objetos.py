@@ -31,8 +31,8 @@ class LunaFinal(pilasengine.actores.Actor):
 		self.transparencia = 15
 	def actualizar(self):
 		self.x += 0.1
-		if self.x > -500:
-			self.x = -500 #deja fija la luna si llegó a la mitad de la pantalla
+		if self.x > -400:
+			self.x = -400 #deja fija la luna si llegó a la mitad de la pantalla
 			
 class Luna(pilasengine.actores.Actor):
 	
