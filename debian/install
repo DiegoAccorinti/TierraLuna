@@ -1,6 +1,12 @@
 emisorHUMO.py usr/share/games/TierraLuna
+ejecutar.py usr/share/games/TierraLuna
+fondos.py usr/share/games/TierraLuna
+globales.py usr/share/games/TierraLuna
+juego_tierraluna.py usr/share/games/TierraLuna
+objetos.py usr/share/games/TierraLuna
+pantalla_config.py usr/share/games/TierraLuna
+pantalla_menu.py usr/share/games/TierraLuna
 TierraLuna.1 usr/share/man/es/man1
-juego.py usr/share/games/TierraLuna
 textos.py usr/share/games/TierraLuna
 Tentacles.ttf usr/share/games/TierraLuna
 SIL-Open-Font-License.txt usr/share/games/TierraLuna
