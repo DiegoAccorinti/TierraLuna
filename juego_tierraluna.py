@@ -312,7 +312,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
 				estacion_reparacion.imitar(rep_colision)
 				self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)
-				flagEspeciales[1] = True:
+				flagEspeciales[1] = True
 					
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
