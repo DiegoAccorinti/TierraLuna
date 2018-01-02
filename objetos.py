@@ -132,7 +132,8 @@ class Nave(pilasengine.actores.Actor):
 	def actualizar(self):
 		self.pilotoAutomatico()
 		
-	def choque(self):
+	def choque(self, nave, asteroide):
+			asteroide.estallar(nave.x, nave.y)
 			self.pilas.camara.vibrar(3, 0.5)
 			self.choques += 1
 			self.valor = self.nave_energia.progreso - (100/11)
@@ -249,7 +250,34 @@ class Asteroide(pilasengine.actores.Actor):
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 500:
 			self.eliminar()
+	def estallar(self, x, y):
+		self.fragmentos = Fragmento(self.pilas) * 4
+		self.fragmentos.x = x
+		self.fragmentos.y = y
+		self.eliminar()
 
+class Fragmento(pilasengine.actores.Actor):
+		def iniciar(self):
+			self.imagen = ruta + '/imagenes/fragmento.png'
+			self.giro = 1
+			velocidades = [-4,-3,-2,-1,1,2,3,4]
+			self.velocidadX = velocidades[self.pilas.azar(0, 7)]
+			self.velocidadY = velocidades[self.pilas.azar(0, 7)]
+			self.transparencia = 0.0
+			self.escala = 0.1 * self.pilas.azar(1, 3)
+		def actualizar(self):
+			self.rotacion += self.giro
+			self.x += self.velocidadX
+			self.y += self.velocidadY
+			self.transparencia += 0.5
+			if self.transparencia > 100.0:
+				self.eliminar()
+			# Elimina el objeto cuando sale de la pantalla.
+			if self.x > 500 or self.x < -500:
+				self.eliminar()
+			elif self.y > 400 or self.y < -400:
+				self.eliminar()
+			
 class Reparacion(pilasengine.actores.Actor):
 
 	def iniciar(self):
