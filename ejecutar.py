@@ -4,7 +4,7 @@ import pilasengine
 from globales import *
 from emisorHUMO import *
 from pantalla_config import *
-from pantalla_menu import *
+from pantallas_juego import *
 from juego_tierraluna import *
 
 # Inicializamos PILAS-ENGINE

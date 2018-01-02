@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8
 import pilasengine
-from emisorHUMO import *
+
 from globales import *
 from objetos import *
 from fondos import *
-from pantalla_menu import *
+# Pantallas adicionales
+from pantallas_juego import *
+# LOS TEXTOS
+# Le pido la biblioteca de textos contenido en textos.py
+from textos import textos
 
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
@@ -70,22 +74,16 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False]
 		self.crear_grupo_enemigos()
-		self.nave_energia = self.pilas.actores.Energia(color_relleno = self.pilas.colores.verde)
-		self.nave_energia.progreso = 100
-		self.nave_energia.x = 250
-		self.nave_energia.y = 240
-		self.nave_energia.z = 0
+		
 		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
 		self.crearFondosNivel(lvl="NIVEL1")
 		tierra = Tierra(self.pilas)
 		contador_texto = 0
-		contador_choques = 0
-
 
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
-		musica = self.pilas.sonidos.cargar(url)
-		musica.reproducir(repetir=True)
+		self.musica = self.pilas.sonidos.cargar(url)
+		self.musica.reproducir(repetir=True)
 
 		# Boton de sonido ON / OFF
 		boton_musica = self.pilas.actores.Boton();
@@ -100,33 +98,30 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 			if boton_musica.sonidoOnOff:
 				# apago la musica
-				musica.detener()
+				self.musica.detener()
 				url = ruta + '/imagenes/sonidoOFF.png'
 				boton_musica.imagen = url
 				boton_musica.sonidoOnOff = False
 
 			else:
 				#enciendo la música
-				musica.reproducir(repetir=True)
+				self.musica.reproducir(repetir=True)
 				url = ruta + '/imagenes/sonidoON.png'
 				boton_musica.imagen = url
 				boton_musica.sonidoOnOff = True
 
 		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
-		# LOS TEXTOS
-		#Le pido la biblioteca de textos contenido en textos.py
-		from textos import textos
 
-		texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
-		sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 
-		sombra_texto_personalizado.color = self.pilas.colores.negro
-		sombra_texto_personalizado.z = 4
+		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
+		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
+		self.sombra_texto_personalizado.color = self.pilas.colores.negro
+		self.sombra_texto_personalizado.z = 4
 
-		minave = Nave(self.pilas);
+		self.minave = Nave(self.pilas);
 		
-		c2 = self.pilas.fisica.Circulo(minave.x, minave.y, 70, restitucion=0.1, amortiguacion=0.5)
+		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		def seguir(evento):
 			#print "X: " + str(evento.x)
 			#print "Y: " + str(evento.y)
@@ -147,28 +142,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.seguir = seguir
 		self.pilas.eventos.click_de_mouse.conectar(self.seguir)
 
-		minave.imitar(c2, con_rotacion=False)
+		self.minave.imitar(c2, con_rotacion=False)
+		self.minave.emisor.aprender(self.pilas.habilidades.Imitar, self.minave)
 
-		emisor = EmisorHUMO(self.pilas, 0, 0)
-		url = ruta + '/imagenes/humo.png'
-		emisor.imagen_particula = self.pilas.imagenes.cargar_grilla(url)
-		emisor.constante = True
-		emisor.composicion = "blanco"
-		emisor.duracion = 2
-		emisor.frecuencia_creacion = 0.05
-		emisor.vida = 3
-		emisor.aceleracion_x_min = 36
-		emisor.aceleracion_x_max = 50
-		emisor.x_min = 171
-		emisor.y_min = 2
-		emisor.transparencia_min = 30
-		emisor.transparencia_max = 50
-
-
-		emisor.aprender(self.pilas.habilidades.Imitar, minave)
-
-		minave.aprender(self.pilas.habilidades.MoverseConElTeclado)
-		minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
+		self.minave.aprender(self.pilas.habilidades.MoverseConElTeclado)
+		self.minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 
 		def imprimir_texto():
@@ -176,89 +154,33 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			global contador_texto
 
 			#cambio el texto
-			texto_personalizado.ancho = 900
-			sombra_texto_personalizado.ancho = 900
-			texto_personalizado.texto = textos[contador_texto]
-			sombra_texto_personalizado.texto = textos[contador_texto]
+			self.texto_personalizado.ancho = 900
+			self.sombra_texto_personalizado.ancho = 900
+			self.texto_personalizado.texto = textos[contador_texto]
+			self.sombra_texto_personalizado.texto = textos[contador_texto]
 			#oculto el texto y su sombra
-			texto_personalizado.transparencia = 100
-			sombra_texto_personalizado.transparencia = 100
+			self.texto_personalizado.transparencia = 100
+			self.sombra_texto_personalizado.transparencia = 100
 			#lo hago visible nuevamente
-			texto_personalizado.transparencia = [0]
-			sombra_texto_personalizado.transparencia = [0]
+			self.texto_personalizado.transparencia = [0]
+			self.sombra_texto_personalizado.transparencia = [0]
 
 			# Centro los textos en la pantalla
 
 			factor = len(textos[contador_texto]) * 7
 
-			texto_personalizado.x = 450 - factor
-			sombra_texto_personalizado.x = 450 - factor
+			self.texto_personalizado.x = 450 - factor
+			self.sombra_texto_personalizado.x = 450 - factor
 
 			contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
 
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		tareaMostrarTextos = self.pilas.tareas.siempre(5, imprimir_texto)
-
-
-		def nave_choco():
-			global contador_choques
-
-			self.pilas.camara.vibrar(3, 0.5)
-
-			contador_choques += 1
-			self.nave_energia.progreso -= 100/11
-			if int(self.nave_energia.progreso) in range(20, 40):
-				self.nave_energia.color_relleno = self.pilas.colores.amarillo
-			elif self.nave_energia.progreso <= 20:
-				self.nave_energia.color_relleno = self.pilas.colores.rojo
-			
-				
-			if contador_choques == 2:
-				minave.imagen = ruta + '/imagenes/lanave_01.png'
-				emisor.frecuencia_creacion = 0.07
-			if contador_choques == 4:
-				minave.imagen = ruta + '/imagenes/lanave_02.png'
-				emisor.frecuencia_creacion = 0.10
-			if contador_choques == 7:
-				minave.imagen = ruta + '/imagenes/lanave_03.png'
-				emisor.frecuencia_creacion = 0.13
-			if contador_choques == 9:
-				minave.imagen = ruta + '/imagenes/lanave_04.png'
-				emisor.eliminar()
-				minave.rotacion = [360], 2
-			if contador_choques == 12:
-				self.pilas.camara.x = minave.x
-				self.pilas.camara.y = minave.y
-				perdido = Astronauta(self.pilas);
-				minave.eliminar()
-				musica.detener()
-				self.pilas.camara.escala = [1.2, 1.5, 1]
-				perdido.escala = [1, 0.4]
-				texto_personalizado3 = self.pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
-				texto_personalizado3.color =  self.pilas.colores.blanco
-				tareaMostrarTextos.terminar()
-				texto_personalizado.transparencia = 100
-				sombra_texto_personalizado.transparencia = 100
-				self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
-
-			mensajeNeo = [False, False]
-			print "Choques = " + str(contador_choques)
-			if (contador_choques == 8) and (mensajeNeo[0] == False):
-				os.system('clear')
-				print "Despierta, Neo."
-				print "La Matrix te tiene."
-				print "Sigue al conejo blanco."
-				print "Toc toc, Neo."
-				mensajeNeo[0] = True
-			if (contador_choques == 9) and (mensajeNeo[1] == False):
-				os.system('clear')
-				print "Choques = " + str(contador_choques)
-				mensajeNeo[1] = True
-
-
+		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, imprimir_texto)
+		print "tareaMostrarTextos = ", self.tareaMostrarTextos
+		
 		# Creo un control de coliciones para saber cuando perdes
-		self.pilas.colisiones.agregar(minave, self.enemigos, nave_choco)
+		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
 
 		#Elimino los límites laterales y la gravedad
 		self.pilas.fisica.gravedad_x = 0
@@ -290,6 +212,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global contador_texto
 		global flag
 
+		if self.minave.choques == 12:
+			self.tareaMostrarTextos.terminar()
+			self.texto_personalizado.transparencia = 100
+			self.sombra_texto_personalizado.transparencia = 100
+			self.musica.detener()
+			self.minave.choques +=1 # Hack para evitar que vuelva a terminar la lista de tareas
+
 		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
 
 			if (nivel <> 1): self.pilas.camara.vibrar(4, 1)
@@ -303,7 +232,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			texto_nivel.y = [240],10
 			
 
-
+			
 		if contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
@@ -388,3 +317,4 @@ class PantallaFinal(pilasengine.escenas.Escena):
 			if tecla.codigo == 32:
 				flag = [False, False, False, False, False]
 				self.pilas.escenas.PantallaMenu()
+

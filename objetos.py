@@ -4,6 +4,7 @@
 
 import pilasengine
 from globales import *
+from emisorHUMO import *
 
 
 # Declaramos Luna. Este actor es utilizado en la presentación.
@@ -86,6 +87,84 @@ class Nave(pilasengine.actores.Actor):
 		url = ruta + '/imagenes/lanave.png'
 		self.imagen = url
 		self.z = -50
+		self.choques = 0
+		#Crea un objeto asociado que emite particulas
+		self.emisor = EmisorHUMO(self.pilas, 0, 0)
+		url = ruta + '/imagenes/humo.png'
+		self.emisor.imagen_particula = self.pilas.imagenes.cargar_grilla(url)
+		self.emisor.constante = True
+		self.emisor.composicion = "blanco"
+		self.emisor.duracion = 2
+		self.emisor.frecuencia_creacion = 0.05
+		self.emisor.vida = 3
+		self.emisor.aceleracion_x_min = 36
+		self.emisor.aceleracion_x_max = 50
+		self.emisor.x_min = 171
+		self.emisor.y_min = 2
+		self.emisor.transparencia_min = 30
+		self.emisor.transparencia_max = 50
+		
+		self.nave_energia = self.pilas.actores.Energia(color_relleno = self.pilas.colores.verde)
+		self.nave_energia.progreso = 100
+		self.nave_energia.x = 250
+		self.nave_energia.y = 240
+		self.nave_energia.z = 0
+		
+	def choque(self):
+			self.pilas.camara.vibrar(3, 0.5)
+			self.choques += 1
+			self.nave_energia.progreso -= 100/11
+			if int(self.nave_energia.progreso) in range(20, 40):
+				self.nave_energia.color_relleno = self.pilas.colores.amarillo
+			elif self.nave_energia.progreso <= 20:
+				self.nave_energia.color_relleno = self.pilas.colores.rojo
+			if self.choques == 2:
+				self.imagen = ruta + '/imagenes/lanave_01.png'
+				self.emisor.frecuencia_creacion = 0.07
+			if self.choques == 4:
+				self.imagen = ruta + '/imagenes/lanave_02.png'
+				self.emisor.frecuencia_creacion = 0.10
+			if self.choques == 7:
+				self.imagen = ruta + '/imagenes/lanave_03.png'
+				self.emisor.frecuencia_creacion = 0.13
+			if self.choques == 9:
+				self.imagen = ruta + '/imagenes/lanave_04.png'
+				self.emisor.eliminar()
+				self.rotacion = [360], 2
+			if self.choques == 12: # MUERE
+				self.pilas.camara.x = self.x
+				self.pilas.camara.y = self.y
+				self.morir() #Llamar a astronauta flotando o coso.
+				self.eliminar()
+				
+				
+
+			mensajeNeo = [False, False]
+			print "Choques = " + str(self.choques)
+			if (self.choques == 8) and (mensajeNeo[0] == False):
+				#os.system('clear')
+				#print "Despierta, Neo."
+				#print "La Matrix te tiene."
+				#print "Sigue al conejo blanco."
+				#print "Toc toc, Neo."
+				mensajeNeo[0] = True
+			if (self.choques == 9) and (mensajeNeo[1] == False):
+				#os.system('clear')
+				#print "Choques = " + str(self.choques)
+				mensajeNeo[1] = True
+	def morir(self):
+			self.perdido = Astronauta(self.pilas);
+			self.pilas.camara.escala = [1.2, 1.5, 1]
+			self.perdido.escala = [1, 0.4]
+			self.texto_personalizado3 = self.pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
+			self.texto_personalizado3.color =  self.pilas.colores.blanco
+
+			self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)		
+	def al_pulsar_tecla(self, tecla):
+			global flag
+			if tecla.codigo == 32:
+				flag = [False, False, False, False, False]
+				self.pilas.escenas.PantallaMenu()
 
 class Astronauta(pilasengine.actores.Actor):
 
