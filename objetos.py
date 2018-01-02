@@ -104,8 +104,9 @@ class Nave(pilasengine.actores.Actor):
 		self.emisor.transparencia_min = 30
 		self.emisor.transparencia_max = 50
 		
-		self.nave_energia = self.pilas.actores.Energia(color_relleno = self.pilas.colores.verde)
-		self.nave_energia.progreso = 100
+		#self.nave_energia = self.pilas.actores.Energia(color_relleno = self.pilas.colores.verde)
+		self.nave_energia = self.pilas.actores.Energia(progreso = 100, color_relleno = self.pilas.colores.Color(56,255,75),
+	ancho=190, alto=20, con_sombra = False, con_brillo = False)
 		self.nave_energia.x = 250
 		self.nave_energia.y = 240
 		self.nave_energia.z = 0
@@ -113,11 +114,12 @@ class Nave(pilasengine.actores.Actor):
 	def choque(self):
 			self.pilas.camara.vibrar(3, 0.5)
 			self.choques += 1
-			self.nave_energia.progreso -= 100/11
+			self.valor = self.nave_energia.progreso - (100/11)
+			self.nave_energia.progreso = [self.valor]
 			if int(self.nave_energia.progreso) in range(20, 40):
-				self.nave_energia.color_relleno = self.pilas.colores.amarillo
+				self.nave_energia.color_relleno = self.pilas.colores.Color(230,200,0) #amarillo
 			elif self.nave_energia.progreso <= 20:
-				self.nave_energia.color_relleno = self.pilas.colores.rojo
+				self.nave_energia.color_relleno = self.pilas.colores.Color(230,49,0) # rojo 
 			if self.choques == 2:
 				self.imagen = ruta + '/imagenes/lanave_01.png'
 				self.emisor.frecuencia_creacion = 0.07
@@ -131,6 +133,8 @@ class Nave(pilasengine.actores.Actor):
 				self.imagen = ruta + '/imagenes/lanave_04.png'
 				self.emisor.eliminar()
 				self.rotacion = [360], 2
+			if self.choques == 11:	
+				self.nave_energia.progreso = [2]
 			if self.choques == 12: # MUERE
 				self.pilas.camara.x = self.x
 				self.pilas.camara.y = self.y
@@ -142,15 +146,15 @@ class Nave(pilasengine.actores.Actor):
 			mensajeNeo = [False, False]
 			print "Choques = " + str(self.choques)
 			if (self.choques == 8) and (mensajeNeo[0] == False):
-				#os.system('clear')
-				#print "Despierta, Neo."
-				#print "La Matrix te tiene."
-				#print "Sigue al conejo blanco."
-				#print "Toc toc, Neo."
+				os.system('clear')
+				print "Despierta, Neo."
+				print "La Matrix te tiene."
+				print "Sigue al conejo blanco."
+				print "Toc toc, Neo."
 				mensajeNeo[0] = True
 			if (self.choques == 9) and (mensajeNeo[1] == False):
-				#os.system('clear')
-				#print "Choques = " + str(self.choques)
+				os.system('clear')
+				print "Choques = " + str(self.choques)
 				mensajeNeo[1] = True
 	def morir(self):
 			self.perdido = Astronauta(self.pilas);
@@ -158,8 +162,8 @@ class Nave(pilasengine.actores.Actor):
 			self.perdido.escala = [1, 0.4]
 			self.texto_personalizado3 = self.pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
 			self.texto_personalizado3.color =  self.pilas.colores.blanco
-
 			self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)		
+
 	def al_pulsar_tecla(self, tecla):
 			global flag
 			if tecla.codigo == 32:
