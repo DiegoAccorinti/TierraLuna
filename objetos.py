@@ -140,8 +140,6 @@ class Nave(pilasengine.actores.Actor):
 				self.pilas.camara.y = self.y
 				self.morir() #Llamar a astronauta flotando o coso.
 				self.eliminar()
-				
-				
 
 			mensajeNeo = [False, False]
 			print "Choques = " + str(self.choques)
@@ -236,7 +234,7 @@ class Reparacion(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/reparacion.png'
 		self.imagen = url
-		self.x = -200
+		self.x = -400
 		self.z = 0
 		self.velocidad = 0.3
 		self.delta_escala = 0.005

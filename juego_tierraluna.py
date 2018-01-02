@@ -177,7 +177,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, imprimir_texto)
-		print "tareaMostrarTextos = ", self.tareaMostrarTextos
 		
 		# Creo un control de coliciones para saber cuando perdes
 		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
