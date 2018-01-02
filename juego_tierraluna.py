@@ -307,12 +307,12 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				arsat.y = hudarsat.y
 				flagEspeciales[0] = True
 		if contador_texto == 100:
-			flagEspeciales[1] == False:
+			if flagEspeciales[1] == False:
 				estacion_reparacion = Reparacion(self.pilas) # Crea una estacion de reparacion para reparar un poco la nave
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
 				estacion_reparacion.imitar(rep_colision)
 				self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)
-				flagEspeciales[1] == True:
+				flagEspeciales[1] = True:
 					
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
