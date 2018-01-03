@@ -136,7 +136,7 @@ class Nave(pilasengine.actores.Actor):
 			self.pilotoAutomaticoActivo()
 		
 	def choque(self, nave, asteroide):
-			asteroide.estallar(nave.x, nave.y)
+			asteroide.estallar(asteroide.x, asteroide.y)
 			self.pilas.camara.vibrar(3, 0.5)
 			self.choques += 1
 			self.valor = self.nave_energia.progreso - (100/11)
