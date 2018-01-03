@@ -289,7 +289,7 @@ class Reparacion(pilasengine.actores.Actor):
 	def iniciar(self):
 		url = ruta + '/imagenes/reparacion_bot.png'
 		self.imagen = url
-		self.x = -400
+		self.x = -500
 		self.z = -51
 		self.velocidad = 0.3
 		self.delta_escala = 0.001
