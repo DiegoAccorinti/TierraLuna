@@ -242,7 +242,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
-				#r1 = Reparacion(self.pilas) #Crea puesto de reparacion
 
 		if contador_texto == 34: #34
 			''' ###  NIVEL 2 ###
@@ -305,9 +304,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
 				flagEspeciales[0] = True
-		if contador_texto == 100:
+		
+		# Crea una estacion de reparacion para reparar un poco la nave
+		if contador_texto == 2:
 			if flagEspeciales[1] == False:
-				estacion_reparacion = Reparacion(self.pilas) # Crea una estacion de reparacion para reparar un poco la nave
+				estacion_reparacion = Reparacion(self.pilas) 
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
 				estacion_reparacion.imitar(rep_colision)
 				self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)

@@ -182,7 +182,8 @@ class Nave(pilasengine.actores.Actor):
 				
 	def choque_repara(self, nave, estacion_reparacion):
 			nave.reparar()
-			estacion_reparacion.eliminar()
+			#estacion_reparacion.eliminar()
+			estacion_reparacion.reparar_nave(nave.x, nave.y)
 			
 	def morir(self):
 			self.perdido = Astronauta(self.pilas);
@@ -195,10 +196,12 @@ class Nave(pilasengine.actores.Actor):
 	def reparar(self):
 		if self.choques > 3:
 			self.choques -=3
-			self.nave_energia.progreso += 3 * 100/11 
+			self.valor = self.nave_energia.progreso + 3 * 100/11
+			self.nave_energia.progreso = [self.valor]
+			
 		else:
 			self.choques = 0
-			self.nave_energia.progreso = 100
+			self.nave_energia.progreso = [100]
 			
 
 	def al_pulsar_tecla(self, tecla):
@@ -284,17 +287,24 @@ class Fragmento(pilasengine.actores.Actor):
 class Reparacion(pilasengine.actores.Actor):
 
 	def iniciar(self):
-		url = ruta + '/imagenes/reparacion.png'
+		url = ruta + '/imagenes/reparacion_bot.png'
 		self.imagen = url
 		self.x = -400
-		self.z = 0
+		self.z = -51
 		self.velocidad = 0.3
-		self.delta_escala = 0.005
-		self.escala = 0.3
+		self.delta_escala = 0.001
+		self.escala = 0.5
+		
+	def reparar_nave(self, x, y):
+		self.transparencia = [100],1.5
+		url = ruta + '/imagenes/reparacion_bot_ojo_rojo.png'
+		self.imagen = url
 		
 	def actualizar(self):
 		self.x += self.velocidad
 		self.escala += self.delta_escala
-		if self.escala > 0.4 or self.escala < 0.3:
+		if self.escala > 0.55 or self.escala < 0.5:
 			self.delta_escala = -self.delta_escala
 			#deberia agrandar o achicar entre 0.6 y 1
+		if self.transparencia == 100:  # si la transparencia es total,  elimino el actor.
+			self.eliminar()
