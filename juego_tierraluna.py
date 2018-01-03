@@ -118,7 +118,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
 		self.sombra_texto_personalizado.z = 4
 
-		self.minave = Nave(self.pilas);
+		self.minave = Nave(self.pilas, pilotoAutomatico = False);
 		
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
