@@ -246,11 +246,11 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if contador_texto == 34: #34
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
-			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
+			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
 			if (flag[1]) == False:
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
 				self.crearFondosNivel(lvl="NIVEL2")
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
@@ -276,19 +276,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL4")
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 127: #127
+		if contador_texto == 136: #136
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "cinco", 150)
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
 				self.crearFondosNivel(lvl="NIVEL5")
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
 				luna_final = LunaFinal(self.pilas)
 				
 				
-		if contador_texto == 141: #141
+		if contador_texto == 170: #170
 			''' FINAL! Ganó el juego '''
 			self.pilas.escenas.PantallaFinal()
 
