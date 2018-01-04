@@ -306,7 +306,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flagEspeciales[0] = True
 		
 		# Crea una estacion de reparacion para reparar un poco la nave
-		if contador_texto == 2:
+		if contador_texto == 100:
 			if flagEspeciales[1] == False:
 				estacion_reparacion = Reparacion(self.pilas) 
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
