@@ -243,9 +243,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 34: #34
+		if contador_texto == 35: #35
 			''' ###  NIVEL 2 ###
-			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
+			Llegamos al segundo nivel. Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
 			if (flag[1]) == False:
 				print "NIVEL 2"
@@ -255,7 +255,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
 
-		if contador_texto == 68: #68
+		if contador_texto == 69: #69
 			''' ###  NIVEL 3 ### '''
 			if (flag[2]) == False:
 				print "NIVEL 3"
@@ -265,7 +265,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL3")				
 				cambio_nivel(3, "Nuestra casa")
 				flag[2] = True
-		if contador_texto == 102: #102
+		if contador_texto == 103: #103
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
 				print "NIVEL 4"
@@ -276,7 +276,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				self.crearFondosNivel(lvl="NIVEL4")
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 136: #136
+		if contador_texto == 137: #137
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
