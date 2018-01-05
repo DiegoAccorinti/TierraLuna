@@ -27,6 +27,9 @@ class PantallaMenu(pilasengine.escenas.Escena):
 	def cargar_escena_config(self):
 		self.pilas.escenas.PantallaConfig()
 
+	def cargar_escena_demo(self):
+		self.pilas.escenas.PantallaDemo()
+		
 	def salir_del_juego(self):
 		self.pilas.terminar()
 	
@@ -41,6 +44,7 @@ class PantallaMenu(pilasengine.escenas.Escena):
 
 		menu = self.pilas.actores.Menu([
 					('JUGAR', self.cargar_escena_juego),
+					('DEMO', self.cargar_escena_demo),
 					(u'CONFIG', self.cargar_escena_config),
 					('SALIR', self.salir_del_juego),
 				], fuente = url_fuente2, y = 150)
