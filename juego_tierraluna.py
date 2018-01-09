@@ -77,7 +77,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
 		self.crearFondosNivel(lvl="NIVEL1")
 		tierra = Tierra(self.pilas)
-		contador_texto = 0
+		
+		
+		
+		contador_texto = 33  #0
+
+
+
 
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
