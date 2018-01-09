@@ -62,7 +62,21 @@ class Arsat(pilasengine.actores.Actor):
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 600:
 			self.eliminar()
+
+class HieloEnNave(pilasengine.actores.Actor):
+	
+	def iniciar(self,x,y):  # Hielo que aparece en la nave al chocar contra asteroide nivel 2. Desaparece a los pocos segundos.
+		url = ruta + '/imagenes/Hielo-en-nave.png'
+		self.imagen = url
+		self.x = x
+		self.y = y
+		self.z = -51
+		self.transparencia = 0
+		self.transparencia = [100],4
 		
+	def actualizar(self):
+		if self.transparencia == 100: # Elimino el objeto cuando se hace totalmente transparente.
+			self.eliminar()
 
 			
 class HUDArsat(pilasengine.actores.Actor):
@@ -84,6 +98,7 @@ class HUDArsat(pilasengine.actores.Actor):
 class Nave(pilasengine.actores.Actor):
 
 	def iniciar(self, pilotoAutomatico):
+		self.grupo_cubitos = self.pilas.actores.Grupo()
 		self.pilotoAutomatico = pilotoAutomatico
 		self.estadoPilotoAutomatico = "subiendo"
 		url = ruta + '/imagenes/lanave.png'
@@ -136,7 +151,9 @@ class Nave(pilasengine.actores.Actor):
 			self.pilotoAutomaticoActivo()
 		
 	def choque(self, nave, asteroide):
-			asteroide.estallar(asteroide.x, asteroide.y)
+			
+			asteroide.estallar(asteroide.x, asteroide.y, asteroide.tipo, nave)
+			
 			self.pilas.camara.vibrar(3, 0.5)
 			self.choques += 1
 			self.valor = self.nave_energia.progreso - (100/11)
@@ -165,7 +182,9 @@ class Nave(pilasengine.actores.Actor):
 				self.pilas.camara.y = self.y
 				self.morir() #Llamar a astronauta flotando o coso.
 				self.eliminar()
-
+				for cubito in self.grupo_cubitos:  # al morir puede estar congelada más de una vez, por eso elimino todos los "cubitos" que existan.
+					cubito.eliminar()
+				
 			mensajeNeo = [False, False]
 			print "Choques = " + str(self.choques)
 			if (self.choques == 8) and (mensajeNeo[0] == False):
@@ -202,7 +221,11 @@ class Nave(pilasengine.actores.Actor):
 		else:
 			self.choques = 0
 			self.nave_energia.progreso = [100]
-			
+	
+	def congelar(self): # Cuando la nave choca contra un asteroide nivel 2,  se congela.
+			self.cubito = HieloEnNave(self.pilas,self.x, self.y)
+			self.cubito.imitar(self)
+			self.grupo_cubitos.agregar(self.cubito)  # agrego el nuevo hielo de la nave a un grupo.
 
 	def al_pulsar_tecla(self, tecla):
 			global flag
@@ -256,11 +279,17 @@ class Asteroide(pilasengine.actores.Actor):
 		# Elimina el objeto cuando sale de la pantalla.
 		if self.x > 500:
 			self.eliminar()
-	def estallar(self, x, y):
-		self.fragmentos = Fragmento(self.pilas) * 4
-		self.fragmentos.x = x
-		self.fragmentos.y = y
-		self.eliminar()
+			
+			
+	def estallar(self, x, y, tipo, nave):
+		if tipo == "uno":  # El asteroide estalla en pedazos.
+			self.fragmentos = Fragmento(self.pilas) * 4
+			self.fragmentos.x = x
+			self.fragmentos.y = y
+			self.eliminar()
+		if tipo == "dos": # El asteroide  congela la nave.
+			nave.congelar()
+			#self.eliminar()
 
 class Fragmento(pilasengine.actores.Actor):
 		def iniciar(self):
