@@ -151,7 +151,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.minave.imitar(c2, con_rotacion=False)
 		self.minave.emisor.aprender(self.pilas.habilidades.Imitar, self.minave)
 
-		self.minave.aprender(self.pilas.habilidades.MoverseConElTeclado)
+		self.minave.aprender(self.pilas.habilidades.MoverseConElTeclado, velocidad_maxima=3)
 		self.minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 

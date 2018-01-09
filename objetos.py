@@ -149,7 +149,12 @@ class Nave(pilasengine.actores.Actor):
 		
 		if self.pilotoAutomatico :
 			self.pilotoAutomaticoActivo()
-		
+		if self.grupo_cubitos:
+			self.habilidades.MoverseConElTeclado.velocidad_maxima = 1
+		else:
+			self.habilidades.MoverseConElTeclado.velocidad_maxima = 3
+				
+				
 	def choque(self, nave, asteroide):
 			
 			asteroide.estallar(asteroide.x, asteroide.y, asteroide.tipo, nave)
@@ -226,6 +231,7 @@ class Nave(pilasengine.actores.Actor):
 			self.cubito = HieloEnNave(self.pilas,self.x, self.y)
 			self.cubito.imitar(self)
 			self.grupo_cubitos.agregar(self.cubito)  # agrego el nuevo hielo de la nave a un grupo.
+	
 
 	def al_pulsar_tecla(self, tecla):
 			global flag
