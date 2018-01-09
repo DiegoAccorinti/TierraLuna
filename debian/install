@@ -5,7 +5,7 @@ globales.py usr/share/games/TierraLuna
 juego_tierraluna.py usr/share/games/TierraLuna
 objetos.py usr/share/games/TierraLuna
 pantalla_config.py usr/share/games/TierraLuna
-pantalla_menu.py usr/share/games/TierraLuna
+pantallas_juego.py usr/share/games/TierraLuna
 TierraLuna.1 usr/share/man/es/man1
 textos.py usr/share/games/TierraLuna
 Tentacles.ttf usr/share/games/TierraLuna
