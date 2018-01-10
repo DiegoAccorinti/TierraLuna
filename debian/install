@@ -10,6 +10,7 @@ TierraLuna.1 usr/share/man/es/man1
 textos.py usr/share/games/TierraLuna
 Tentacles.ttf usr/share/games/TierraLuna
 SIL-Open-Font-License.txt usr/share/games/TierraLuna
+movimiento_de_nave.py usr/share/games/TierraLuna
 Oswald-Regular.ttf usr/share/games/TierraLuna
 imagenes usr/share/games/TierraLuna
 data usr/share/games/TierraLuna
