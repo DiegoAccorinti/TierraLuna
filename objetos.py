@@ -150,9 +150,9 @@ class Nave(pilasengine.actores.Actor):
 		if self.pilotoAutomatico :
 			self.pilotoAutomaticoActivo()
 		if self.grupo_cubitos:
-			self.habilidades.MoverseConElTeclado.velocidad_maxima = 1 # Si está congelada,  baja la velocidad.
+			self.habilidades.MovimientoDeNave.velocidad_maxima = 1 # Si está congelada,  baja la velocidad.
 		else:
-			self.habilidades.MoverseConElTeclado.velocidad_maxima = 3 # Esto debería hacerse de otra manera para que no se ejecute esta línea constantemente.
+			self.habilidades.MovimientoDeNave.velocidad_maxima = 3 # Esto debería hacerse de otra manera para que no se ejecute esta línea constantemente.
 				
 				
 	def choque(self, nave, asteroide):
