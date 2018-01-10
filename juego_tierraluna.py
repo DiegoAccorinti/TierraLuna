@@ -81,7 +81,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		
 		
 		
-		contador_texto = 33  #0
+		contador_texto = 0 #0
 
 
 
