@@ -10,6 +10,7 @@ from pantallas_juego import *
 # LOS TEXTOS
 # Le pido la biblioteca de textos contenido en textos.py
 from textos import textos
+from movimiento_de_nave import MovimientoDeNave
 
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
@@ -147,7 +148,7 @@ class PantallaDemo(pilasengine.escenas.Escena):
 		self.minave.imitar(c2, con_rotacion=False)
 		self.minave.emisor.aprender(self.pilas.habilidades.Imitar, self.minave)
 
-		self.minave.aprender(self.pilas.habilidades.MoverseConElTeclado)
+		self.minave.aprender(MovimientoDeNave)
 		self.minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 
