@@ -302,7 +302,7 @@ class PantallaDemo(pilasengine.escenas.Escena):
 		if contador_texto == 6:
 			if flagEspeciales[0] == False:
 				hudarsat = HUDArsat(self.pilas)
-				arsat = Arsat(self.pilas)
+				arsat = Arsat(self.pilas, self.mitema[1])
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
 				flagEspeciales[0] = True
