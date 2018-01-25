@@ -21,19 +21,27 @@ class PantallaFinal(pilasengine.escenas.Escena):
 
 class PantallaMenu(pilasengine.escenas.Escena):
 	# Escena Menu
+	
+	
 	def cargar_escena_juego(self):
-		self.pilas.escenas.PantallaJuego()
+		self.pilas.escenas.PantallaJuego(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 
 	def cargar_escena_config(self):
-		self.pilas.escenas.PantallaConfig()
+		self.pilas.escenas.PantallaConfig(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 
 	def cargar_escena_demo(self):
-		self.pilas.escenas.PantallaDemo()
+		self.pilas.escenas.PantallaDemo(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 		
 	def salir_del_juego(self):
 		self.pilas.terminar()
 	
-	def iniciar(self):
+	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
+		
+		self.tema_sprites = tema_sprites
+		self.tema_fondos = tema_fondos
+		self.tema_textos = tema_textos
+		self.tema_actual = tema_actual 
+		
 		fondo = self.pilas.fondos.Color(self.pilas.colores.negro)
 		fondo = self.pilas.fondos.Fondo()
 		url = ruta + '/imagenes/intro.png'

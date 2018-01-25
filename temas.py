@@ -12,6 +12,6 @@ temas = {}
 
 temas['original']=['Original', True, True, True]
 temas['steampunk']=['Steampunk', True, True, False]
-temas['interior']=['Viaje Interior', True, True, True]
-temas['conurbania']=['Conurbania', False, False, False]
+#temas['interior']=['Viaje Interior', True, True, True]
+#temas['conurbania']=['Conurbania', False, False, False]
 

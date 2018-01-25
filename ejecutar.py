@@ -27,6 +27,6 @@ pilas.escenas.vincular(PantallaMenu)
 pilas.escenas.vincular(PantallaDemo)
 pilas.escenas.vincular(PantallaConfig)
 pilas.escenas.vincular(PantallaFinal)
-pilas.escenas.PantallaMenu()
+pilas.escenas.PantallaMenu(tema_actual_init, tema_sprites_init, tema_fondos_init, tema_textos_init)
 
 pilas.ejecutar()

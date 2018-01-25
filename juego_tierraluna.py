@@ -7,15 +7,19 @@ from objetos import *
 from fondos import *
 # Pantallas adicionales
 from pantallas_juego import *
+
 # LOS TEXTOS
 # Le pido la biblioteca de textos contenido en textos.py
 from textos import textos
 from movimiento_de_nave import MovimientoDeNave
 
+
+
 # Esta escena es el juego propiamente. Es lo que comenzará cuando elijamos "iniciar juego" en el menú principal
 
 
 class PantallaJuego(pilasengine.escenas.Escena):
+	
 	def crearFondosNivel(self, lvl):
 		self.lvl = lvl
 		if self.lvl=="NIVEL1":
@@ -57,19 +61,26 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.enemigos = self.pilas.actores.Grupo()
 
 	def crear_asteroide(self, tipo, radColision):
-		asteroide = Asteroide(self.pilas, tipo=tipo);
+		asteroide = Asteroide(self.pilas, tema=self.tema_sprites, tipo=tipo);
 		#creo un objeto para la física
 		c1 = self.pilas.fisica.Circulo(asteroide.x, asteroide.y, radColision, restitucion=1, amortiguacion=2)
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
 
-	def iniciar(self):
+	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
 
 		global contador_texto
 		global flag
 		global flagEspeciales
-		global pausa 
+		global pausa
+
+		self.tema_sprites = tema_sprites
+		self.tema_fondos = tema_fondos
+		self.tema_textos = tema_textos 
+		self.tema_actual = tema_actual
+		
+		mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
 		pausa = False
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False, False]
@@ -77,14 +88,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		
 		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
 		self.crearFondosNivel(lvl="NIVEL1")
-		tierra = Tierra(self.pilas)
-		
-		
+		tierra = Tierra(self.pilas, tema=self.tema_sprites)
 		
 		contador_texto = 0 #0
-
-
-
 
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
@@ -118,14 +124,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
-
-
 		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
 		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
 		self.sombra_texto_personalizado.z = 4
 
-		self.minave = Nave(self.pilas, pilotoAutomatico = False);
+		
+		self.minave = Nave(self.pilas, mitema, pilotoAutomatico = False);
 		
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
@@ -144,7 +149,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		self.frenar = frenar
 		self.pilas.tareas.siempre(0.1, self.frenar)
-
 
 		self.seguir = seguir
 		self.pilas.eventos.click_de_mouse.conectar(self.seguir)
@@ -237,7 +241,6 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			texto_nivel.escala = [0.7],10
 			texto_nivel.x = [-400,-430],10
 			texto_nivel.y = [240],10
-			
 
 			
 		if contador_texto == 1:

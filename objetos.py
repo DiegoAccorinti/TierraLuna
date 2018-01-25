@@ -9,8 +9,9 @@ from emisorHUMO import *
 
 # Declaramos Luna. Este actor es utilizado en la presentación.
 class Tierra(pilasengine.actores.Actor):
-	def iniciar(self):
-		url = ruta + '/imagenes/tierra.png'
+	def iniciar(self, tema):
+		self.tema = tema
+		url = ruta + self.tema + '/tierra.png'
 		self.imagen = url
 		self.x = 250
 		self.y = 50
@@ -22,8 +23,9 @@ class Tierra(pilasengine.actores.Actor):
 			self.eliminar()		
 			
 class LunaFinal(pilasengine.actores.Actor):
-	def iniciar(self):
-		url = ruta + '/imagenes/luna_final.png'
+	def iniciar(self, tema):
+		self.tema = tema
+		url = ruta + self.tema + '/luna_final.png'
 		self.imagen = url
 		self.x = -1250
 		self.y = 50
@@ -51,8 +53,9 @@ class Luna(pilasengine.actores.Actor):
 
 class Arsat(pilasengine.actores.Actor):
 	
-	def iniciar(self):
-		url = ruta + '/imagenes/ARSAT-2.png'
+	def iniciar(self, tema):
+		self.tema = tema
+		url = ruta + self.tema + '/ARSAT-2.png'
 		self.imagen = url
 		self.z = 20
 
@@ -65,8 +68,9 @@ class Arsat(pilasengine.actores.Actor):
 
 class HieloEnNave(pilasengine.actores.Actor):
 	
-	def iniciar(self,x,y):  # Hielo que aparece en la nave al chocar contra asteroide nivel 2. Desaparece a los pocos segundos.
-		url = ruta + '/imagenes/Hielo-en-nave.png'
+	def iniciar(self, tema, x,y):  # Hielo que aparece en la nave al chocar contra asteroide nivel 2. Desaparece a los pocos segundos.
+		self.tema = tema
+		url = ruta + self.tema + '/Hielo-en-nave.png'
 		self.imagen = url
 		self.x = x
 		self.y = y
@@ -81,7 +85,8 @@ class HieloEnNave(pilasengine.actores.Actor):
 			
 class HUDArsat(pilasengine.actores.Actor):
 	
-	def iniciar(self):
+	def iniciar(self, tema):
+		self.tema = tema
 		url = ruta + '/imagenes/ARSAT-2-HUD.png'
 		self.imagen = url
 		self.x = -600
@@ -96,21 +101,30 @@ class HUDArsat(pilasengine.actores.Actor):
 			self.eliminar()
 		
 class Nave(pilasengine.actores.Actor):
-
-	def iniciar(self, pilotoAutomatico):
+	
+	def iniciar(self, mitema, pilotoAutomatico):
+		# La clase Nave recibe todos los datos del tema para poder reiniciar PantallaMenu 
+		# al morir, por eso tema_sprites es mitema[1]
+		
+		self.mitema = mitema 
+		
 		self.grupo_cubitos = self.pilas.actores.Grupo()
 		self.pilotoAutomatico = pilotoAutomatico
 		self.estadoPilotoAutomatico = "subiendo"
-		url = ruta + '/imagenes/lanave.png'
+		
+		url = ruta + self.mitema[1] + '/lanave.png'
 		self.imagen = url
 		self.z = -50
 		self.choques = 0
 		#Crea un objeto asociado que emite particulas
 		self.emisor = EmisorHUMO(self.pilas, 0, 0)
-		url = ruta + '/imagenes/humo.png'
+		url = ruta + self.mitema[1] + '/humo.png'
 		self.emisor.imagen_particula = self.pilas.imagenes.cargar_grilla(url)
 		self.emisor.constante = True
-		self.emisor.composicion = "blanco"
+		if self.mitema[1] == "/temas/steampunk/sprites":
+			self.emisor.composicion = "negro"
+		else:
+			self.emisor.composicion = "blanco"
 		self.emisor.duracion = 2
 		self.emisor.frecuencia_creacion = 0.05
 		self.emisor.vida = 3
@@ -168,16 +182,16 @@ class Nave(pilasengine.actores.Actor):
 			elif self.nave_energia.progreso <= 20:
 				self.nave_energia.color_relleno = self.pilas.colores.Color(230,49,0) # rojo 
 			if self.choques == 2:
-				self.imagen = ruta + '/imagenes/lanave_01.png'
+				self.imagen = ruta + self.mitema[1] + '/lanave_01.png'
 				self.emisor.frecuencia_creacion = 0.07
 			if self.choques == 4:
-				self.imagen = ruta + '/imagenes/lanave_02.png'
+				self.imagen = ruta + self.mitema[1] + '/lanave_02.png'
 				self.emisor.frecuencia_creacion = 0.10
 			if self.choques == 7:
-				self.imagen = ruta + '/imagenes/lanave_03.png'
+				self.imagen = ruta + self.mitema[1] + '/lanave_03.png'
 				self.emisor.frecuencia_creacion = 0.13
 			if self.choques == 9:
-				self.imagen = ruta + '/imagenes/lanave_04.png'
+				self.imagen = ruta + self.mitema[1] + '/lanave_04.png'
 				self.emisor.eliminar()
 				self.rotacion = [360], 2
 			if self.choques == 11:	
@@ -210,7 +224,7 @@ class Nave(pilasengine.actores.Actor):
 			estacion_reparacion.reparar_nave(nave.x, nave.y)
 			
 	def morir(self):
-			self.perdido = Astronauta(self.pilas);
+			self.perdido = Astronauta(self.pilas, tema=self.mitema[1]);
 			self.pilas.camara.escala = [1.2, 1.5, 1]
 			self.perdido.escala = [1, 0.4]
 			self.texto_personalizado3 = self.pilas.actores.Texto(u'por miles de años flotarás exánime en el espacio · presiona ESPACIO', magnitud=18, fuente= url_fuente2, y= -230, x = 0)
@@ -237,12 +251,13 @@ class Nave(pilasengine.actores.Actor):
 			global flag
 			if tecla.codigo == 32:
 				flag = [False, False, False, False, False]
-				self.pilas.escenas.PantallaMenu()
+				self.pilas.escenas.PantallaMenu(self.mitema[0], self.mitema[1], self.mitema[2], self.mitema[3] )
 
 class Astronauta(pilasengine.actores.Actor):
 
-	def iniciar(self):
-		url = ruta + '/imagenes/astronauta.png'
+	def iniciar(self, tema):
+		self.tema = tema
+		url = ruta + self.tema + '/astronauta.png'
 		self.imagen = url
 
 	def actualizar(self):
@@ -250,28 +265,29 @@ class Astronauta(pilasengine.actores.Actor):
 
 class Asteroide(pilasengine.actores.Actor):
 
-	def iniciar(self, tipo):
+	def iniciar(self, tema, tipo):
+		self.tema = tema
 		self.tipo = tipo
 
 		if self.tipo == "uno":
-			self.imagen = ruta + '/imagenes/asteroide.png'
+			self.imagen = ruta + self.tema + '/asteroide.png'
 			self.giro = 1
 			self.velocidad = 2
 		if self.tipo == "dos":
-			self.imagen = ruta + '/imagenes/asteroide2.png'
+			self.imagen = ruta + self.tema + '/asteroide2.png'
 			self.giro = 3
 			self.velocidad = 6
 
 		if self.tipo == "tres":
-			self.imagen = ruta + '/imagenes/asteroide3.png'
+			self.imagen = ruta + self.tema + '/asteroide3.png'
 			self.giro = 2
 			self.velocidad = 4
 		if self.tipo == "cuatro":
-			self.imagen = ruta + '/imagenes/asteroide4.png'
+			self.imagen = ruta + self.tema + '/asteroide4.png'
 			self.giro = -2
 			self.velocidad = 2
 		if self.tipo == "cinco":
-			self.imagen = ruta + '/imagenes/asteroide5.png'
+			self.imagen = ruta + self.tema + '/asteroide5.png'
 			self.giro = 3
 			self.velocidad = 6
 		self.escala = 0.3
@@ -289,17 +305,18 @@ class Asteroide(pilasengine.actores.Actor):
 			
 	def estallar(self, x, y, tipo, nave):
 		if tipo == "uno":  # El asteroide estalla en pedazos.
-			self.fragmentos = Fragmento(self.pilas) * 4
-			self.fragmentos.x = x
-			self.fragmentos.y = y
+			self.fragmentos = [Fragmento(self.pilas, x, y, tema=self.tema), Fragmento(self.pilas, x, y, tema=self.tema), Fragmento(self.pilas, x, y, tema=self.tema), Fragmento(self.pilas, x, y, tema=self.tema)] # Es necesario explicitar la lista por un bug en pilas que crashea si se clona con un parametro.
 			self.eliminar()
 		if tipo == "dos": # El asteroide  congela la nave.
 			nave.congelar()
 			#self.eliminar()
 
 class Fragmento(pilasengine.actores.Actor):
-		def iniciar(self):
-			self.imagen = ruta + '/imagenes/fragmento.png'
+		def iniciar(self, x, y, tema):
+			self.x = x
+			self.y = y
+			self.tema = tema
+			self.imagen = ruta + self.tema + '/fragmento.png'
 			self.giro = 1
 			velocidades = [-4,-3,-2,-1,1,2,3,4]
 			self.velocidadX = velocidades[self.pilas.azar(0, 7)]
@@ -321,8 +338,9 @@ class Fragmento(pilasengine.actores.Actor):
 			
 class Reparacion(pilasengine.actores.Actor):
 
-	def iniciar(self):
-		url = ruta + '/imagenes/reparacion_bot.png'
+	def iniciar(self, tema):
+		self.tema = tema
+		url = ruta + self.tema + '/reparacion_bot.png'
 		self.imagen = url
 		self.x = -500
 		self.z = -51
@@ -332,7 +350,7 @@ class Reparacion(pilasengine.actores.Actor):
 		
 	def reparar_nave(self, x, y):
 		self.transparencia = [100],1.5
-		url = ruta + '/imagenes/reparacion_bot_ojo_rojo.png'
+		url = ruta + self.tema + '/reparacion_bot_ojo_rojo.png'
 		self.imagen = url
 		
 	def actualizar(self):

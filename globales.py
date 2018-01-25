@@ -11,8 +11,8 @@ url_fuente2 = ruta + '/Oswald-Regular.ttf'
 
 
 #Valores iniciales para tema, estas variables deberian ser sobreescritas por la configuracion 
-tema_sprites = '/temas/original'
-tema_fondos = '/temas/original'
-tema_textos = '/temas/original'
+tema_sprites_init = '/temas/original/sprites'
+tema_fondos_init = '/temas/original/fondos'
+tema_textos_init = '/temas/original'
 
-tema_actual = 'original' # El primer tema disponible es el inicial
+tema_actual_init = 'original' # El primer tema disponible es el inicial

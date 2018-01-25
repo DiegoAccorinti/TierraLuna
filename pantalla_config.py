@@ -34,25 +34,22 @@ class MiListaSeleccion(pilasengine.interfaz.lista_seleccion.ListaSeleccion):
 
 	def dibujar_recuadro(self):
 		#recuadro_img = self.pilas.imagenes.cargar(ruta + "/imagenes/recuadro-lista.png")
-		print "La lista tiene ancho=", self.imagen.ancho()
-		print "La lista tiene altura=", self.imagen.alto()
-		print "La lista esta en: ", self.x, self.y
+		#print "La lista tiene ancho=", self.imagen.ancho()
+		#print "La lista tiene altura=", self.imagen.alto()
+		#print "La lista esta en: ", self.x, self.y
 		
-		ancho_lista = self.imagen.ancho()
-		alto_lista = self.imagen.alto()
-		x_lista = self.x
-		y_lista = self.y
+		ancho_lista = self.imagen.ancho() + 2
+		alto_lista = self.imagen.alto() + 2
 		
-		area = self.pilas.imagenes.cargar_superficie(1.5* ancho_lista , 1.5* alto_lista )
-		area.rectangulo (x_lista, y_lista, area.ancho() - 3, area.alto()-3, color = self.pilas.colores.Color(119, 255, 92), relleno = False, grosor = 1)
-		print "Area de ", area.ancho(), area.alto()
+		#print "Area de ", ancho_lista, alto_lista
+		area = self.pilas.imagenes.cargar_superficie(ancho_lista , alto_lista )
+		area.rectangulo (0, 0, ancho_lista - 1, alto_lista -1, color = self.pilas.colores.Color(119, 255, 92), relleno = False, grosor = 1)
+	
+		self.recuadro = self.pilas.actores.Actor(imagen = area)
+		self.recuadro.x = self.x 
+		self.recuadro.y = self.y 
 		
-		#sup.rectangulo(self.x , self.y , sup.ancho() , sup.alto(), color = self.pilas.colores.Color(119, 255, 92), relleno = False, grosor = 1)
-		recuadro = self.pilas.actores.Actor(imagen = area)
-		recuadro.x = 15
-		recuadro.y = 130
 		
-		recuadro.z = -100000
 			
 class MiBoton(pilasengine.interfaz.boton.Boton):
 	def _crear_imagenes_de_botones(self):
@@ -77,13 +74,19 @@ class ConfigHud(pilasengine.actores.Actor):
 	
 				       
 class PantallaConfig(pilasengine.escenas.Escena):
-
+	
 	mostre_huevo_pascua = False
+
 	def presionar_boton(self):
-		self.pilas.escenas.PantallaMenu()
+		self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 
-	def iniciar(self):
-
+	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
+		#Parametros que se le pasan al cargar
+		self.tema_sprites = tema_sprites 
+		self.tema_fondo = tema_fondos
+		self.tema_textos = tema_textos 
+		self.tema_actual = tema_actual 
+		
 		self.temas = temas
 		
 		fondo = self.pilas.fondos.Galaxia(dx=0, dy=0)
@@ -126,44 +129,42 @@ class PantallaConfig(pilasengine.escenas.Escena):
 
 	def ToggleSprites(self, estado):
 		for e in self.estados:
-			if self.BuscarOpcionEnDic(e[0]) == tema_actual:
+			if self.BuscarOpcionEnDic(e[0]) == self.tema_actual:
 				e[1] = estado
 
 	def ToggleFondos(self, estado):
 		for e in self.estados:
-			if self.BuscarOpcionEnDic(e[0]) == tema_actual:
+			if self.BuscarOpcionEnDic(e[0]) == self.tema_actual:
 				e[2] = estado
 
 	def ToggleTextos(self, estado):
 		for e in self.estados:
-			if self.BuscarOpcionEnDic(e[0]) == tema_actual:
+			if self.BuscarOpcionEnDic(e[0]) == self.tema_actual:
 				e[3] = estado
 
 	def SetTema(self, tema_elegido):
 		#Define el tema si está chequeada la opcion
-		#global temas
-		global tema_actual
 		
-		tema_actual = self.BuscarOpcionEnDic(tema_elegido)
+		self.tema_actual = self.BuscarOpcionEnDic(tema_elegido)
 		
-		self.opcion = tema_actual
+		self.opcion = self.tema_actual
 		
 		#Leo los flags del tema elegido 
-		self.flags = self.IniciarFlagsCheckbox(tema_actual) # Aca hay un problema que hace que flags = estados.
+		self.flags = self.IniciarFlagsCheckbox(self.tema_actual) 
 		
 		if self.flags[0]:
-			tema_sprites = self.opcion
+			self.tema_sprites = '/temas/' + self.opcion + '/sprites'
 
 		if self.flags[1]:
-			tema_fondos = self.opcion
+			self.tema_fondos = '/temas/' + self.opcion + '/fondos'
 
 		if self.flags[2]:
-			tema_textos = self.opcion
+			self.tema_textos = '/temas/' + self.opcion
 	
 		
 		e = self.BuscarEstadosCheckbox(tema_elegido)
 		
-		self.InfoStatus(self.flags, e) # Imprime estado actual de selecciones.
+		#self.InfoStatus(self.flags, e) # Imprime estado actual de selecciones.
 		
 		self.DibujarCheckboxes(self.flags, e) #Redibuja checkboxes de acuerdo a eleccion de nuevo tema
 		
@@ -217,11 +218,11 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		else:
 			self.selector_textos.ocultar()			
 			
-		self.InfoStatus(flags, estados) # Imprime resultados para debug
+		#self.InfoStatus(flags, estados) # Imprime resultados para debug
 	
 	def InfoStatus(self, f, e):
 		print "############### RESUMEN #################"
-		print "El tema es", self.temas[tema_actual][0]
+		print "El tema es", self.temas[self.tema_actual][0]
 		print "Los estados de los checks son:", e[0], e[1], e[2]
 		print "Las flags para Sprites, Fondos y Texto para el tema:", f[0], f[1], f[2]
 		
@@ -240,13 +241,13 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		
 	def ConfiguracionTemas(self):
 		#De cada tema se pueden cargar independientemente los fondos, la nave, los enemigos y los textos.
-		global tema_actual
+		
 		combo_x = 195
 		combo_y = 90
 		
 		#Estados iniciales para los checkboxes. Si la opcion está disponible, entonces se la pone a True.
 		self.IniciarEstadosCheckbox()		
-		self.flags = self.IniciarFlagsCheckbox(tema_actual)
+		self.flags = self.IniciarFlagsCheckbox(self.tema_actual)
 		
 		self.Temas = []
 				
@@ -255,13 +256,19 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		
 		#Lista desplegable de temas
 		self.selector_tema = MiListaSeleccion(self.pilas, self.Temas, self.SetTema)
-		self.selector_tema.x = 30
-		self.selector_tema.y = 60
-		
-		#Fuerza la seleccion de la opcion que coincida con el tema actual
-		self.selector_tema.opcion_seleccionada = self.SetOpcionElegida(self.temas[tema_actual][0]) # la seleccion es un numero entero empezando en 0
-		
 		self.selector_tema.dibujar_recuadro() # Hay que reescribir esta funcion para que haga un recuadro adaptable
+		#self.selector_tema.definir_centro((-self.selector_tema.x / 2, -self.selector_tema.y / 2))
+		a = self.selector_tema.imagen.ancho()/2
+		b = self.selector_tema.imagen.alto()/2
+		self.selector_tema.x =  combo_x - 120 - a
+		self.selector_tema.y =  combo_y + 12 - b
+		
+		self.selector_tema.recuadro.x = combo_x - 120 - a
+		self.selector_tema.recuadro.y = combo_y + 12 - b
+		#Fuerza la seleccion de la opcion que coincida con el tema actual
+		self.selector_tema.opcion_seleccionada = self.SetOpcionElegida(self.temas[self.tema_actual][0]) # la seleccion es un numero entero empezando en 0
+		
+		
 		
 		#Labels
 		
@@ -284,7 +291,7 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		self.selector_textos.x = combo_x
 		self.selector_textos.y = combo_y - 60
 		
-		e = self.BuscarEstadosCheckbox(self.temas[tema_actual][0])
+		e = self.BuscarEstadosCheckbox(self.temas[self.tema_actual][0])
 		
 		self.DibujarCheckboxes(self.flags, e)
 
@@ -293,7 +300,7 @@ class PantallaConfig(pilasengine.escenas.Escena):
 	def al_pulsar_tecla(self, tecla):
 
 		if tecla.codigo == 32:
-			self.pilas.escenas.PantallaMenu()
+			self.pilas.escenas.PantallaMenu(self.tema_sprites, self.tema_fondos, self.tema_textos)
 		else:
 			if (self.mostre_huevo_pascua == False):
 				texto_personalizado3 = self.pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
