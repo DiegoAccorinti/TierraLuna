@@ -253,7 +253,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 5: #35
+		if contador_texto == 35: #35
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel. Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
@@ -307,7 +307,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Eventos únicos especiales durante el juego '''	
 
 		# paso de ARSAT-2
-		if contador_texto == 6: #16
+		if contador_texto == 16: #16
 			if flagEspeciales[0] == False:
 				hudarsat = HUDArsat(self.pilas, tema=self.mitema[1])
 				arsat = Arsat(self.pilas, tema=self.mitema[1])
@@ -316,7 +316,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flagEspeciales[0] = True
 		
 		# Crea una estacion de reparacion para reparar un poco la nave
-		if contador_texto == 10: #100
+		if contador_texto == 100: #100
 			if flagEspeciales[1] == False:
 				estacion_reparacion = Reparacion(self.pilas, tema=self.mitema[1]) 
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
