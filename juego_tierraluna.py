@@ -80,7 +80,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.tema_textos = tema_textos 
 		self.tema_actual = tema_actual
 		
-		mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
+		self.mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
 		pausa = False
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False, False]
@@ -130,7 +130,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.sombra_texto_personalizado.z = 4
 
 		
-		self.minave = Nave(self.pilas, mitema, pilotoAutomatico = False);
+		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = False);
 		
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
@@ -253,7 +253,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 35: #35
+		if contador_texto == 5: #35
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel. Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
@@ -307,18 +307,18 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Eventos únicos especiales durante el juego '''	
 
 		# paso de ARSAT-2
-		if contador_texto == 16:
+		if contador_texto == 6: #16
 			if flagEspeciales[0] == False:
-				hudarsat = HUDArsat(self.pilas)
-				arsat = Arsat(self.pilas)
+				hudarsat = HUDArsat(self.pilas, tema=self.mitema[1])
+				arsat = Arsat(self.pilas, tema=self.mitema[1])
 				arsat.x = hudarsat.x
 				arsat.y = hudarsat.y
 				flagEspeciales[0] = True
 		
 		# Crea una estacion de reparacion para reparar un poco la nave
-		if contador_texto == 100:
+		if contador_texto == 10: #100
 			if flagEspeciales[1] == False:
-				estacion_reparacion = Reparacion(self.pilas) 
+				estacion_reparacion = Reparacion(self.pilas, tema=self.mitema[1]) 
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
 				estacion_reparacion.imitar(rep_colision)
 				self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)

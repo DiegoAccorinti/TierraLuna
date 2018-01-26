@@ -242,7 +242,7 @@ class Nave(pilasengine.actores.Actor):
 			self.nave_energia.progreso = [100]
 	
 	def congelar(self): # Cuando la nave choca contra un asteroide nivel 2,  se congela.
-			self.cubito = HieloEnNave(self.pilas,self.x, self.y)
+			self.cubito = HieloEnNave(self.pilas, tema=self.mitema[1], x=self.x, y=self.y)
 			self.cubito.imitar(self)
 			self.grupo_cubitos.agregar(self.cubito)  # agrego el nuevo hielo de la nave a un grupo.
 	
