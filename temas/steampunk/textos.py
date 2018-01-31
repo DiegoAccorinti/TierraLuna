@@ -4,6 +4,7 @@
 En "textos" guardamos la colección de frases que irán apareciendo
 durante la travesía.
 '''
+
 textos = [
 u'',
 u'Comienza el viaje',
@@ -19,14 +20,14 @@ u'Antes que nada te recomiendo esquivar los asteroides',
 u'hicimos lo mejor que pudimos con la nave,',
 u'pero no resistirá más de 11 o 12 impactos.',
 u'Así que, no te distraigas jejeje',
-u'Vienes de un planeta llamado Tierra, pero',
-u'el 70% de su superficie está cubierta por agua',
-u'y solamente el 3% de esa agua es potable.',
-u'',
-u'El término "planeta" viene de la palabra griega planetes,',
-u'que significa "errante".',
-u'En la antigua Grecia se dieron cuenta',
-u'de que había cinco puntos de luz',
+u'Notarás que todo se ve un poco antiguo',
+u'es porque este es un juego Steampunk',
+u'un subgénero de la ciencia-ficción',
+u'donde todo funciona con vapor (Steam, en inglés)',
+u'En el siglo XIX los escritores imaginaron un futuro basado ',
+u'en la tecnología que conocían.',
+u'Era la época de las grandes locomotoras',
+u'y los buques impulsados a vapor.',
 u'que se movían a través del resto de las estrellas',
 u'fijas en el cielo.',
 u'Algunas se movían constantemente hacia adelante,',

@@ -87,7 +87,7 @@ class HUDArsat(pilasengine.actores.Actor):
 	
 	def iniciar(self, tema):
 		self.tema = tema
-		url = ruta + '/imagenes/ARSAT-2-HUD.png'
+		url = ruta + self.tema + '/ARSAT-2-HUD.png'
 		self.imagen = url
 		self.x = -600
 		self.y = self.pilas.azar(-50, 150)
@@ -123,15 +123,19 @@ class Nave(pilasengine.actores.Actor):
 		self.emisor.constante = True
 		if self.mitema[1] == "/temas/steampunk/sprites":
 			self.emisor.composicion = "negro"
+			self.emisor.x_min = 90
+			self.emisor.y_min = 80
+			self.emisor.frecuencia_creacion = 0.08
+			
 		else:
 			self.emisor.composicion = "blanco"
+			self.emisor.x_min = 171
+			self.emisor.y_min = 2
+			self.emisor.frecuencia_creacion = 0.05
 		self.emisor.duracion = 2
-		self.emisor.frecuencia_creacion = 0.05
 		self.emisor.vida = 3
 		self.emisor.aceleracion_x_min = 36
 		self.emisor.aceleracion_x_max = 50
-		self.emisor.x_min = 171
-		self.emisor.y_min = 2
 		self.emisor.transparencia_min = 30
 		self.emisor.transparencia_max = 50
 		

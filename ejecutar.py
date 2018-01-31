@@ -6,6 +6,7 @@ from emisorHUMO import *
 from pantalla_config import *
 from pantallas_juego import *
 from juego_tierraluna import *
+#from juego_tierraluna_DEMO import *
 from juego_tierraluna_DEMO import *
 
 # Inicializamos PILAS-ENGINE

@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 
 import pilasengine
-from temas import temas # Importa diccionario con datos sobre los temas disponibles.
+from temas_dic import temas # Importa diccionario con datos sobre los temas disponibles.
 from globales import *
 # Para que funcionen mis propias clases de interfaz modificadas
 # hay que cargarlas explicitamente primero.
@@ -167,6 +167,10 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		#self.InfoStatus(self.flags, e) # Imprime estado actual de selecciones.
 		
 		self.DibujarCheckboxes(self.flags, e) #Redibuja checkboxes de acuerdo a eleccion de nuevo tema
+		#self.texto_personalizado3.texto = self.temas[self.tema_actual][4]
+		self.descripcion_tema.eliminar()
+		self.descripcion_tema = self.pilas.actores.Texto(self.temas[self.tema_actual][4], magnitud=12, fuente= url_fuente2, ancho=380, y= -200, x = 0)
+		
 		
 	def BuscarOpcionEnDic(self, opcion):
 		'''
@@ -295,14 +299,16 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		
 		self.DibujarCheckboxes(self.flags, e)
 
-		
+		self.descripcion_tema = self.pilas.actores.Texto(self.temas[self.tema_actual][4], magnitud=12, fuente= url_fuente2, ancho=380, y= -200, x = 0)
 	
 	def al_pulsar_tecla(self, tecla):
 
 		if tecla.codigo == 32:
-			self.pilas.escenas.PantallaMenu(self.tema_sprites, self.tema_fondos, self.tema_textos)
+			self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
+		'''
 		else:
 			if (self.mostre_huevo_pascua == False):
-				texto_personalizado3 = self.pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
+			
+				#texto_personalizado3 = self.pilas.actores.Texto(u'Un juego de Diego Accorinti para Huayra gnu/linux', magnitud=12, fuente= url_fuente2, y= -200, x = 0)
 				self.mostre_huevo_pascua = True
-
+		'''

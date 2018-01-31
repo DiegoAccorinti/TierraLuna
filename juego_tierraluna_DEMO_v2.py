@@ -10,7 +10,7 @@ from pantallas_juego import *
 from juego_tierraluna import *
 # LOS TEXTOS
 # Le pido la biblioteca de textos contenido en textos.py
-#from textos import textos
+from textos import textos
 from movimiento_de_nave import MovimientoDeNave
 
 # Esta escena es una demo. Hereda los métodos de PantallaJuego y modifica el comportamiento de la nave
@@ -18,16 +18,14 @@ from movimiento_de_nave import MovimientoDeNave
 
 
 class PantallaDemo(PantallaJuego):
-			
+	
 	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
 
+		global contador_texto
 		global contador_choques
 		global flag
 		global flagEspeciales
 		global pausa
-
-		self.contador_texto = 0
-				
 		self.tema_sprites = tema_sprites
 		self.tema_fondos = tema_fondos
 		self.tema_textos = tema_textos
@@ -41,10 +39,10 @@ class PantallaDemo(PantallaJuego):
 		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
 		self.crearFondosNivel(lvl="NIVEL1", tema=self.tema_fondos )
 		tierra = Tierra(self.pilas, tema=self.tema_sprites)
-		
+		contador_texto = 0
 
 		self.iniciar_musica()
-		self.cargar_textos()
+
 		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
 		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
@@ -97,6 +95,7 @@ class PantallaDemo(PantallaJuego):
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
+		global contador_texto
 		global flag
 		
 		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
@@ -113,7 +112,7 @@ class PantallaDemo(PantallaJuego):
 			
 
 			
-		if self.contador_texto == 1:
+		if contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 
@@ -124,7 +123,7 @@ class PantallaDemo(PantallaJuego):
 				cambio_nivel(1, "DEMO")
 				#r1 = Reparacion(self.pilas) #Crea puesto de reparacion
 
-		if self.contador_texto == 4: 
+		if contador_texto == 4: 
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel.  Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.5 segundos.
@@ -136,7 +135,7 @@ class PantallaDemo(PantallaJuego):
 				cambio_nivel(2, "DEMO")
 				flag[1] = True
 
-		if self.contador_texto == 8: 
+		if contador_texto == 8: 
 			''' ###  NIVEL 3 ### '''
 			if (flag[2]) == False:
 				print "NIVEL 3"
@@ -146,7 +145,7 @@ class PantallaDemo(PantallaJuego):
 				self.crearFondosNivel(lvl="NIVEL3", tema=self.tema_fondos)				
 				cambio_nivel(3, "DEMO")
 				flag[2] = True
-		if self.contador_texto == 12: 
+		if contador_texto == 12: 
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
 				print "NIVEL 4"
@@ -155,7 +154,7 @@ class PantallaDemo(PantallaJuego):
 				self.crearFondosNivel(lvl="NIVEL4", tema=self.tema_fondos)
 				cambio_nivel(4, "DEMO")
 				flag[3] = True
-		if self.contador_texto == 16: 
+		if contador_texto == 16: 
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
@@ -165,9 +164,9 @@ class PantallaDemo(PantallaJuego):
 				cambio_nivel(5, "DEMO")
 				flag[4] = True
 
-		if self.contador_texto == 20:
+		if contador_texto == 20:
 			flag = [False, False, False, False, False]
-			self.contador_texto = 1
+			contador_texto = 1
 			PantallaDemo.tareaAsteroides.terminar()
 			
 				
@@ -175,7 +174,7 @@ class PantallaDemo(PantallaJuego):
 		''' Eventos únicos especiales durante el juego '''	
 
 		# paso de ARSAT-2
-		if self.contador_texto == 6:
+		if contador_texto == 6:
 			if flagEspeciales[0] == False:
 				hudarsat = HUDArsat(self.pilas, tema=self.mitema[1])
 				arsat = Arsat(self.pilas, tema=self.mitema[1])

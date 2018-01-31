@@ -14,10 +14,10 @@ from globales import *
 # El fondo puede incluir 3 capas de distinta velocidad para generar el efecto de paralaje
 # las capas se indican con el parametro "tipo" que puede valer "frente", "medio" y "fondo"
 class capa(pilasengine.actores.Actor):
-	def iniciar(self, img, tipo, flip):
-		self.tipo = tipo
+	def iniciar(self, tema, img, tipo, flip):
+		self.tipo = tipo 
 		self.flip = flip
-		self.imagen = ruta + '/imagenes/fondos/' + img
+		self.imagen = ruta + tema + "/" + img
 		self.escala_y = 1
 		self.imagen.repetir_horizontal = True
 		self.x = 250

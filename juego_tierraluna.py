@@ -10,7 +10,7 @@ from pantallas_juego import *
 
 # LOS TEXTOS
 # Le pido la biblioteca de textos contenido en textos.py
-from textos import textos
+#from textos import textos
 from movimiento_de_nave import MovimientoDeNave
 
 
@@ -20,15 +20,15 @@ from movimiento_de_nave import MovimientoDeNave
 
 class PantallaJuego(pilasengine.escenas.Escena):
 	
-	def crearFondosNivel(self, lvl):
+	def crearFondosNivel(self, tema, lvl):
 		self.lvl = lvl
 		if self.lvl=="NIVEL1":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			espacio_fondo = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=False)
+			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_01.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = 0
-			espacio_medio = capa(self.pilas, img="medio_01.png", tipo="medio", flip=False)
-			espacio_frente = capa(self.pilas, img="frente_01.png", tipo="frente", flip=False)
+			espacio_medio = capa(self.pilas, tema=tema, img="medio_01.png", tipo="medio", flip=False)
+			espacio_frente = capa(self.pilas, tema=tema, img="frente_01.png", tipo="frente", flip=False)
 			#Ahora la mitad inferior de la pantalla
 			#fondo_1_flip = capa(self.pilas, img="fondo_01.jpg", tipo="fondo", flip=True)
 			#medio_1_flip = capa(self.pilas, img="medio_01.png", tipo="medio", flip=True)
@@ -38,23 +38,23 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		elif self.lvl=="NIVEL2":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			espacio_fondo = capa(self.pilas, img="fondo_02.jpg", tipo="fondo", flip=False)
+			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_02.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5
 			
 		elif self.lvl=="NIVEL3":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			espacio_fondo = capa(self.pilas, img="fondo_03.jpg", tipo="fondo", flip=False)
+			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_03.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5 
 		elif self.lvl=="NIVEL4":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			espacio_fondo = capa(self.pilas, img="fondo_04.jpg", tipo="fondo", flip=False)
+			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_04.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5 
 		elif self.lvl=="NIVEL5":
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
-			espacio_fondo = capa(self.pilas, img="fondo_05.jpg", tipo="fondo", flip=False)
+			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_05.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5 
 	#defino un grupo de enemigos
 	def crear_grupo_enemigos(self):
@@ -67,31 +67,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
-
-	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
-
-		global contador_texto
-		global flag
-		global flagEspeciales
-		global pausa
-
-		self.tema_sprites = tema_sprites
-		self.tema_fondos = tema_fondos
-		self.tema_textos = tema_textos 
-		self.tema_actual = tema_actual
 		
-		self.mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
-		pausa = False
-		flag = [False, False, False, False, False]
-		flagEspeciales = [False, False]
-		self.crear_grupo_enemigos()
-		
-		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
-		self.crearFondosNivel(lvl="NIVEL1")
-		tierra = Tierra(self.pilas, tema=self.tema_sprites)
-		
-		contador_texto = 0 #0
-
+	def iniciar_musica(self):
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
 		self.musica = self.pilas.sonidos.cargar(url)
@@ -124,6 +101,73 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
+	def cargar_textos(self):
+		textos = []
+		linea = "from temas." + self.tema_actual + ".textos import textos"
+		print "ejecutar", linea
+		exec linea
+		# Carga textos
+		self.textos = textos
+		
+	def imprimir_texto(self):
+
+		#self.contador_texto
+
+		#cambio el texto
+		self.texto_personalizado.ancho = 900
+		self.sombra_texto_personalizado.ancho = 900
+		
+		self.texto_personalizado.texto = self.textos[self.contador_texto]
+		self.sombra_texto_personalizado.texto = self.textos[self.contador_texto]
+		#oculto el texto y su sombra
+		self.texto_personalizado.transparencia = 100
+		self.sombra_texto_personalizado.transparencia = 100
+		#lo hago visible nuevamente
+		self.texto_personalizado.transparencia = [0]
+		self.sombra_texto_personalizado.transparencia = [0]
+
+		# Centro los textos en la pantalla
+
+		factor = len(self.textos[self.contador_texto]) * 7
+
+		self.texto_personalizado.x = 450 - factor
+		self.sombra_texto_personalizado.x = 450 - factor
+
+		self.contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
+	
+	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
+
+		#global contador_texto
+		global flag
+		global flagEspeciales
+		global pausa
+		
+		
+		
+		self.contador_texto = 0 #0
+		self.textos = []
+		
+		self.tema_sprites = tema_sprites
+		self.tema_fondos = tema_fondos
+		self.tema_textos = tema_textos 
+		self.tema_actual = tema_actual
+		
+		
+		self.mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
+		pausa = False
+		flag = [False, False, False, False, False]
+		flagEspeciales = [False, False]
+		self.crear_grupo_enemigos()
+		
+		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
+		self.crearFondosNivel(lvl="NIVEL1", tema=self.tema_fondos)
+		tierra = Tierra(self.pilas, tema=self.tema_sprites)
+		
+		
+		
+		self.iniciar_musica()
+		self.cargar_textos()
+		
 		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
 		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
@@ -160,34 +204,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 
-		def imprimir_texto():
-
-			global contador_texto
-
-			#cambio el texto
-			self.texto_personalizado.ancho = 900
-			self.sombra_texto_personalizado.ancho = 900
-			self.texto_personalizado.texto = textos[contador_texto]
-			self.sombra_texto_personalizado.texto = textos[contador_texto]
-			#oculto el texto y su sombra
-			self.texto_personalizado.transparencia = 100
-			self.sombra_texto_personalizado.transparencia = 100
-			#lo hago visible nuevamente
-			self.texto_personalizado.transparencia = [0]
-			self.sombra_texto_personalizado.transparencia = [0]
-
-			# Centro los textos en la pantalla
-
-			factor = len(textos[contador_texto]) * 7
-
-			self.texto_personalizado.x = 450 - factor
-			self.sombra_texto_personalizado.x = 450 - factor
-
-			contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
-
+		
 
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, imprimir_texto)
+		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, self.imprimir_texto)
 		
 		# Creo un control de coliciones para saber cuando perdes
 		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
@@ -220,7 +240,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	def actualizar(self):
 		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
 		    podemos ir cambiando los enemigos, el fondo, etc.  '''
-		global contador_texto
+		#global contador_texto
 		global flag
 
 		if self.minave.choques == 12:
@@ -243,7 +263,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			texto_nivel.y = [240],10
 
 			
-		if contador_texto == 1:
+		if self.contador_texto == 1:
 			''' Recien al segundo texto comienzan a venir los asteroides '''
 			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
 
@@ -253,7 +273,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[0] = True
 				cambio_nivel(1, "Cinco puntos de luz")
 
-		if contador_texto == 35: #35
+		if self.contador_texto == 35: #35
 			''' ###  NIVEL 2 ###
 			Llegamos al segundo nivel. Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
 			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
@@ -261,21 +281,21 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				print "NIVEL 2"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
-				self.crearFondosNivel(lvl="NIVEL2")
+				self.crearFondosNivel(lvl="NIVEL2", tema=self.tema_fondos)
 				cambio_nivel(2, "Constelaciones")
 				flag[1] = True
 
-		if contador_texto == 69: #69
+		if self.contador_texto == 69: #69
 			''' ###  NIVEL 3 ### '''
 			if (flag[2]) == False:
 				print "NIVEL 3"
 				PantallaJuego.tareaAsteroides.terminar()
 
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
-				self.crearFondosNivel(lvl="NIVEL3")				
+				self.crearFondosNivel(lvl="NIVEL3", tema=self.tema_fondos)				
 				cambio_nivel(3, "Nuestra casa")
 				flag[2] = True
-		if contador_texto == 103: #103
+		if self.contador_texto == 103: #103
 			''' ###  NIVEL 4 ### '''
 			if (flag[3]) == False:
 				print "NIVEL 4"
@@ -283,22 +303,22 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				
 				
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
-				self.crearFondosNivel(lvl="NIVEL4")
+				self.crearFondosNivel(lvl="NIVEL4", tema=self.tema_fondos)
 				cambio_nivel(4, "Mirando al pasado")
 				flag[3] = True
-		if contador_texto == 137: #137
+		if self.contador_texto == 137: #137
 			''' ###  NIVEL 5 ### '''
 			if (flag[4]) == False:
 				print "NIVEL 5"
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
-				self.crearFondosNivel(lvl="NIVEL5")
+				self.crearFondosNivel(lvl="NIVEL5", tema=self.tema_fondos)
 				cambio_nivel(5, "La llegada")
 				flag[4] = True
 				luna_final = LunaFinal(self.pilas)
 				
 				
-		if contador_texto == 170: #170
+		if self.contador_texto == 170: #170
 			''' FINAL! Ganó el juego '''
 			self.pilas.escenas.PantallaFinal()
 
@@ -307,7 +327,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Eventos únicos especiales durante el juego '''	
 
 		# paso de ARSAT-2
-		if contador_texto == 16: #16
+		if self.contador_texto == 16: #16
 			if flagEspeciales[0] == False:
 				hudarsat = HUDArsat(self.pilas, tema=self.mitema[1])
 				arsat = Arsat(self.pilas, tema=self.mitema[1])
@@ -316,7 +336,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flagEspeciales[0] = True
 		
 		# Crea una estacion de reparacion para reparar un poco la nave
-		if contador_texto == 100: #100
+		if self.contador_texto == 100: #100
 			if flagEspeciales[1] == False:
 				estacion_reparacion = Reparacion(self.pilas, tema=self.mitema[1]) 
 				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
