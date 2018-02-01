@@ -83,7 +83,7 @@ class PantallaConfig(pilasengine.escenas.Escena):
 	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
 		#Parametros que se le pasan al cargar
 		self.tema_sprites = tema_sprites 
-		self.tema_fondo = tema_fondos
+		self.tema_fondos = tema_fondos
 		self.tema_textos = tema_textos 
 		self.tema_actual = tema_actual 
 		
