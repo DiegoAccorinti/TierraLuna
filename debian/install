@@ -8,7 +8,9 @@ objetos.py usr/share/games/TierraLuna
 pantalla_config.py usr/share/games/TierraLuna
 pantallas_juego.py usr/share/games/TierraLuna
 TierraLuna.1 usr/share/man/es/man1
-textos.py usr/share/games/TierraLuna
+temas_dic.py usr/share/games/TierraLuna
+temas.py usr/share/games/TierraLuna
+temas usr/share/games/TierraLuna
 Tentacles.ttf usr/share/games/TierraLuna
 SIL-Open-Font-License.txt usr/share/games/TierraLuna
 movimiento_de_nave.py usr/share/games/TierraLuna
