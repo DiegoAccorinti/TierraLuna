@@ -116,7 +116,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			print "cambio de nivel: ", self.nivel
 			findelinea = "</NIVEL" + linea[6] + ">"
 			self.leyenda = linea[7:].rstrip(findelinea) # Elimina el tag de cierre de la linea
+			self.leyenda = self.leyenda.lstrip(">")
 			print "Leyenda: ", self.leyenda
+			self.iniciar_nivel()
+			
 		elif linea[:7] == "<EVENTO":
 			print "Hay que hacer algo"
 			if linea[8]=="1":
@@ -128,7 +131,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 						
 		elif linea[:5] == "<FIN>":
 			print "Debemos terminar el juego"
-			self.finalizarJuego
+			self.finalizarJuego()
 			
 	def obtenerLinea(self):
 		linea = self.textos[self.contador_texto] 
@@ -164,7 +167,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.texto_personalizado.x = 450 - factor
 		self.sombra_texto_personalizado.x = 450 - factor
 
-	def finalizarJuego():
+	def finalizarJuego(self):
 		''' FINAL! Ganó el juego '''
 		self.pilas.escenas.PantallaFinal()
 	
@@ -213,7 +216,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		
 		self.iniciarMusica()
 		self.cargarTextos()
-		self.iniciar_nivel()
+		#self.iniciar_nivel()
 		
 		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
 		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
@@ -298,39 +301,39 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global flag
 		if self.nivel == 1:
 			if (flag[0]) == False:
-				print "NIVEL 1"
+				print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 		elif self.nivel == 2:
 			if (flag[1]) == False:
-				print "NIVEL 2"
+				print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
-				self.crearFondosNivel() #argumentos originales: lvl="NIVEL2", tema=self.tema_fondos 
+				self.crearFondosNivel(tema=self.tema_fondos) #argumentos originales: lvl="NIVEL2", tema=self.tema_fondos 
 				flag[1] = True
 		elif self.nivel == 3:
 			if (flag[2]) == False:
-				print "NIVEL 3"
+				print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
-				self.crearFondosNivel()				
+				self.crearFondosNivel(tema=self.tema_fondos)				
 				flag[2] = True
 		elif self.nivel == 4:
 			if (flag[3]) == False:
-				print "NIVEL 4"
+				print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
-				self.crearFondosNivel()
+				self.crearFondosNivel(tema=self.tema_fondos)
 				flag[3] = True
 		elif self.nivel == 5:
 			if (flag[4]) == False:
-				print "NIVEL 5"
+				print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
-				self.crearFondosNivel()
+				self.crearFondosNivel(tema=self.tema_fondos)
 				flag[4] = True
-				luna_final = LunaFinal(self.pilas)
+				luna_final = LunaFinal(self.pilas, tema=self.tema_sprites)
 		self.intro_nivel()
 		
 	def actualizar(self):
