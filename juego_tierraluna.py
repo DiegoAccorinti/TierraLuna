@@ -169,7 +169,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 	def finalizarJuego(self):
 		''' FINAL! Ganó el juego '''
-		self.pilas.escenas.PantallaFinal()
+		self.pilas.escenas.PantallaFinal(self.mitema)
 	
 	def lanzarEvento(evento):
 		'''Iniciar los eventos esporádicos en el juego, como el paso de un satelite'''
@@ -347,7 +347,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.musica.detener()
 			self.minave.choques +=1 # Hack para evitar que vuelva a terminar la lista de tareas
 			
-					
+'''					
 class PantallaFinal(pilasengine.escenas.Escena):
 	def iniciar(self):
 		fondo = self.pilas.fondos.Fondo()
@@ -360,5 +360,5 @@ class PantallaFinal(pilasengine.escenas.Escena):
 			global flag
 			if tecla.codigo == 32:
 				flag = [False, False, False, False, False]
-				self.pilas.escenas.PantallaMenu()
-
+				self.pilas.escenas.PantallaMenu(self, self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
+'''
