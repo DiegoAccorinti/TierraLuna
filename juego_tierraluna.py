@@ -9,9 +9,6 @@ from fondos import *
 # Pantallas adicionales
 from pantallas_juego import *
 
-# LOS TEXTOS
-# Le pido la biblioteca de textos contenido en textos.py
-#from textos import textos
 from movimiento_de_nave import MovimientoDeNave
 
 
@@ -223,8 +220,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
 		self.sombra_texto_personalizado.z = 4
 
+		self.iniciar_nave()
 		
-		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = False);
 		
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
@@ -257,8 +254,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
 		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, self.obtenerLinea)
 		
-		# Creo un control de coliciones para saber cuando perdes
-		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
+		self.iniciar_colisiones()
 
 		#Elimino los límites laterales y la gravedad
 		self.pilas.fisica.gravedad_x = 0
@@ -267,6 +263,13 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.pilas.fisica.eliminar_techo()
 		self.pilas.fisica.eliminar_suelo()
 
+	def iniciar_colisiones(self):
+		# Creo un control de coliciones para saber cuando perdes
+		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
+
+	def iniciar_nave(self):
+		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = False);
+		
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
 		global flag

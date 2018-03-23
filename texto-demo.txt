@@ -1,0 +1,25 @@
+<NIVEL1>DEMO</NIVEL1>
+Tierra-Luna es un juego didáctico
+desarrollado en Python y Pilas-Engine
+Fue pensado como motor para contar...
+distintas historias,
+y que estas fueran sencillas de escribir.
+<NIVEL2>Algunas explicaciones</NIVEL2>
+Las historias se escriben en
+archivos de texto regulares
+usando solo algunos tags
+que disparan eventos...
+Por ejemplo el tag "<NIVEL>"
+sirve para cambiar de nivel...
+<NIVEL3>Como esto !</NIVEL3>
+Usando estos tags podemos definir...
+cuantos niveles queramos...
+<NIVEL4>Otro nivel más !</NIVEL4>
+El tipo de enemigo...
+dependerá del tipo de nivel.
+Tambien se pueden disparar...
+eventos como el paso de un satélite,
+o la aparición de una
+estación reparadora !
+muy útil para recargar energía !
+<FIN>
