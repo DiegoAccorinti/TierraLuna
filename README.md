@@ -6,7 +6,7 @@ Se trata de un viaje a la luna donde se pondrá a prueba nuestra habilidad, paci
 ![](imagenes/preview.png)
 ![](imagenes/preview3.png)
 
-## Licencia
+## Autores
 
 **TierraLuna** fue realizado por
 
