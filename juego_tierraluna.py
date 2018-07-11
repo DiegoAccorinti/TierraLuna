@@ -107,38 +107,44 @@ class PantallaJuego(pilasengine.escenas.Escena):
 
 
 	def analizarLinea(self, linea):
+		global flag
+		global flagEspeciales
+		
 		''' Solo entra aqui si se trata de un tag '''
 		if linea[:6] == "<NIVEL": # Los primeros 6 caracteres
 			self.nivel = int(linea[6]) # convierte en entero la cadena con el numero de nivel
-			print "cambio de nivel: ", self.nivel
+			#print "cambio de nivel: ", self.nivel
 			findelinea = "</NIVEL" + linea[6] + ">"
 			self.leyenda = linea[7:].rstrip(findelinea) # Elimina el tag de cierre de la linea
 			self.leyenda = self.leyenda.lstrip(">")
-			print "Leyenda: ", self.leyenda
+			#print "Leyenda: ", self.leyenda
 			self.iniciar_nivel()
 			
 		elif linea[:7] == "<EVENTO":
-			print "Hay que hacer algo"
-			if linea[8]=="1":
+			#print "Hay que hacer algo"
+			if linea[7]=="1":
 				self.lanzarEvento("satelite")
-			elif linea[8]=="2":
+			elif linea[7]=="2":
 				self.lanzarEvento("reparacion")
 			else:
-				print "No hay evento ", linea[8]
+				print "No hay evento de tipo: ", linea[7]
 						
 		elif linea[:5] == "<FIN>":
-			print "Debemos terminar el juego"
+			#print "Debemos terminar el juego"
 			self.finalizarJuego()
+		elif linea[:6] == "<LOOP>":
+			#print "Vuelve a mostrar desde el comienzo"
+			self.contador_texto = 0 # Resetea contador de lineas
+			flag = [False, False, False, False, False]
+			flagEspeciales = [False, False]
 			
 	def obtenerLinea(self):
 		linea = self.textos[self.contador_texto] 
-		print "Linea: ", linea 
+		print linea 
 		if len(linea)> 0: #Puede ser que se trate de una linea nula en lugar de un espacio
 			if linea[0] == "<":
-				print "Es una palabra clave"
+				#print "Es una palabra clave"
 				self.analizarLinea(linea)
-			elif linea[0] == "#":
-				print "Comentario"
 			else:
 				self.imprimirTexto(linea)
 		self.contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
@@ -168,7 +174,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' FINAL! Ganó el juego '''
 		self.pilas.escenas.PantallaFinal(self.mitema)
 	
-	def lanzarEvento(evento):
+	def lanzarEvento(self, evento):
 		'''Iniciar los eventos esporádicos en el juego, como el paso de un satelite'''
 		if evento=="satelite":
 			# paso de ARSAT-2
@@ -207,7 +213,9 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		flagEspeciales = [False, False]
 		self.crear_grupo_enemigos()
 		
-		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
+		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+		self.pilas.eventos.pulsa_tecla_escape.conectar(self.salir_juego)
+		
 		self.crearFondosNivel(tema=self.tema_fondos)
 		tierra = Tierra(self.pilas, tema=self.tema_sprites)
 		
@@ -273,19 +281,20 @@ class PantallaJuego(pilasengine.escenas.Escena):
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
 		global flag
-		if tecla.codigo == 32:
-			flag = [False, False, False, False, False]
-			self.pilas.escenas.PantallaMenu()
-
-	def pausar_juego(self, tecla):
-		global pausa 
-		#print tecla.codigo
-		if tecla.codigo == "p":
-			pausa = not pausa 
-			if pausa:
-				self.pilas.widget.pausar()
-			else:
-				self.pilas.widget.continuar()
+		global pausa
+		if tecla.codigo == 32 or tecla.codigo =="p": #barra espaciadora
+			if self.minave.choques < 12: # Si estamos vivos
+				pausa = not pausa 
+				if pausa:
+					self.pilas.widget.pausar()
+				else:
+					self.pilas.widget.continuar()
+			else: #Si nos mataron debe salir del juego
+				self.salir_juego(tecla)
+				
+	def salir_juego(self, tecla):
+		#Sale del juego hacia la pantalla del menu principal
+		self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 			
 	def intro_nivel(self):# Cuando pasamos de nivel
 		'''Muestra la leyenda que acompaña a la definicion del nivel'''
@@ -304,19 +313,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global flag
 		if self.nivel == 1:
 			if (flag[0]) == False:
-				print "NIVEL ", self.nivel
+				#print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 		elif self.nivel == 2:
 			if (flag[1]) == False:
-				print "NIVEL ", self.nivel
+				#print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
 				self.crearFondosNivel(tema=self.tema_fondos) #argumentos originales: lvl="NIVEL2", tema=self.tema_fondos 
 				flag[1] = True
 		elif self.nivel == 3:
 			if (flag[2]) == False:
-				print "NIVEL ", self.nivel
+				#print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
@@ -324,14 +333,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[2] = True
 		elif self.nivel == 4:
 			if (flag[3]) == False:
-				print "NIVEL ", self.nivel
+				#print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
 				self.crearFondosNivel(tema=self.tema_fondos)
 				flag[3] = True
 		elif self.nivel == 5:
 			if (flag[4]) == False:
-				print "NIVEL ", self.nivel
+				#print "NIVEL ", self.nivel
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
 				self.crearFondosNivel(tema=self.tema_fondos)
@@ -349,19 +358,3 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.sombra_texto_personalizado.transparencia = 100
 			self.musica.detener()
 			self.minave.choques +=1 # Hack para evitar que vuelva a terminar la lista de tareas
-			
-'''					
-class PantallaFinal(pilasengine.escenas.Escena):
-	def iniciar(self):
-		fondo = self.pilas.fondos.Fondo()
-		url = ruta + '/imagenes/final.jpg'
-		fondo.imagen = self.pilas.imagenes.cargar(url)
-		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
-		 y= -50, x = 20)
-		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
-	def al_pulsar_tecla(self, tecla):
-			global flag
-			if tecla.codigo == 32:
-				flag = [False, False, False, False, False]
-				self.pilas.escenas.PantallaMenu(self, self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
-'''

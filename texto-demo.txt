@@ -19,7 +19,13 @@ El tipo de enemigo...
 dependerá del tipo de nivel.
 Tambien se pueden disparar...
 eventos como el paso de un satélite,
+<EVENTO1>
+
+
 o la aparición de una
 estación reparadora !
+<EVENTO2>
 muy útil para recargar energía !
-<FIN>
+
+
+<LOOP>
