@@ -1,0 +1,168 @@
+<NIVEL1>Un viaje con vapor</NIVEL1>
+Comienza el viaje
+¿serás capaz de llegar a la Luna?
+¿podrás pilotear la nave el tiempo necesario?
+No te preocupes, te acompañaré durante toda tu travesía.
+Tengo muchas cosas para contarte
+Antes que nada te recomiendo esquivar los asteroides
+la nave es un poco delicada,
+y no resistirá más de 11 o 12 impactos.
+Notarás que todo se ve un poco antiguo
+es porque este es un juego Steampunk
+El Steampunk es un subgénero de la ciencia-ficción
+donde todo funciona con vapor (Steam, en inglés)
+En el siglo XIX los escritores imaginaron un futuro basado 
+en la tecnología que conocían.
+Era la época de las grandes locomotoras
+y los buques impulsados a vapor.
+Julio Verne fue uno de los autores más populares
+su novela De la Tierra a la Luna se publicó en 1865
+<EVENTO1>
+en ella, los protagonistas viajaban a la Luna ...
+¡ dentro de una gran bala de cañón !
+Muchos otros imaginaron viajes a la Luna de diversas maneras.
+por ejemplo El Barón de Munch-Hausen,
+llega a la Luna trepando una planta
+Y encuentra allí seres inteligentes
+¡ que viven con la cabeza separada del cuerpo !
+Muchos imaginaron que en la Luna habitan seres
+se les ha bautizado Selenitas
+porque Selene es un antiguo nombre para la Luna
+¿ Encontraremos selenitas nosotros ?
+
+<NIVEL2>Aventureros Polares</NIVEL2>
+
+¡Excelente! llegamos a un nuevo nivel, ya estamos más cerca.
+¿Cómo lo vas llevando?
+Mucho cuidado con los asteroides de hielo...
+pueden congelar la nave...
+mmm tratemos de que esto no se descontrole
+
+Julio Verne admiraba mucho a otro escritor.
+nada menos que Edgar Allan Poe
+tanto lo admiraba que decidió escribir...
+una continuación de una novela de Poe.
+se llamó La Esfinge de los Hielos
+¿La leíste?
+La novela original de Poe se llamaba...
+Aventuras de Arhur Gordon Pym
+Un nombre raro no ? Muchos dicen que era una forma...
+de referirse a él mismo...
+Edgar Allan Poe... Arthur Gordon Pym
+¿ No suenan parecidos ?
+En fin, me dejé llevar...
+
+Otro escritor interesante fue H.G.Wells
+en su novela Los primeros hombres en la Luna
+usa la ciencia ficción como alegoría política
+contra el Imperialismo.
+Muchas veces un autor de ciencia-ficción escribe
+con motivos muy diferentes a lo que parece
+Wells también escribió La Guerra de los Mundos
+que seguramente conoces...
+
+<NIVEL3>Steampunk en el cine</NIVEL>
+
+A veces escucho sobre
+proyectos de exploración del espacio
+que tienen como objetivo
+encontrar otros planetas habitables.
+Pienso ¿por qué en vez de buscar un planeta
+de repuesto, no cuidamos más y sanamos
+el que ya tenemos?
+Se pueden hacer muchas cosas por La Tierra.
+
+Por ejemplo,
+cambiar el auto por la bici en viajes cortos
+o cambiar el ascensor por las escaleras.
+De esta forma ahorrás energía
+y fortalecés tu salud al mismo tiempo.
+Desenchufa todo lo que no uses.
+Muchos equipos por más que estén apagados
+consumen electricidad.
+Usá lamparitas de LED que duran mucho más
+que las tradicionales, incluso las fluorescentes,
+y consumen menos energía.
+Comenzá a usar una bolsa de las compras
+en vez de recibir las bolsas plásticas comunes,
+que no son biodegradables
+y además cuestan dinero extra.
+Si cerras la canilla mientras te cepillás los dientes,
+ahorrás unos 60 litros de agua potable por mes.
+
+Antes de tirar cualquier cosa a la basura,
+pensá si se puede reutilizar,
+reciclar o reparar.
+La Tierra es nuestra casa
+el cambio empieza en vos.
+
+
+<NIVEL4>Cerca de la meta</NIVEL4>
+
+Esta nave tiene una gran computadora
+que funciona con software libre.
+Significa que los usuarios tienen
+la libertad de ejecutar, copiar, distribuir,
+estudiar, modificar y mejorar ese software.
+El software libre permite que los estudiantes conozcan
+como trabajan los programas y fomenta el interés,
+la investigación y el aprendizaje de nuevos conceptos
+en el campo de la informática.
+El software libre tiene como prioridad al usuario
+siendo flexible, adaptable, seguro e inclusivo,
+al contrario de otro software cuyo principal
+objetivo es el lucro comercial. Por lo general
+el software libre está disponible en forma gratuita,
+sin embargo la cuestión más importante es su libertad
+y la de sus usuarios, no su precio.
+
+¿Sabías que nuestro sol no es único?
+La estrella más próxima a La Tierra
+luego del Sol es Próxima Centauri,
+está a unos 4 años luz de distancia.
+Los astrónomos no pueden ver Próxima Centauri
+tal como es hoy,
+sino tal y como era hace cuatro años.
+La galaxia Andrómeda es el objeto más distante
+que se puede ver a simple vista, en una
+noche despejada y oscura en otoño.
+La luz que recibe tu ojo
+dejó esa galaxia hace unos 2,6 millones de años.
+Si se produjera un gran cambio en Andrómeda mañana,
+no lo sabremos hasta dentro de
+más de dos millones de años.
+
+<NIVEL5>La Luna</NIVEL5>
+
+Lo hiciste muy bien, ya estamos en el nivel final.
+Me imagino que ya debes estar un poco cansado,
+pero vamos con el último esfuerzo que ya estamos por llegar.
+
+¿Sabías que la gravedad no es la misma en cada planeta?,
+La gravedad es un fenómeno natural por el cual
+los objetos con masa son atraídos entre sí
+efecto mayormente observable en la interacción 
+entre los planetas, galaxias y demás objetos del universo.
+En la superficie de la Tierra, la aceleración
+originada por la gravedad es 9,8 m/s², aproximadamente.
+La gravedad terrestre es responsable
+del movimiento de caída libre de los cuerpos,
+el peso depende de la gravedad. Por ejemplo,
+en la Luna el peso es unas seis veces menor
+que en la Tierra, debido a que la gravedad
+en la Luna es también menor (1,62 m/s²).
+
+¡ATENCIÓN!
+Ya estamos llegando a destino
+estamos a punto de completar el viaje
+¡felicitaciones! lo lograste.
+Espero que te hayas divertido mucho
+y que te lleves algunos conocimientos
+con vos para siempre.
+Fue un gusto enorme compartir esta aventura
+nos vemos a la vuelta :)
+LUNA en 3......
+2.......
+1.......
+
+<FIN>
