@@ -1,0 +1,39 @@
+<NIVEL1>Terra-Luna: Modo Demo</NIVEL1>
+Este proyecto comenzó como una serie 
+de tutoriales creados por 
+el Equipo de Huayra GNU/Linux 
+para aprender programación de videojuegos 
+utilizando PILAS-engine y Huayra. 
+
+Se trata de un viaje a la luna
+donde se pondrá a prueba nuestra habilidad,
+ paciencia y temple.
+
+<NIVEL2>Un juego para leer</NIVEL2>
+
+En el camino aprenderemos conceptos de
+astronomía, geografía, física y ecología,
+mientras intentamos superar los cinco niveles y alunizar.
+
+<NIVEL3>Todas las historias</NIVEL3>
+Pero Tierra-Luna está pensado 
+para contar distintas historias,
+gracias a una arquitectura modular
+puede ser modificado facilmente
+para adecuarlo a distintas historias
+
+<NIVEL4>Animate a explorar el codigo</NIVEL4>
+Modificando algunos gráficos,
+y escribiendo un archivo de texto 
+podés escribir un juego distinto
+La sintaxis es muy simple.
+
+<NIVEL5>Temas</NIVEL5>
+Se incluyen dos "temas"
+pero se pueden crear más
+simplemente copiá la estructura
+de uno existente
+y modificala a tu antojo.
+Leé la documentación
+para saber más detalles.
+<LOOP>
