@@ -5,23 +5,30 @@ from globales import *
 from objetos import Luna
 
 class PantallaFinal(pilasengine.escenas.Escena):
-	def iniciar(self):
+	def iniciar(self, mi_tema):
+		self.tema_actual=mi_tema[0]
+		self.tema_sprites=mi_tema[1]
+		self.tema_fondos=mi_tema[2]
+		self.tema_textos=mi_tema[3]
+		
 		fondo = self.pilas.fondos.Fondo()
 		url = ruta + '/imagenes/final.jpg'
 		fondo.imagen = self.pilas.imagenes.cargar(url)
 		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
 		 y= -50, x = 20)
 		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+		print "PantallaFinal.iniciar"
 	def al_pulsar_tecla(self, tecla):
-			global flag
-			if tecla.codigo == 32:
-				flag = [False, False, False, False, False]
-				self.pilas.escenas.PantallaMenu()
+		print "CARGA PANTALLAMENU"
+		global flag
+		if tecla.codigo == 32:
+			flag = [False, False, False, False, False]
+			
+			self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 
 
 class PantallaMenu(pilasengine.escenas.Escena):
 	# Escena Menu
-	
 	
 	def cargar_escena_juego(self):
 		self.pilas.escenas.PantallaJuego(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
@@ -36,7 +43,7 @@ class PantallaMenu(pilasengine.escenas.Escena):
 		self.pilas.terminar()
 	
 	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
-		
+		print "PantallaMenu.iniciar"
 		self.tema_sprites = tema_sprites
 		self.tema_fondos = tema_fondos
 		self.tema_textos = tema_textos

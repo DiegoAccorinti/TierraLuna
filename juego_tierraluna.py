@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8
 import pilasengine
+import codecs # Libreria para importar textos con distintos encodeados, como utf-8
 
 from globales import *
 from objetos import *
@@ -8,9 +9,6 @@ from fondos import *
 # Pantallas adicionales
 from pantallas_juego import *
 
-# LOS TEXTOS
-# Le pido la biblioteca de textos contenido en textos.py
-#from textos import textos
 from movimiento_de_nave import MovimientoDeNave
 
 
@@ -20,9 +18,9 @@ from movimiento_de_nave import MovimientoDeNave
 
 class PantallaJuego(pilasengine.escenas.Escena):
 	
-	def crearFondosNivel(self, tema, lvl):
-		self.lvl = lvl
-		if self.lvl=="NIVEL1":
+	def crearFondosNivel(self, tema):
+		tema = self.tema_fondos 
+		if self.nivel==1:
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
 			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_01.jpg", tipo="fondo", flip=False)
@@ -35,23 +33,23 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			#frente_1_flip = capa(self.pilas, img="frente_01.png", tipo="frente", flip=True)
 			espacio_fondo.transparencia = [0], 5
 
-		elif self.lvl=="NIVEL2":
+		elif self.nivel==2:
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
 			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_02.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5
 			
-		elif self.lvl=="NIVEL3":
+		elif self.nivel==3:
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
 			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_03.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5 
-		elif self.lvl=="NIVEL4":
+		elif self.nivel==4:
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
 			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_04.jpg", tipo="fondo", flip=False)
 			espacio_fondo.transparencia = [0], 5 
-		elif self.lvl=="NIVEL5":
+		elif self.nivel==5:
 			#Crea el fondo del nivel 1 usando tres capas
 			#capa(self, img, depth, flip)
 			espacio_fondo = capa(self.pilas, tema=tema, img="fondo_05.jpg", tipo="fondo", flip=False)
@@ -67,8 +65,22 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		asteroide.imitar(c1)
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
-		
-	def iniciar_musica(self):
+
+	def cambio(sonidoOnOff):
+		if boton_musica.sonidoOnOff:
+			# apago la musica
+			self.musica.detener()
+			url = ruta + '/imagenes/sonidoOFF.png'
+			boton_musica.imagen = url
+			boton_musica.sonidoOnOff = False
+		else:
+			#enciendo la música
+			self.musica.reproducir(repetir=True)
+			url = ruta + '/imagenes/sonidoON.png'
+			boton_musica.imagen = url
+			boton_musica.sonidoOnOff = True		
+
+	def iniciarMusica(self):
 		# MUSICA
 		url = ruta + '/data/Dreams-Become-Real.ogg'
 		self.musica = self.pilas.sonidos.cargar(url)
@@ -82,43 +94,68 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		boton_musica.y = 240
 		boton_musica.z = -1000
 		boton_musica.sonidoOnOff = True
+		boton_musica.conectar_presionado(self.cambio, boton_musica.sonidoOnOff)
 
-		def cambio(sonidoOnOff):
+	def cargarTextos(self):
+		''' Carga el archivo con la definicion de la aventura y lo guarda en una lista'''
+		self.textos = []
+		nombre_archivo = ruta + "/" + self.tema_textos + "/aventura.txt"
+		archivo = codecs.open(nombre_archivo, "r", "utf8")
 
-			if boton_musica.sonidoOnOff:
-				# apago la musica
-				self.musica.detener()
-				url = ruta + '/imagenes/sonidoOFF.png'
-				boton_musica.imagen = url
-				boton_musica.sonidoOnOff = False
 
-			else:
-				#enciendo la música
-				self.musica.reproducir(repetir=True)
-				url = ruta + '/imagenes/sonidoON.png'
-				boton_musica.imagen = url
-				boton_musica.sonidoOnOff = True
+		self.textos = [line.rstrip('\n') for line in archivo]
 
-		boton_musica.conectar_presionado(cambio, boton_musica.sonidoOnOff)
 
-	def cargar_textos(self):
-		textos = []
-		linea = "from temas." + self.tema_actual + ".textos import textos"
-		print "ejecutar", linea
-		exec linea
-		# Carga textos
-		self.textos = textos
+	def analizarLinea(self, linea):
+		global flag
+		global flagEspeciales
 		
-	def imprimir_texto(self):
+		''' Solo entra aqui si se trata de un tag '''
+		if linea[:6] == "<NIVEL": # Los primeros 6 caracteres
+			self.nivel = int(linea[6]) # convierte en entero la cadena con el numero de nivel
+			#print "cambio de nivel: ", self.nivel
+			findelinea = "</NIVEL" + linea[6] + ">"
+			self.leyenda = linea[7:].rstrip(findelinea) # Elimina el tag de cierre de la linea
+			self.leyenda = self.leyenda.lstrip(">")
+			#print "Leyenda: ", self.leyenda
+			self.iniciar_nivel()
+			
+		elif linea[:7] == "<EVENTO":
+			#print "Hay que hacer algo"
+			if linea[7]=="1":
+				self.lanzarEvento("satelite")
+			elif linea[7]=="2":
+				self.lanzarEvento("reparacion")
+			else:
+				print "No hay evento de tipo: ", linea[7]
+						
+		elif linea[:5] == "<FIN>":
+			#print "Debemos terminar el juego"
+			self.finalizarJuego()
+		elif linea[:6] == "<LOOP>":
+			#print "Vuelve a mostrar desde el comienzo"
+			self.contador_texto = 0 # Resetea contador de lineas
+			flag = [False, False, False, False, False]
+			flagEspeciales = [False, False]
+			
+	def obtenerLinea(self):
+		linea = self.textos[self.contador_texto] 
+		print linea 
+		if len(linea)> 0: #Puede ser que se trate de una linea nula en lugar de un espacio
+			if linea[0] == "<":
+				#print "Es una palabra clave"
+				self.analizarLinea(linea)
+			else:
+				self.imprimirTexto(linea)
+		self.contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
+		
+	def imprimirTexto(self, linea):
 
-		#self.contador_texto
-
-		#cambio el texto
 		self.texto_personalizado.ancho = 900
 		self.sombra_texto_personalizado.ancho = 900
 		
-		self.texto_personalizado.texto = self.textos[self.contador_texto]
-		self.sombra_texto_personalizado.texto = self.textos[self.contador_texto]
+		self.texto_personalizado.texto = linea #self.textos[self.contador_texto]
+		self.sombra_texto_personalizado.texto = linea #self.textos[self.contador_texto]
 		#oculto el texto y su sombra
 		self.texto_personalizado.transparencia = 100
 		self.sombra_texto_personalizado.transparencia = 100
@@ -127,14 +164,31 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.sombra_texto_personalizado.transparencia = [0]
 
 		# Centro los textos en la pantalla
-
-		factor = len(self.textos[self.contador_texto]) * 7
+		factor = len(linea) * 7
+		#factor = len(self.textos[self.contador_texto]) * 7
 
 		self.texto_personalizado.x = 450 - factor
 		self.sombra_texto_personalizado.x = 450 - factor
 
-		self.contador_texto += 1 # incremento el contador para que la próxima vez muestre el siguiente texto.
+	def finalizarJuego(self):
+		''' FINAL! Ganó el juego '''
+		self.pilas.escenas.PantallaFinal(self.mitema)
 	
+	def lanzarEvento(self, evento):
+		'''Iniciar los eventos esporádicos en el juego, como el paso de un satelite'''
+		if evento=="satelite":
+			# paso de ARSAT-2
+			etiqueta = HUDArsat(self.pilas, tema=self.mitema[1])
+			satelite = Arsat(self.pilas, tema=self.mitema[1])
+			satelite.x = etiqueta.x
+			satelite.y = etiqueta.y
+		elif evento=="reparacion":
+			# Crea una estacion de reparacion para reparar un poco la nave
+			estacion_reparacion = Reparacion(self.pilas, tema=self.mitema[1]) 
+			rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
+			estacion_reparacion.imitar(rep_colision)
+			self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)
+			
 	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
 
 		#global contador_texto
@@ -142,7 +196,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global flagEspeciales
 		global pausa
 		
-		
+		self.nivel = 1 #Nivel inicial
+		self.leyenda = ""
 		
 		self.contador_texto = 0 #0
 		self.textos = []
@@ -152,29 +207,29 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.tema_textos = tema_textos 
 		self.tema_actual = tema_actual
 		
-		
 		self.mitema = [ tema_actual, tema_sprites, tema_fondos, tema_textos ]
 		pausa = False
 		flag = [False, False, False, False, False]
 		flagEspeciales = [False, False]
 		self.crear_grupo_enemigos()
 		
-		self.pilas.eventos.pulsa_tecla.conectar(self.pausar_juego)
-		self.crearFondosNivel(lvl="NIVEL1", tema=self.tema_fondos)
+		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
+		self.pilas.eventos.pulsa_tecla_escape.conectar(self.salir_juego)
+		
+		self.crearFondosNivel(tema=self.tema_fondos)
 		tierra = Tierra(self.pilas, tema=self.tema_sprites)
 		
-		
-		
-		self.iniciar_musica()
-		self.cargar_textos()
+		self.iniciarMusica()
+		self.cargarTextos()
+		#self.iniciar_nivel()
 		
 		self.texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -230, ancho = 230)
 		self.sombra_texto_personalizado = self.pilas.actores.Texto('', magnitud=31, fuente= url_fuente, y= -233, x=1, ancho = 230)
 		self.sombra_texto_personalizado.color = self.pilas.colores.negro
 		self.sombra_texto_personalizado.z = 4
 
+		self.iniciar_nave()
 		
-		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = False);
 		
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
@@ -204,13 +259,10 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.minave.aprender(self.pilas.habilidades.LimitadoABordesDePantalla)
 
 
-		
-
 		# Creo una tarea para que aparezcan los textos, cada 5 segundos.
-		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, self.imprimir_texto)
+		self.tareaMostrarTextos = self.pilas.tareas.siempre(5, self.obtenerLinea)
 		
-		# Creo un control de coliciones para saber cuando perdes
-		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
+		self.iniciar_colisiones()
 
 		#Elimino los límites laterales y la gravedad
 		self.pilas.fisica.gravedad_x = 0
@@ -219,29 +271,90 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.pilas.fisica.eliminar_techo()
 		self.pilas.fisica.eliminar_suelo()
 
+	def iniciar_colisiones(self):
+		# Creo un control de coliciones para saber cuando perdes
+		self.pilas.colisiones.agregar(self.minave, self.enemigos, self.minave.choque)
+
+	def iniciar_nave(self):
+		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = False);
+		
 	# Cuando pierdo, si presiono una tecla termina el juego y se cierra
 	def al_pulsar_tecla(self, tecla):
 		global flag
-		if tecla.codigo == 32:
-			flag = [False, False, False, False, False]
-			self.pilas.escenas.PantallaMenu()
-
-	def pausar_juego(self, tecla):
-		global pausa 
-		#print tecla.codigo
-		if tecla.codigo == "p":
-			pausa = not pausa 
-			if pausa:
-				self.pilas.widget.pausar()
-			else:
-				self.pilas.widget.continuar()
+		global pausa
+		if tecla.codigo == 32 or tecla.codigo =="p": #barra espaciadora
+			if self.minave.choques < 12: # Si estamos vivos
+				pausa = not pausa 
+				if pausa:
+					self.pilas.widget.pausar()
+				else:
+					self.pilas.widget.continuar()
+			else: #Si nos mataron debe salir del juego
+				self.salir_juego(tecla)
+				
+	def salir_juego(self, tecla):
+		global pausa
+		#Sale del juego hacia la pantalla del menu principal
+		if pausa:
+			self.pilas.widget.continuar()
+			pausa = not pausa
+		self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 			
-
-	def actualizar(self):
-		''' Acá definimos las distintas etapas del juego, según van avanzando los textos
-		    podemos ir cambiando los enemigos, el fondo, etc.  '''
-		#global contador_texto
+	def intro_nivel(self):# Cuando pasamos de nivel
+		'''Muestra la leyenda que acompaña a la definicion del nivel'''
+		if self.nivel <> 1: 
+			self.pilas.camara.vibrar(4, 1)
+		texto_nivel = self.pilas.actores.Texto(cadena_de_texto="Nivel " + str(self.nivel) + ": " + self.leyenda, magnitud = 40, x = -400, y = 230)
+		texto_nivel.centro = ("izquierda", "centro")
+		texto_nivel.transparencia = 0
+		texto_nivel.transparencia = [100],15
+		texto_nivel.escala = [0.7],10
+		texto_nivel.x = [-400,-430],10
+		texto_nivel.y = [240],10
+	
+	def iniciar_nivel(self):	
+		'''Define las caracteristicas de los niveles y el tipo de enemigo y lo inicia'''
 		global flag
+		if self.nivel == 1:
+			if (flag[0]) == False:
+				#print "NIVEL ", self.nivel
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
+				flag[0] = True
+		elif self.nivel == 2:
+			if (flag[1]) == False:
+				#print "NIVEL ", self.nivel
+				PantallaJuego.tareaAsteroides.terminar()
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
+				self.crearFondosNivel(tema=self.tema_fondos) #argumentos originales: lvl="NIVEL2", tema=self.tema_fondos 
+				flag[1] = True
+		elif self.nivel == 3:
+			if (flag[2]) == False:
+				#print "NIVEL ", self.nivel
+				PantallaJuego.tareaAsteroides.terminar()
+
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
+				self.crearFondosNivel(tema=self.tema_fondos)				
+				flag[2] = True
+		elif self.nivel == 4:
+			if (flag[3]) == False:
+				#print "NIVEL ", self.nivel
+				PantallaJuego.tareaAsteroides.terminar()
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
+				self.crearFondosNivel(tema=self.tema_fondos)
+				flag[3] = True
+		elif self.nivel == 5:
+			if (flag[4]) == False:
+				#print "NIVEL ", self.nivel
+				PantallaJuego.tareaAsteroides.terminar()
+				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
+				self.crearFondosNivel(tema=self.tema_fondos)
+				flag[4] = True
+				luna_final = LunaFinal(self.pilas, tema=self.tema_sprites)
+		self.intro_nivel()
+		
+	def actualizar(self):
+		''' Bucle del juego, chequeamos estado de la nave  '''
+		#global flag
 
 		if self.minave.choques == 12:
 			self.tareaMostrarTextos.terminar()
@@ -249,112 +362,3 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			self.sombra_texto_personalizado.transparencia = 100
 			self.musica.detener()
 			self.minave.choques +=1 # Hack para evitar que vuelva a terminar la lista de tareas
-
-		def cambio_nivel(nivel, leyenda):# Cuando pasamos de nivel
-
-			if (nivel <> 1): self.pilas.camara.vibrar(4, 1)
-			texto_nivel = self.pilas.actores.Texto(cadena_de_texto="Nivel " + str(nivel) + ": " + leyenda,
-			 magnitud = 40, x = -400, y = 230)
-			texto_nivel.centro = ("izquierda", "centro")
-			texto_nivel.transparencia = 0
-			texto_nivel.transparencia = [100],15
-			texto_nivel.escala = [0.7],10
-			texto_nivel.x = [-400,-430],10
-			texto_nivel.y = [240],10
-
-			
-		if self.contador_texto == 1:
-			''' Recien al segundo texto comienzan a venir los asteroides '''
-			# Creo una tarea para que aparezca un asteroide cada 2 segundos.
-
-		if (flag[0]) == False:
-				print "NIVEL 1"
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
-				flag[0] = True
-				cambio_nivel(1, "Cinco puntos de luz")
-
-		if self.contador_texto == 35: #35
-			''' ###  NIVEL 2 ###
-			Llegamos al segundo nivel. Aumentamos la velocidad de los enemigos y cambiamos el fondo. '''
-			# Creo una tarea para que aparezca un asteroide cada 1.3 segundos.
-			if (flag[1]) == False:
-				print "NIVEL 2"
-				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
-				self.crearFondosNivel(lvl="NIVEL2", tema=self.tema_fondos)
-				cambio_nivel(2, "Constelaciones")
-				flag[1] = True
-
-		if self.contador_texto == 69: #69
-			''' ###  NIVEL 3 ### '''
-			if (flag[2]) == False:
-				print "NIVEL 3"
-				PantallaJuego.tareaAsteroides.terminar()
-
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
-				self.crearFondosNivel(lvl="NIVEL3", tema=self.tema_fondos)				
-				cambio_nivel(3, "Nuestra casa")
-				flag[2] = True
-		if self.contador_texto == 103: #103
-			''' ###  NIVEL 4 ### '''
-			if (flag[3]) == False:
-				print "NIVEL 4"
-				PantallaJuego.tareaAsteroides.terminar()
-				
-				
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
-				self.crearFondosNivel(lvl="NIVEL4", tema=self.tema_fondos)
-				cambio_nivel(4, "Mirando al pasado")
-				flag[3] = True
-		if self.contador_texto == 137: #137
-			''' ###  NIVEL 5 ### '''
-			if (flag[4]) == False:
-				print "NIVEL 5"
-				PantallaJuego.tareaAsteroides.terminar()
-				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
-				self.crearFondosNivel(lvl="NIVEL5", tema=self.tema_fondos)
-				cambio_nivel(5, "La llegada")
-				flag[4] = True
-				luna_final = LunaFinal(self.pilas)
-				
-				
-		if self.contador_texto == 170: #170
-			''' FINAL! Ganó el juego '''
-			self.pilas.escenas.PantallaFinal()
-
-
-
-		''' Eventos únicos especiales durante el juego '''	
-
-		# paso de ARSAT-2
-		if self.contador_texto == 16: #16
-			if flagEspeciales[0] == False:
-				hudarsat = HUDArsat(self.pilas, tema=self.mitema[1])
-				arsat = Arsat(self.pilas, tema=self.mitema[1])
-				arsat.x = hudarsat.x
-				arsat.y = hudarsat.y
-				flagEspeciales[0] = True
-		
-		# Crea una estacion de reparacion para reparar un poco la nave
-		if self.contador_texto == 100: #100
-			if flagEspeciales[1] == False:
-				estacion_reparacion = Reparacion(self.pilas, tema=self.mitema[1]) 
-				rep_colision = self.pilas.fisica.Circulo(estacion_reparacion.x, estacion_reparacion.y, 70, restitucion=0.1, amortiguacion=0.5)
-				estacion_reparacion.imitar(rep_colision)
-				self.pilas.colisiones.agregar(self.minave, estacion_reparacion, self.minave.choque_repara)
-				flagEspeciales[1] = True
-					
-class PantallaFinal(pilasengine.escenas.Escena):
-	def iniciar(self):
-		fondo = self.pilas.fondos.Fondo()
-		url = ruta + '/imagenes/final.jpg'
-		fondo.imagen = self.pilas.imagenes.cargar(url)
-		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
-		 y= -50, x = 20)
-		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
-	def al_pulsar_tecla(self, tecla):
-			global flag
-			if tecla.codigo == 32:
-				flag = [False, False, False, False, False]
-				self.pilas.escenas.PantallaMenu()
-
