@@ -66,19 +66,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		#lo agrego al grupo
 		self.enemigos.agregar(asteroide)
 
-	def cambio(sonidoOnOff):
-		if boton_musica.sonidoOnOff:
+	def cambio(self, sonidoOnOff):
+		if self.boton_musica.sonidoOnOff:
 			# apago la musica
 			self.musica.detener()
 			url = ruta + '/imagenes/sonidoOFF.png'
-			boton_musica.imagen = url
-			boton_musica.sonidoOnOff = False
+			self.boton_musica.imagen = url
+			self.boton_musica.sonidoOnOff = False
 		else:
 			#enciendo la música
 			self.musica.reproducir(repetir=True)
 			url = ruta + '/imagenes/sonidoON.png'
-			boton_musica.imagen = url
-			boton_musica.sonidoOnOff = True		
+			self.boton_musica.imagen = url
+			self.boton_musica.sonidoOnOff = True		
 
 	def iniciarMusica(self):
 		# MUSICA
@@ -87,14 +87,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		self.musica.reproducir(repetir=True)
 
 		# Boton de sonido ON / OFF
-		boton_musica = self.pilas.actores.Boton();
+		self.boton_musica = self.pilas.actores.Boton();
 		url = ruta + '/imagenes/sonidoON.png'
-		boton_musica.imagen = url
-		boton_musica.x = 410
-		boton_musica.y = 240
-		boton_musica.z = -1000
-		boton_musica.sonidoOnOff = True
-		boton_musica.conectar_presionado(self.cambio, boton_musica.sonidoOnOff)
+		self.boton_musica.imagen = url
+		self.boton_musica.x = 410
+		self.boton_musica.y = 240
+		self.boton_musica.z = -1000
+		self.boton_musica.sonidoOnOff = True
+		self.boton_musica.conectar_presionado(self.cambio, self.boton_musica.sonidoOnOff)
 
 	def cargarTextos(self):
 		''' Carga el archivo con la definicion de la aventura y lo guarda en una lista'''
