@@ -298,6 +298,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		if pausa:
 			self.pilas.widget.continuar()
 			pausa = not pausa
+		self.musica.detener()
 		self.pilas.escenas.PantallaMenu(self.tema_actual, self.tema_sprites, self.tema_fondos, self.tema_textos)
 			
 	def intro_nivel(self):# Cuando pasamos de nivel
