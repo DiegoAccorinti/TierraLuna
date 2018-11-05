@@ -82,6 +82,22 @@ class HieloEnNave(pilasengine.actores.Actor):
 		if self.transparencia == 100: # Elimino el objeto cuando se hace totalmente transparente.
 			self.eliminar()
 
+class FuegoEnNave(pilasengine.actores.Actor):
+	
+	def iniciar(self, tema, x,y):  # Fuego que aparece en la nave al chocar contra asteroide nivel 5. Desaparece a los pocos segundos.
+		self.tema = tema
+		url = ruta + self.tema + '/Fuego-en-nave.png'
+		self.imagen = url
+		self.x = x
+		self.y = y
+		self.z = -51
+		self.transparencia = 0
+		self.transparencia = [100,20,80,20,100],1
+		
+	def actualizar(self):
+		if self.transparencia == 100: # Elimino el objeto cuando se hace totalmente transparente.
+			self.eliminar()
+
 			
 class HUDArsat(pilasengine.actores.Actor):
 	
@@ -109,6 +125,7 @@ class Nave(pilasengine.actores.Actor):
 		self.mitema = mitema 
 		
 		self.grupo_cubitos = self.pilas.actores.Grupo()
+		self.grupo_fuegos = self.pilas.actores.Grupo()
 		self.pilotoAutomatico = pilotoAutomatico
 		self.estadoPilotoAutomatico = "subiendo"
 		
@@ -207,6 +224,8 @@ class Nave(pilasengine.actores.Actor):
 				self.eliminar()
 				for cubito in self.grupo_cubitos:  # al morir puede estar congelada más de una vez, por eso elimino todos los "cubitos" que existan.
 					cubito.eliminar()
+				for fuego in self.grupo_fuegos:  # al morir puede estar incendiada más de una vez, por eso elimino todos los "fuego" que existan.
+					fuego.eliminar()
 				
 			mensajeNeo = [False, False]
 			print "Choques = " + str(self.choques)
@@ -249,6 +268,11 @@ class Nave(pilasengine.actores.Actor):
 			self.cubito = HieloEnNave(self.pilas, tema=self.mitema[1], x=self.x, y=self.y)
 			self.cubito.imitar(self)
 			self.grupo_cubitos.agregar(self.cubito)  # agrego el nuevo hielo de la nave a un grupo.
+
+	def incendiar(self): # Cuando la nave choca contra un asteroide nivel 2,  se congela.
+			self.fuego = FuegoEnNave(self.pilas, tema=self.mitema[1], x=self.x, y=self.y)
+			self.fuego.imitar(self)
+			self.grupo_fuegos.agregar(self.fuego)  # agrego el nuevo fuego de la nave a un grupo.
 	
 
 	def al_pulsar_tecla(self, tecla):
@@ -313,6 +337,9 @@ class Asteroide(pilasengine.actores.Actor):
 			self.eliminar()
 		if tipo == "dos": # El asteroide  congela la nave.
 			nave.congelar()
+			#self.eliminar()
+		if tipo == "cinco": # El asteroide prende fuego la nave
+			nave.incendiar()
 			#self.eliminar()
 
 class Fragmento(pilasengine.actores.Actor):
