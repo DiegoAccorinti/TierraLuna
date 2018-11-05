@@ -140,7 +140,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			
 	def obtenerLinea(self):
 		linea = self.textos[self.contador_texto] 
-		print linea 
+		#print linea 
 		if len(linea)> 0: #Puede ser que se trate de una linea nula en lugar de un espacio
 			if linea[0] == "<":
 				#print "Es una palabra clave"

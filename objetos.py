@@ -300,7 +300,7 @@ class Asteroide(pilasengine.actores.Actor):
 		if self.tipo == "uno":
 			self.imagen = ruta + self.tema + '/asteroide.png'
 			self.giro = 1
-			self.velocidad = 2
+			self.velocidad = 3
 		if self.tipo == "dos":
 			self.imagen = ruta + self.tema + '/asteroide2.png'
 			self.giro = 3
