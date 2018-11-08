@@ -7,7 +7,7 @@ juego_tierraluna_DEMO.py usr/share/games/TierraLuna
 objetos.py usr/share/games/TierraLuna
 pantalla_config.py usr/share/games/TierraLuna
 pantallas_juego.py usr/share/games/TierraLuna
-TierraLuna.1 usr/share/man/es/man1
+tierraluna.1 usr/share/man/es/man1
 temas_dic.py usr/share/games/TierraLuna
 temas.py usr/share/games/TierraLuna
 temas usr/share/games/TierraLuna

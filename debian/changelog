@@ -1,3 +1,45 @@
+tierraluna (0.2.8) unstable; urgency=medium
+
+  * fix lintian 
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Thu, 08 Nov 2018 14:54:02 -0300
+
+tierraluna (0.2.7) unstable; urgency=medium
+
+  * Nave se incendia en NIVEL5. Aplica a temas: Original y Steampunk
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Tue, 06 Nov 2018 11:30:13 -0300
+
+tierraluna (0.2.6) unstable; urgency=medium
+
+  * fix música on off y salir con ESC
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Thu, 01 Nov 2018 11:53:41 -0300
+
+tierraluna (0.2.5) unstable; urgency=medium
+
+  * fix demo loop
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Thu, 02 Aug 2018 12:09:33 -0300
+
+tierraluna (0.2.4) unstable; urgency=medium
+
+  * sistema de temas.  Tema nuevo SteamPunk
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Tue, 06 Mar 2018 12:08:00 -0300
+
+tierraluna (0.2.3) unstable; urgency=medium
+
+  * Asteroides con comportamientos únicos. Estallar. Congelar. Aceleración en nave.
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Wed, 10 Jan 2018 17:05:52 -0300
+
+tierraluna (0.2.2) unstable; urgency=medium
+
+  * Partida desde la tierra, llegada a la luna. Fondos con paralaje. 
+
+ -- Diego Accorinti <diegoacco@gmail.com>  Thu, 28 Dec 2017 15:53:23 -0300
+
 tierraluna (0.2.0) unstable; urgency=medium
 
   * enemigos nuevos en cada nivel. Aparición de ARSAT-2

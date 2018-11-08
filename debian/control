@@ -3,7 +3,7 @@ Section: games
 Priority: extra
 Maintainer: Diego Accorinti <diegoacco@gmail.com>
 Build-Depends: debhelper (>= 9.0.0), 
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: https://github.com/HuayraLinux/TierraLuna
 Vcs-Browser: https://github.com/HuayraLinux/TierraLuna
 Vcs-Git: https://github.com/HuayraLinux/TierraLuna.git
