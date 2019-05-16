@@ -1,13 +1,14 @@
 <NIVEL1>Cinco puntos de luz</NIVEL1>
+ 
 Comienza el viaje
 este juego es distinto a todos los anteriores
 no se trata de medir tu habilidad
-sino tu paciencia y tu temple
-¿serás capáz de llegar a la luna?
-¿podrás pilotear la nave el tiempo necesario?
+sino tu paciencia y tu temple.
+¿Serás capáz de llegar a la luna?
+¿Podrás pilotear la nave el tiempo necesario?
 Ya lo veremos.
 No te preocupes, te acompañaré durante toda tu travesía.
-Tengo muchas cosas para contarte
+Tengo muchas cosas para contarte.
 Antes que nada te recomiendo esquivar los asteroides
 hicimos lo mejor que pudimos con la nave,
 pero no resistirá más de 11 o 12 impactos.
@@ -15,7 +16,7 @@ Así que, no te distraigas jejeje
 Vienes de un planeta llamado Tierra, pero
 el 70% de su superficie está cubierta por agua
 y solamente el 3% de esa agua es potable.
- 
+<EVENTO1>
 El término "planeta" viene de la palabra griega planetes,
 que significa "errante".
 En la antigua Grecia se dieron cuenta
@@ -25,19 +26,22 @@ fijas en el cielo.
 Algunas se movían constantemente hacia adelante,
 otras daban marcha atrás.
 Nadie sabía por qué, pero aquellos puntos de luz
-no parpadeaban como las estrellas
+no parpadeaban como las estrellas.
 Cada cultura tenía un nombre para
 aquellos cinco puntos de luz:
 Mercurio, Venus, Marte, Júpiter y Saturno.
 Estos cuerpos celestes no viajan a través de las estrellas,
 sino que orbitan alrededor del Sol,
-la estrella central de nuestro Sistema Solar.'
+la estrella central de nuestro Sistema Solar.
+
 <NIVEL2>Constelaciones</NIVEL2>
+ 
+ 
 ¡Excelente! llegamos a un nuevo nivel, ya estamos más cerca.
 ¿Cómo lo vas llevando?
 Mucho cuidado con los asteorides...
 o quedarás flotando en el espacio como una batata sideral.
-mmm tratemos de que ésto no se descontrole
+Mmm tratemos de que ésto no se descontrole
  
 Tengo hambre.
 Siempre que viajo
@@ -141,7 +145,6 @@ más de dos millones de años.
 <NIVEL5>La llegada</NIVEL5>
  
  
- 
 Lo hiciste muy bien, ya estamos en el nivel final.
 Me imagino que ya debes estar un poco cansado,
 pero vamos con el último esfuerzo que ya estamos por llegar.
@@ -164,7 +167,7 @@ en la Luna es también menor (1,62 m/s²).
 ¡ATENCIÓN!
 Ya estamos llegando a destino
 estamos a punto de completar el viaje
-¡felicitaciones! lo lograste.
+¡Felicitaciones! Lo lograste.
 Espero que te hayas divertido mucho
 y que te lleves algunos conocimientos
 con vos para siempre.
@@ -173,4 +176,6 @@ nos vemos a la vuelta :)
 LUNA en 3......
 2.......
 1.......
+  
+
 <FIN>
