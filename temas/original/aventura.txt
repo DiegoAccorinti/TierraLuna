@@ -93,6 +93,7 @@ consumen electricidad.
 Usá lamparitas de LED que duran mucho más
 que las tradicionales, incluso las fluorescentes,
 y consumen menos energía.
+<EVENTO2>
 Comenzá a usar una bolsa de las compras
 en vez de recibir las bolsas plásticas comunes,
 que no son biodegradables
@@ -148,7 +149,9 @@ más de dos millones de años.
 Lo hiciste muy bien, ya estamos en el nivel final.
 Me imagino que ya debes estar un poco cansado,
 pero vamos con el último esfuerzo que ya estamos por llegar.
- 
+
+<EVENTO2>
+
 ¿Sabías que la gravedad no es la misma en cada planeta?,
 La gravedad es un fenómeno natural por el cual
 los objetos con masa son atraídos entre sí
