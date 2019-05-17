@@ -90,11 +90,11 @@ que siguieron este estilo como Master of the World
 guionizada por el escritor Richard Matheson.
 Otra película, esta vez de animación,
 en contemplar este género fue
-El castillo en el cielo de Hayao Miyazaki.
+El Castillo en el Cielo de Hayao Miyazaki.
 Pero con la película Wild Wild West el steampunk
 tomo importancia en las salas de cine,
 y a esta película les seguirían muchas otras como
-Metrópolis,  Osamu Tezuka, La brújula Dorada y
+Metrópolis, Osamu Tezuka, La Brújula Dorada y
 La Liga de los Hombres Extraordinarios, entre tantas otras.
 <EVENTO2>
 Resaltando finalmente tan solo aquellas películas
@@ -105,7 +105,7 @@ fuente de vapor complica la vida del protagonista y otros.
 El Castillo Ambulante de Hayao Miyazaki sirvió para acercar
 la corriente más fantástica de este subgénero al gran público.
 Cerrando la lista, se encuentra la película Adèle y
-el misterio de la momia realizada por el cineasta Luc Besson 
+El Misterio de la Momia realizada por el cineasta Luc Besson 
 anclándose en un París alternativo en 1912.
 
 <NIVEL4>Cerca de la meta</NIVEL4>
@@ -150,7 +150,9 @@ un fuerte impacto del movimiento steampunk en decoración.
 Lo hiciste muy bien, ya estamos en el nivel final.
 Me imagino que ya debes estar un poco cansado,
 pero vamos con el último esfuerzo que ya estamos por llegar.
- 
+
+<EVENTO2>
+
 A pesar de que la televisión comparte en esencia
 los mismos principios que el cine,
 son pocas las series ambientadas en la temática steampunk.
