@@ -34,14 +34,14 @@ class MiListaSeleccion(pilasengine.interfaz.lista_seleccion.ListaSeleccion):
 
 	def dibujar_recuadro(self):
 		#recuadro_img = self.pilas.imagenes.cargar(ruta + "/imagenes/recuadro-lista.png")
-		#print "La lista tiene ancho=", self.imagen.ancho()
-		#print "La lista tiene altura=", self.imagen.alto()
-		#print "La lista esta en: ", self.x, self.y
+		#print("La lista tiene ancho=", self.imagen.ancho())
+		#print("La lista tiene altura=", self.imagen.alto())
+		#print("La lista esta en: ", self.x, self.y)
 		
 		ancho_lista = self.imagen.ancho() + 2
 		alto_lista = self.imagen.alto() + 2
 		
-		#print "Area de ", ancho_lista, alto_lista
+		#print("Area de ", ancho_lista, alto_lista)
 		area = self.pilas.imagenes.cargar_superficie(ancho_lista , alto_lista )
 		area.rectangulo (0, 0, ancho_lista - 1, alto_lista -1, color = self.pilas.colores.Color(119, 255, 92), relleno = False, grosor = 1)
 	
@@ -225,10 +225,10 @@ class PantallaConfig(pilasengine.escenas.Escena):
 		#self.InfoStatus(flags, estados) # Imprime resultados para debug
 	
 	def InfoStatus(self, f, e):
-		print "############### RESUMEN #################"
-		print "El tema es", self.temas[self.tema_actual][0]
-		print "Los estados de los checks son:", e[0], e[1], e[2]
-		print "Las flags para Sprites, Fondos y Texto para el tema:", f[0], f[1], f[2]
+		print("############### RESUMEN #################")
+		print("El tema es", self.temas[self.tema_actual][0])
+		print("Los estados de los checks son:", e[0], e[1], e[2])
+		print("Las flags para Sprites, Fondos y Texto para el tema:", f[0], f[1], f[2])
 		
 
 

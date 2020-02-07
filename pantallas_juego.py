@@ -17,9 +17,9 @@ class PantallaFinal(pilasengine.escenas.Escena):
 		texto_personalizado = self.pilas.actores.Texto(u'¡ganaste!', magnitud=60, fuente= url_fuente,
 		 y= -50, x = 20)
 		self.pilas.eventos.pulsa_tecla.conectar(self.al_pulsar_tecla)
-		print "PantallaFinal.iniciar"
+		print("PantallaFinal.iniciar")
 	def al_pulsar_tecla(self, tecla):
-		print "CARGA PANTALLAMENU"
+		print("CARGA PANTALLAMENU")
 		global flag
 		if tecla.codigo == 32:
 			flag = [False, False, False, False, False]
@@ -43,7 +43,7 @@ class PantallaMenu(pilasengine.escenas.Escena):
 		self.pilas.terminar()
 	
 	def iniciar(self, tema_actual, tema_sprites, tema_fondos, tema_textos):
-		print "PantallaMenu.iniciar"
+		print("PantallaMenu.iniciar")
 		self.tema_sprites = tema_sprites
 		self.tema_fondos = tema_fondos
 		self.tema_textos = tema_textos

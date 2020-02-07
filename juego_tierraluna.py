@@ -113,37 +113,37 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		''' Solo entra aqui si se trata de un tag '''
 		if linea[:6] == "<NIVEL": # Los primeros 6 caracteres
 			self.nivel = int(linea[6]) # convierte en entero la cadena con el numero de nivel
-			#print "cambio de nivel: ", self.nivel
+			#print("cambio de nivel: ", self.nivel)
 			findelinea = "</NIVEL" + linea[6] + ">"
 			self.leyenda = linea[7:].rstrip(findelinea) # Elimina el tag de cierre de la linea
 			self.leyenda = self.leyenda.lstrip(">")
-			#print "Leyenda: ", self.leyenda
+			#print("Leyenda: ", self.leyenda)
 			self.iniciar_nivel()
 			
 		elif linea[:7] == "<EVENTO":
-			#print "Hay que hacer algo"
+			#print("Hay que hacer algo")
 			if linea[7]=="1":
 				self.lanzarEvento("satelite")
 			elif linea[7]=="2":
 				self.lanzarEvento("reparacion")
 			else:
-				print "No hay evento de tipo: ", linea[7]
+				print("No hay evento de tipo: ", linea[7])
 						
 		elif linea[:5] == "<FIN>":
-			#print "Debemos terminar el juego"
+			#print("Debemos terminar el juego")
 			self.finalizarJuego()
 		elif linea[:6] == "<LOOP>":
-			#print "Vuelve a mostrar desde el comienzo"
+			#print("Vuelve a mostrar desde el comienzo")
 			self.contador_texto = 0 # Resetea contador de lineas
 			flag = [False, False, False, False, False]
 			flagEspeciales = [False, False]
 			
 	def obtenerLinea(self):
 		linea = self.textos[self.contador_texto] 
-		#print linea 
+		#print(linea)
 		if len(linea)> 0: #Puede ser que se trate de una linea nula en lugar de un espacio
 			if linea[0] == "<":
-				#print "Es una palabra clave"
+				#print("Es una palabra clave")
 				self.analizarLinea(linea)
 			else:
 				self.imprimirTexto(linea)
@@ -234,8 +234,8 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		c2 = self.pilas.fisica.Circulo(self.minave.x, self.minave.y, 70, restitucion=0.1, amortiguacion=0.5)
 		
 		def seguir(evento):
-			#print "X: " + str(evento.x)
-			#print "Y: " + str(evento.y)
+			#print("X: " + str(evento.x))
+			#print("Y: " + str(evento.y))
 			if (evento.x < 390) or (evento.y < 219):
 				# Solo sigo si el click es fuera del icono de sonido
 				empujarx = (evento.x - c2.x) / 8
@@ -303,7 +303,7 @@ class PantallaJuego(pilasengine.escenas.Escena):
 			
 	def intro_nivel(self):# Cuando pasamos de nivel
 		'''Muestra la leyenda que acompaña a la definicion del nivel'''
-		if self.nivel <> 1: 
+		if self.nivel != 1:
 			self.pilas.camara.vibrar(4, 1)
 		texto_nivel = self.pilas.actores.Texto(cadena_de_texto="Nivel " + str(self.nivel) + ": " + self.leyenda, magnitud = 40, x = -400, y = 230)
 		texto_nivel.centro = ("izquierda", "centro")
@@ -318,19 +318,19 @@ class PantallaJuego(pilasengine.escenas.Escena):
 		global flag
 		if self.nivel == 1:
 			if (flag[0]) == False:
-				#print "NIVEL ", self.nivel
+				#print("NIVEL ", self.nivel)
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "uno", 150)
 				flag[0] = True
 		elif self.nivel == 2:
 			if (flag[1]) == False:
-				#print "NIVEL ", self.nivel
+				#print("NIVEL ", self.nivel)
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.3, self.crear_asteroide, "dos", 110) # A "crear_asteroide" le paso el tipo que tiene que crear y el radio de colisión.
 				self.crearFondosNivel(tema=self.tema_fondos) #argumentos originales: lvl="NIVEL2", tema=self.tema_fondos 
 				flag[1] = True
 		elif self.nivel == 3:
 			if (flag[2]) == False:
-				#print "NIVEL ", self.nivel
+				#print("NIVEL ", self.nivel)
 				PantallaJuego.tareaAsteroides.terminar()
 
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.5, self.crear_asteroide, "tres", 150)
@@ -338,14 +338,14 @@ class PantallaJuego(pilasengine.escenas.Escena):
 				flag[2] = True
 		elif self.nivel == 4:
 			if (flag[3]) == False:
-				#print "NIVEL ", self.nivel
+				#print("NIVEL ", self.nivel)
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(2, self.crear_asteroide, "cuatro", 150)
 				self.crearFondosNivel(tema=self.tema_fondos)
 				flag[3] = True
 		elif self.nivel == 5:
 			if (flag[4]) == False:
-				#print "NIVEL ", self.nivel
+				#print("NIVEL ", self.nivel)
 				PantallaJuego.tareaAsteroides.terminar()
 				PantallaJuego.tareaAsteroides = self.pilas.tareas.siempre(1.1, self.crear_asteroide, "cinco", 150)
 				self.crearFondosNivel(tema=self.tema_fondos)

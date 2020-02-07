@@ -228,17 +228,17 @@ class Nave(pilasengine.actores.Actor):
 					fuego.eliminar()
 				
 			mensajeNeo = [False, False]
-			print "Choques = " + str(self.choques)
+			print("Choques = " + str(self.choques))
 			if (self.choques == 8) and (mensajeNeo[0] == False):
 				os.system('clear')
-				print "Despierta, Neo."
-				print "La Matrix te tiene."
-				print "Sigue al conejo blanco."
-				print "Toc toc, Neo."
+				print("Despierta, Neo.")
+				print("La Matrix te tiene.")
+				print("Sigue al conejo blanco.")
+				print("Toc toc, Neo.")
 				mensajeNeo[0] = True
 			if (self.choques == 9) and (mensajeNeo[1] == False):
 				os.system('clear')
-				print "Choques = " + str(self.choques)
+				print("Choques = " + str(self.choques))
 				mensajeNeo[1] = True
 				
 	def choque_repara(self, nave, estacion_reparacion):
