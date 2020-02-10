@@ -20,7 +20,7 @@ pilas = pilasengine.iniciar(ancho=900, alto=550, titulo='TierraLuna')
 try:
   pilas.forzar_habilitacion_de_audio()
 except AttributeError:
-  print("Omitiendo Habilitación forzada de audio, version anterior a 1.4.8")
+  print("Omitiendo Habilitacion forzada de audio, version anterior a 1.4.8")
 
 
 pilas.escenas.vincular(PantallaJuego)
