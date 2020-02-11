@@ -21,7 +21,7 @@ class PantallaDemo(PantallaJuego):
 		self.minave = Nave(self.pilas, self.mitema, pilotoAutomatico = True);	
 
 	def iniciar_colisiones(self):
-		print "Modo Demo, colisiones desactivadas"
+		print("Modo Demo, colisiones desactivadas")
 		
 	def cargarTextos(self):
 		''' Carga el archivo con la definicion de la aventura y lo guarda en una lista'''
